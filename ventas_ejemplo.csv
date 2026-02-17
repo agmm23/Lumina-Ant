@@ -1,0 +1,41 @@
+fecha,producto_id,nombre_producto,cantidad,precio_unitario,monto_total,cliente_id,categoria
+2024-01-15,P001,Laptop Dell Inspiron 15,2,850.00,1700.00,C001,Electrónica
+2024-01-15,P002,Mouse Logitech MX Master,5,25.00,125.00,C002,Accesorios
+2024-01-16,P003,Teclado Mecánico Corsair,3,120.00,360.00,C001,Accesorios
+2024-01-16,P001,Laptop Dell Inspiron 15,1,850.00,850.00,C003,Electrónica
+2024-01-17,P004,Monitor LG 27 pulgadas,2,300.00,600.00,C002,Electrónica
+2024-01-17,P002,Mouse Logitech MX Master,10,25.00,250.00,C004,Accesorios
+2024-01-18,P001,Laptop Dell Inspiron 15,4,850.00,3400.00,C005,Electrónica
+2024-01-18,P005,Webcam HD Logitech,6,75.00,450.00,C001,Accesorios
+2024-01-19,P003,Teclado Mecánico Corsair,2,120.00,240.00,C003,Accesorios
+2024-01-19,P001,Laptop Dell Inspiron 15,1,850.00,850.00,C002,Electrónica
+2024-01-20,P006,Audífonos Sony WH-1000XM4,3,280.00,840.00,C006,Audio
+2024-01-20,P007,Cable HDMI 2m,8,15.00,120.00,C004,Accesorios
+2024-01-21,P004,Monitor LG 27 pulgadas,3,300.00,900.00,C007,Electrónica
+2024-01-21,P002,Mouse Logitech MX Master,7,25.00,175.00,C003,Accesorios
+2024-01-22,P008,Disco Duro Externo 1TB,5,85.00,425.00,C001,Almacenamiento
+2024-01-22,P001,Laptop Dell Inspiron 15,2,850.00,1700.00,C008,Electrónica
+2024-01-23,P009,Impresora HP LaserJet,1,450.00,450.00,C005,Oficina
+2024-01-23,P003,Teclado Mecánico Corsair,4,120.00,480.00,C002,Accesorios
+2024-01-24,P010,Router WiFi TP-Link,6,65.00,390.00,C009,Redes
+2024-01-24,P006,Audífonos Sony WH-1000XM4,2,280.00,560.00,C004,Audio
+2024-01-25,P004,Monitor LG 27 pulgadas,1,300.00,300.00,C010,Electrónica
+2024-01-25,P008,Disco Duro Externo 1TB,3,85.00,255.00,C003,Almacenamiento
+2024-01-26,P001,Laptop Dell Inspiron 15,3,850.00,2550.00,C011,Electrónica
+2024-01-26,P002,Mouse Logitech MX Master,12,25.00,300.00,C007,Accesorios
+2024-01-27,P011,Tablet Samsung Galaxy Tab,2,350.00,700.00,C006,Electrónica
+2024-01-27,P007,Cable HDMI 2m,15,15.00,225.00,C012,Accesorios
+2024-01-28,P009,Impresora HP LaserJet,2,450.00,900.00,C008,Oficina
+2024-01-28,P003,Teclado Mecánico Corsair,5,120.00,600.00,C001,Accesorios
+2024-01-29,P006,Audífonos Sony WH-1000XM4,4,280.00,1120.00,C013,Audio
+2024-01-29,P010,Router WiFi TP-Link,3,65.00,195.00,C002,Redes
+2024-01-30,P001,Laptop Dell Inspiron 15,5,850.00,4250.00,C014,Electrónica
+2024-01-30,P004,Monitor LG 27 pulgadas,2,300.00,600.00,C005,Electrónica
+2024-01-31,P008,Disco Duro Externo 1TB,8,85.00,680.00,C009,Almacenamiento
+2024-01-31,P002,Mouse Logitech MX Master,20,25.00,500.00,C015,Accesorios
+2024-02-01,P012,Smartphone Samsung S23,1,950.00,950.00,C006,Móviles
+2024-02-01,P011,Tablet Samsung Galaxy Tab,3,350.00,1050.00,C010,Electrónica
+2024-02-02,P001,Laptop Dell Inspiron 15,6,850.00,5100.00,C016,Electrónica
+2024-02-02,P003,Teclado Mecánico Corsair,8,120.00,960.00,C004,Accesorios
+2024-02-03,P006,Audífonos Sony WH-1000XM4,5,280.00,1400.00,C017,Audio
+2024-02-03,P009,Impresora HP LaserJet,3,450.00,1350.00,C011,Oficina

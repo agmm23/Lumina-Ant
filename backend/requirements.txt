@@ -1,0 +1,27 @@
+# Lumina_Ant - Dependencias Python
+
+# Framework web
+fastapi==0.115.0
+uvicorn[standard]==0.27.0
+
+# Base de datos
+sqlalchemy==2.0.36
+
+# Análisis de datos
+pandas==2.2.0
+numpy==1.26.3
+openpyxl==3.1.2
+
+# IA - Anthropic Claude
+anthropic==0.18.0
+
+# Utilidades
+python-multipart==0.0.9
+python-dotenv==1.0.0
+
+# Validación de datos
+pydantic==2.9.0
+pydantic-settings==2.5.0
+
+# HTTP Client (opcional, para futuras integraciones)
+httpx==0.26.0

@@ -1,0 +1,21 @@
+producto_id,nombre_producto,descripcion,categoria,cantidad_actual,cantidad_minima,unidad_medida,precio_compra,precio_venta,proveedor_id,ubicacion
+P001,Laptop Dell Inspiron 15,Laptop 15 pulgadas 16GB RAM 512GB SSD,Electrónica,25,5,unidades,680.00,850.00,PROV020,Almacén A - Estante 1
+P002,Mouse Logitech MX Master,Mouse inalámbrico ergonómico,Accesorios,150,20,unidades,18.00,25.00,PROV021,Almacén B - Estante 3
+P003,Teclado Mecánico Corsair,Teclado mecánico RGB switches azules,Accesorios,45,10,unidades,85.00,120.00,PROV022,Almacén B - Estante 3
+P004,Monitor LG 27 pulgadas,Monitor IPS 27 pulgadas Full HD,Electrónica,18,5,unidades,220.00,300.00,PROV020,Almacén A - Estante 2
+P005,Webcam HD Logitech,Webcam 1080p con micrófono,Accesorios,80,15,unidades,55.00,75.00,PROV021,Almacén B - Estante 4
+P006,Audífonos Sony WH-1000XM4,Audífonos cancelación ruido Bluetooth,Audio,30,8,unidades,210.00,280.00,PROV023,Almacén A - Estante 3
+P007,Cable HDMI 2m,Cable HDMI 2.0 alta velocidad 2 metros,Accesorios,200,30,unidades,8.00,15.00,PROV024,Almacén B - Estante 5
+P008,Disco Duro Externo 1TB,Disco duro portátil USB 3.0 1TB,Almacenamiento,65,12,unidades,60.00,85.00,PROV025,Almacén A - Estante 4
+P009,Impresora HP LaserJet,Impresora láser monocromática,Oficina,8,3,unidades,320.00,450.00,PROV026,Almacén C - Bodega
+P010,Router WiFi TP-Link,Router inalámbrico AC1750,Redes,40,10,unidades,45.00,65.00,PROV027,Almacén B - Estante 2
+P011,Tablet Samsung Galaxy Tab,Tablet 10.1 pulgadas 64GB,Electrónica,22,5,unidades,260.00,350.00,PROV028,Almacén A - Estante 1
+P012,Smartphone Samsung S23,Smartphone 5G 128GB,Móviles,15,4,unidades,720.00,950.00,PROV028,Vitrina Principal
+P013,Cargador USB-C 65W,Cargador rápido USB-C Power Delivery,Accesorios,95,20,unidades,22.00,35.00,PROV024,Almacén B - Estante 5
+P014,Hub USB 4 puertos,Hub USB 3.0 con 4 puertos,Accesorios,120,25,unidades,12.00,20.00,PROV024,Almacén B - Estante 5
+P015,SSD Samsung 1TB,Disco SSD interno SATA 1TB,Almacenamiento,35,8,unidades,75.00,110.00,PROV025,Almacén A - Estante 4
+P016,Memoria RAM 16GB DDR4,Módulo RAM DDR4 3200MHz,Componentes,60,15,unidades,45.00,65.00,PROV029,Almacén C - Estante 1
+P017,Fuente poder 750W,Fuente de poder modular 80+ Gold,Componentes,20,5,unidades,85.00,120.00,PROV029,Almacén C - Estante 1
+P018,Case ATX RGB,Gabinete ATX con panel vidrio templado,Componentes,12,3,unidades,60.00,90.00,PROV029,Almacén C - Bodega
+P019,Mousepad gaming XL,Mousepad extra grande RGB,Accesorios,85,15,unidades,18.00,28.00,PROV022,Almacén B - Estante 3
+P020,Silla gamer ergonómica,Silla gaming con soporte lumbar,Muebles,6,2,unidades,180.00,280.00,PROV030,Almacén C - Bodega

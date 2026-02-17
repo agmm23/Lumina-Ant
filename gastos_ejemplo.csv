@@ -1,0 +1,21 @@
+fecha,descripcion,categoria,monto,proveedor_id,nombre_proveedor,tipo_pago,numero_factura,notas
+2024-01-15,Renta de oficina,Servicios,15000.00,PROV001,Inmobiliaria Centro,transferencia,FACT-001,Renta mensual enero
+2024-01-15,Luz y energía eléctrica,Servicios,1250.00,PROV002,CFE,tarjeta,FACT-002,Recibo bimestral
+2024-01-16,Compra de papelería,Insumos,450.00,PROV003,Papelería Express,efectivo,FACT-003,Material oficina
+2024-01-17,Salarios equipo,Personal,35000.00,PROV004,Nómina,transferencia,NOM-001,Pago quincenal
+2024-01-18,Internet fibra óptica,Servicios,899.00,PROV005,Telmex Empresarial,tarjeta,FACT-004,Plan 200 Mbps
+2024-01-19,Publicidad Facebook Ads,Marketing,2500.00,PROV006,Meta Platforms,tarjeta,FACT-005,Campaña enero
+2024-01-20,Mantenimiento equipos,Servicios,3200.00,PROV007,TechService SA,efectivo,FACT-006,Servicio preventivo
+2024-01-22,Agua potable,Servicios,350.00,PROV008,SAPAC,transferencia,FACT-007,Recibo bimestral
+2024-01-23,Gasolina vehículo empresa,Operativo,1800.00,PROV009,Gasolinera Pemex,tarjeta,FACT-008,Consumo mensual
+2024-01-24,Licencias software,Tecnología,5600.00,PROV010,Microsoft,tarjeta,FACT-009,Office 365 anual
+2024-01-25,Limpieza y aseo,Servicios,1200.00,PROV011,Limpieza Total,efectivo,FACT-010,Servicio mensual
+2024-01-26,Material promocional,Marketing,3800.00,PROV012,Imprenta Moderna,transferencia,FACT-011,Volantes y tarjetas
+2024-01-29,Contador honorarios,Servicios,4500.00,PROV013,Despacho Fiscal,transferencia,FACT-012,Servicio contable
+2024-01-30,Teléfono celular,Servicios,950.00,PROV014,Telcel,tarjeta,FACT-013,Plan empresarial
+2024-01-31,Salarios equipo,Personal,35000.00,PROV004,Nómina,transferencia,NOM-002,Pago quincenal
+2024-02-01,Seguro de responsabilidad,Seguros,2200.00,PROV015,AXA Seguros,transferencia,FACT-014,Póliza trimestral
+2024-02-02,Café y snacks oficina,Insumos,680.00,PROV016,Abastecedora Regional,efectivo,FACT-015,Consumibles mes
+2024-02-03,Capacitación ventas,Personal,8500.00,PROV017,Instituto Comercial,transferencia,FACT-016,Curso 3 días
+2024-02-05,Google Ads campaña,Marketing,3200.00,PROV018,Google LLC,tarjeta,FACT-017,Publicidad digital
+2024-02-06,Reparación impresora,Mantenimiento,950.00,PROV019,Soporte HP,efectivo,FACT-018,Cambio de tóner

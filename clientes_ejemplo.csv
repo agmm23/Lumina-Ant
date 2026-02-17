@@ -1,0 +1,21 @@
+cliente_id,nombre,email,telefono,direccion,ciudad,codigo_postal,rfc,tipo_cliente,fecha_registro,notas,activo
+C001,Tecnología Empresarial SA,contacto@tecempresa.mx,555-1234-5678,Av. Insurgentes 1234,Ciudad de México,03100,TEC850101ABC,corporativo,2023-06-15,Cliente frecuente con descuento especial,true
+C002,José Luis Martínez,jlmartinez@email.com,555-2345-6789,Calle Morelos 456,Guadalajara,44100,MALJ880215XYZ,minorista,2023-07-20,Compras mensuales regulares,true
+C003,Diseño Creativo Studio,ventas@disenocreativo.mx,555-3456-7890,Reforma 789,Monterrey,64000,DCS920310DEF,mayorista,2023-08-10,Mayorista con pedidos grandes,true
+C004,María González Ruiz,mgonzalez@gmail.com,555-4567-8901,Juárez 321,Puebla,72000,GOMR900425GHI,minorista,2023-09-05,Cliente preferente,true
+C005,Soluciones IT México,compras@solucionesit.com,555-5678-9012,Hidalgo 234,Querétaro,76000,SIM850620JKL,corporativo,2023-09-18,Contrato anual de soporte,true
+C006,Pedro Sánchez López,psanchez@hotmail.com,555-6789-0123,Constitución 567,Tijuana,22000,SALP870312MNO,minorista,2023-10-12,Pago siempre en efectivo,true
+C007,Distribuidora del Norte,contacto@distnorte.mx,555-7890-1234,Zaragoza 890,Chihuahua,31000,DIN930505PQR,mayorista,2023-10-25,Descuento 15% en mayoreo,true
+C008,Computadoras y Más SA,ventas@compymas.com,555-8901-2345,Madero 123,Mérida,97000,CYM910815STU,corporativo,2023-11-08,Facturación mensual,true
+C009,Laura Fernández,lfernandez@yahoo.com,555-9012-3456,5 de Mayo 456,Aguascalientes,20000,FEEL891120VWX,minorista,2023-11-20,Cliente nuevo en prueba,true
+C010,Grupo Comercial del Bajío,compras@grupobajio.mx,555-0123-4567,Independencia 789,León,37000,GCB880405YZA,mayorista,2023-12-01,Pago a 30 días,true
+C011,Carlos Ramírez Torres,cramirez@email.com,555-1234-6789,Allende 234,Morelia,58000,RATC920618BCD,minorista,2024-01-05,Interesado en productos nuevos,true
+C012,Oficinas Modernas SC,admin@ofimodernas.mx,555-2345-7890,Victoria 567,Toluca,50000,OFM870910EFG,corporativo,2024-01-15,Cliente corporativo grande,true
+C013,Ana María López,amlopez@gmail.com,555-3456-8901,Guerrero 890,Cuernavaca,62000,LOAA900225HIJ,minorista,2024-01-22,Prefiere entregas a domicilio,true
+C014,Importadora TechMex,ventas@techmex.com,555-4567-9012,Cuauhtémoc 123,Veracruz,91700,ITM931015KLM,mayorista,2024-02-01,Importador autorizado,true
+C015,Roberto Díaz Medina,rdiaz@hotmail.com,555-5678-0123,Carranza 456,Durango,34000,DIMR880512NOP,minorista,2024-02-05,Cliente recomendado,true
+C016,Sistemas Integrales del Sur,contacto@sisur.mx,555-6789-1234,López Mateos 789,Oaxaca,68000,SIS920820QRS,corporativo,2024-02-08,Contrato de mantenimiento,true
+C017,Gabriela Torres,gtorres@yahoo.com,555-7890-2345,Matamoros 234,Saltillo,25000,TOGG891105TUV,minorista,2024-02-10,Compra ocasional,true
+C018,Electrónica Total SA,ventas@electotal.com,555-8901-3456,Hidalgo 567,Pachuca,42000,ELE900315WXY,mayorista,2024-02-12,Revendedor autorizado,true
+C019,Fernando López García,flopez@email.com,555-9012-4567,Ocampo 890,Colima,28000,LOGF870725ZAB,minorista,2023-05-20,Cliente antiguo,false
+C020,Distribuciones Regionales,info@distreg.mx,555-0123-5678,Morelos 123,Zacatecas,98000,DRE850410CDE,mayorista,2023-08-15,Inactivo desde dic-2024,false
