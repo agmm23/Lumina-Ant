@@ -8,6 +8,9 @@ venv/
 # Database
 *.db
 
+# Watcher temp data
+backend/watched_data/
+
 # Node
 node_modules/
 dist/

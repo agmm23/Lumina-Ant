@@ -3,17 +3,24 @@ Lumina_Ant - Router de Ventas
 Endpoints para gestión de ventas: CRUD y carga de archivos CSV
 """
 
-from fastapi import APIRouter, Depends, UploadFile, File, HTTPException, status
+from fastapi import APIRouter, Depends, UploadFile, File, Form, HTTPException, status
 from sqlalchemy.orm import Session
-from typing import List
+from typing import List, Optional
 import pandas as pd
 from datetime import datetime
 from io import BytesIO
+import json
 import logging
+
+from sqlalchemy import func, text as sa_text
 
 from app.database import get_db
 from app.models.models import Venta
-from app.schemas.schemas import Venta as VentaSchema, VentaCreate, MessageResponse
+from app.schemas.schemas import (
+    Venta as VentaSchema, VentaCreate, MessageResponse,
+    VentasAnalytics, TimeSeriesPoint, CategoryBreakdown, TopItem,
+)
+from app.services.csv_import import parse_ventas_df, import_ventas_rows, save_and_watch
 
 logger = logging.getLogger(__name__)
 
@@ -23,6 +30,7 @@ router = APIRouter(prefix="/api/ventas", tags=["ventas"])
 @router.post("/upload-csv", response_model=MessageResponse)
 async def upload_ventas_csv(
     file: UploadFile = File(...),
+    column_mapping: Optional[str] = Form(None),
     db: Session = Depends(get_db)
 ):
     """
@@ -47,88 +55,35 @@ async def upload_ventas_csv(
         )
     
     try:
-        # Leer archivo CSV
         contents = await file.read()
         df = pd.read_csv(BytesIO(contents))
-        
         logger.info(f"CSV cargado: {file.filename}, {len(df)} registros")
-        
-        # Validar columnas requeridas
-        required_cols = [
-            'fecha', 'producto_id', 'nombre_producto',
-            'cantidad', 'precio_unitario', 'monto_total'
-        ]
-        missing_cols = [col for col in required_cols if col not in df.columns]
-        
-        if missing_cols:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail=f"Columnas faltantes en CSV: {', '.join(missing_cols)}"
-            )
-        
-        # Convertir fecha a datetime (probar múltiples formatos)
-        try:
-            df['fecha'] = pd.to_datetime(df['fecha'])
-        except Exception as e:
-            logger.error(f"Error convirtiendo fechas: {e}")
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="Formato de fecha inválido. Use YYYY-MM-DD o DD/MM/YYYY"
-            )
-        
-        # Validar datos numéricos
-        try:
-            df['cantidad'] = df['cantidad'].astype(int)
-            df['precio_unitario'] = df['precio_unitario'].astype(float)
-            df['monto_total'] = df['monto_total'].astype(float)
-        except Exception as e:
-            logger.error(f"Error convirtiendo números: {e}")
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="Datos numéricos inválidos en CSV"
-            )
-        
-        # Insertar registros en la base de datos
-        ventas_creadas = 0
-        errores = []
-        
-        for idx, row in df.iterrows():
-            try:
-                venta = Venta(
-                    fecha=row['fecha'].to_pydatetime(),
-                    producto_id=str(row['producto_id']),
-                    nombre_producto=str(row['nombre_producto']),
-                    cantidad=int(row['cantidad']),
-                    precio_unitario=float(row['precio_unitario']),
-                    monto_total=float(row['monto_total']),
-                    cliente_id=str(row.get('cliente_id', '')) if pd.notna(row.get('cliente_id')) else None,
-                    categoria=str(row.get('categoria', '')) if pd.notna(row.get('categoria')) else None
-                )
-                db.add(venta)
-                ventas_creadas += 1
-            except Exception as e:
-                errores.append(f"Fila {idx + 2}: {str(e)}")
-                logger.warning(f"Error en fila {idx + 2}: {e}")
-        
-        db.commit()
-        
+
+        if column_mapping:
+            mapping = json.loads(column_mapping)
+            df = df.rename(columns=mapping)
+
+        df = parse_ventas_df(df)
+        ventas_creadas, errores = import_ventas_rows(df, db)
+
+        # Guardar CSV en disco y activar auto-watch
+        watched_path = save_and_watch("ventas", df, db, file.filename)
+
         mensaje = f"Se cargaron {ventas_creadas} ventas exitosamente"
         if errores:
             mensaje += f". {len(errores)} registros con errores"
-        
         logger.info(f"Importación completada: {ventas_creadas} ventas, {len(errores)} errores")
-        
+
         return MessageResponse(
             status="success",
             message=mensaje,
-            data={
-                "ventas_creadas": ventas_creadas,
-                "errores": errores[:10] if errores else []  # Mostrar solo primeros 10 errores
-            }
+            data={"ventas_creadas": ventas_creadas, "errores": errores[:10] if errores else [], "watched_path": watched_path},
         )
-    
+
     except HTTPException:
         raise
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
     except Exception as e:
         db.rollback()
         logger.error(f"Error procesando CSV: {e}")
@@ -138,19 +93,137 @@ async def upload_ventas_csv(
         )
 
 
+@router.get("/analytics/resumen", response_model=VentasAnalytics)
+def get_ventas_analytics(
+    date_from: Optional[str] = None,
+    date_to: Optional[str] = None,
+    group_by: str = "dia",
+    db: Session = Depends(get_db),
+):
+    """
+    Retorna todos los datos agregados que necesita la página de Ventas.
+    Toda la agregación se hace en SQL — no se cargan registros crudos en memoria.
+    """
+    filters = []
+    if date_from:
+        filters.append(Venta.fecha >= date_from)
+    if date_to:
+        filters.append(Venta.fecha <= date_to + " 23:59:59")
+
+    # ── KPIs ──
+    kpi = db.query(
+        func.coalesce(func.sum(Venta.monto_total), 0).label("total"),
+        func.count(Venta.id).label("count"),
+    ).filter(*filters).first()
+
+    total_ventas = float(kpi.total)
+    num_tx = int(kpi.count)
+    ticket = round(total_ventas / num_tx, 2) if num_tx > 0 else 0.0
+
+    # Top producto (por cantidad)
+    top_prod = db.query(
+        Venta.nombre_producto,
+    ).filter(*filters).group_by(
+        Venta.nombre_producto
+    ).order_by(func.sum(Venta.cantidad).desc()).limit(1).first()
+
+    # Top categoría (por monto)
+    top_cat = db.query(
+        func.coalesce(Venta.categoria, "Sin categoría").label("cat"),
+    ).filter(*filters).group_by("cat").order_by(
+        func.sum(Venta.monto_total).desc()
+    ).limit(1).first()
+
+    # ── Serie temporal ──
+    params = {}
+    if date_from:
+        params["df"] = date_from
+    if date_to:
+        params["dt"] = date_to + " 23:59:59"
+
+    where = "WHERE 1=1"
+    if date_from:
+        where += " AND fecha >= :df"
+    if date_to:
+        where += " AND fecha <= :dt"
+
+    if group_by == "semana":
+        sql = f"""
+            SELECT date(fecha, '-' || ((CAST(strftime('%w', fecha) AS INTEGER) + 6) % 7) || ' days') AS fk,
+                   SUM(monto_total) AS total
+            FROM ventas {where}
+            GROUP BY fk ORDER BY fk
+        """
+    elif group_by == "mes":
+        sql = f"""
+            SELECT strftime('%Y-%m-01', fecha) AS fk, SUM(monto_total) AS total
+            FROM ventas {where}
+            GROUP BY fk ORDER BY fk
+        """
+    else:
+        sql = f"""
+            SELECT strftime('%Y-%m-%d', fecha) AS fk, SUM(monto_total) AS total
+            FROM ventas {where}
+            GROUP BY fk ORDER BY fk
+        """
+
+    serie_rows = db.execute(sa_text(sql), params).fetchall()
+    serie_temporal = [TimeSeriesPoint(fecha=r[0], total=round(float(r[1]))) for r in serie_rows]
+
+    # ── Por categoría (top 7) ──
+    cat_rows = db.query(
+        func.coalesce(Venta.categoria, "Sin categoría").label("cat"),
+        func.sum(Venta.monto_total).label("total"),
+    ).filter(*filters).group_by("cat").order_by(
+        func.sum(Venta.monto_total).desc()
+    ).limit(7).all()
+
+    # ── Top 5 productos ──
+    prod_rows = db.query(
+        Venta.nombre_producto,
+        func.sum(Venta.monto_total).label("total"),
+    ).filter(*filters).group_by(
+        Venta.nombre_producto
+    ).order_by(func.sum(Venta.monto_total).desc()).limit(5).all()
+
+    return VentasAnalytics(
+        total_ventas=round(total_ventas, 2),
+        num_transacciones=num_tx,
+        ticket_promedio=ticket,
+        top_producto=top_prod.nombre_producto if top_prod else "N/A",
+        top_categoria=top_cat.cat if top_cat else "N/A",
+        serie_temporal=serie_temporal,
+        por_categoria=[CategoryBreakdown(categoria=r.cat, total=round(float(r.total))) for r in cat_rows],
+        top_productos=[
+            TopItem(
+                nombre=r.nombre_producto[:22] + "…" if len(r.nombre_producto) > 22 else r.nombre_producto,
+                monto=round(float(r.total)),
+            ) for r in prod_rows
+        ],
+    )
+
+
 @router.get("/", response_model=List[VentaSchema])
 def get_ventas(
     skip: int = 0,
-    limit: int = 100,
-    db: Session = Depends(get_db)
+    limit: int = 15,
+    date_from: Optional[str] = None,
+    date_to: Optional[str] = None,
+    db: Session = Depends(get_db),
 ):
     """
-    Obtiene lista de ventas con paginación
-    
-    - skip: Número de registros a saltar (para paginación)
-    - limit: Número máximo de registros a retornar
+    Obtiene lista de ventas con paginación y filtro de fechas opcionales.
+    limit=0 retorna todos los registros.
     """
-    ventas = db.query(Venta).order_by(Venta.fecha.desc()).offset(skip).limit(limit).all()
+    query = db.query(Venta)
+    if date_from:
+        query = query.filter(Venta.fecha >= date_from)
+    if date_to:
+        query = query.filter(Venta.fecha <= date_to + " 23:59:59")
+    query = query.order_by(Venta.fecha.desc()).offset(skip)
+    if limit > 0:
+        query = query.limit(limit)
+    ventas = query.all()
     logger.info(f"Consultadas {len(ventas)} ventas (skip={skip}, limit={limit})")
     return ventas
 

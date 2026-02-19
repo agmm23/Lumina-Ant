@@ -1,9 +1,10 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import {
   AreaChart, Area, BarChart, Bar, XAxis, YAxis,
   CartesianGrid, Tooltip, ResponsiveContainer, Cell,
 } from 'recharts'
 import { ventasService } from '../services/api'
+import useWatcherRefresh from '../hooks/useWatcherRefresh'
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -22,9 +23,40 @@ function fmtDate(dateStr) {
 
 function fmtShortDate(dateStr) {
   if (!dateStr) return ''
-  const d = new Date(dateStr)
+  const d = new Date(dateStr + 'T00:00:00')
   return d.toLocaleDateString('es-MX', { day: '2-digit', month: 'short' })
 }
+
+function fmtWeek(dateStr) {
+  if (!dateStr) return ''
+  const d = new Date(dateStr + 'T00:00:00')
+  const end = new Date(d)
+  end.setDate(d.getDate() + 6)
+  const fmt = (dt) => dt.toLocaleDateString('es-MX', { day: '2-digit', month: 'short' })
+  return `${fmt(d)} – ${fmt(end)}`
+}
+
+function fmtMonth(dateStr) {
+  if (!dateStr) return ''
+  const d = new Date(dateStr + 'T00:00:00')
+  return d.toLocaleDateString('es-MX', { month: 'short', year: '2-digit' })
+}
+
+/** Convert a period value to { date_from, date_to } for the API */
+function periodToDates(period) {
+  const p = PERIODS.find(x => x.value === period)
+  if (!p || p.days === null) return {}
+  const now = new Date()
+  const from = new Date(now)
+  from.setDate(now.getDate() - p.days)
+  return { date_from: from.toISOString().slice(0, 10) }
+}
+
+const GROUP_OPTIONS = [
+  { value: 'dia', label: 'Día' },
+  { value: 'semana', label: 'Semana' },
+  { value: 'mes', label: 'Mes' },
+]
 
 // ── Constantes ────────────────────────────────────────────────────────────────
 
@@ -68,34 +100,27 @@ function SectionTitle({ children }) {
   )
 }
 
-function CustomTooltipCurrency({ active, payload, label }) {
-  if (!active || !payload?.length) return null
-  return (
-    <div className="bg-white border border-gray-200 rounded-lg shadow-sm px-3 py-2 text-xs">
-      <p className="text-gray-500 mb-1">{fmtShortDate(label)}</p>
-      <p className="font-semibold text-gray-900">{fmtCurrency(payload[0].value)}</p>
-    </div>
-  )
-}
-
 // ── Main Page ─────────────────────────────────────────────────────────────────
 
 function Ventas() {
-  const [ventas, setVentas] = useState([])
+  const [analytics, setAnalytics] = useState(null)
+  const [transacciones, setTransacciones] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-  const [period, setPeriod] = useState('30d')
+  const [period, setPeriod] = useState('all')
+  const [groupBy, setGroupBy] = useState('dia')
+  const [chartType, setChartType] = useState('area') // 'area' | 'bar'
   const [dateFrom, setDateFrom] = useState('')
   const [dateTo, setDateTo] = useState('')
+  const [refreshKey, setRefreshKey] = useState(0)
+  useWatcherRefresh(useCallback(() => setRefreshKey(k => k + 1), []))
 
-  // Cuando el usuario elige un período predefinido, limpia las fechas manuales
   function handlePeriodChange(val) {
     setPeriod(val)
     setDateFrom('')
     setDateTo('')
   }
 
-  // Cuando el usuario escribe fechas manuales, desactiva el período predefinido
   function handleDateFrom(val) {
     setDateFrom(val)
     if (val) setPeriod('all')
@@ -113,108 +138,41 @@ function Ventas() {
 
   const usingCustomDates = dateFrom || dateTo
 
+  // Fetch analytics + transacciones from backend
   useEffect(() => {
+    let cancelled = false
     async function fetchData() {
       setLoading(true)
       setError(null)
       try {
-        const res = await ventasService.getAll({ limit: 500 })
-        setVentas(res.data)
+        // Build params
+        const params = { group_by: groupBy }
+        if (dateFrom || dateTo) {
+          if (dateFrom) params.date_from = dateFrom
+          if (dateTo) params.date_to = dateTo
+        } else {
+          const dates = periodToDates(period)
+          if (dates.date_from) params.date_from = dates.date_from
+          if (dates.date_to) params.date_to = dates.date_to
+        }
+
+        const [analyticsRes, txRes] = await Promise.all([
+          ventasService.getAnalytics(params),
+          ventasService.getAll({ ...params, limit: 15 }),
+        ])
+        if (!cancelled) {
+          setAnalytics(analyticsRes.data)
+          setTransacciones(txRes.data)
+        }
       } catch {
-        setError('No se pudo conectar con la API.')
+        if (!cancelled) setError('No se pudo conectar con la API.')
       } finally {
-        setLoading(false)
+        if (!cancelled) setLoading(false)
       }
     }
     fetchData()
-  }, [])
-
-  // Ventas filtradas: fechas manuales tienen prioridad sobre el período predefinido
-  const filteredVentas = useMemo(() => {
-    if (dateFrom || dateTo) {
-      return ventas.filter(v => {
-        const day = v.fecha?.slice(0, 10) ?? ''
-        if (dateFrom && day < dateFrom) return false
-        if (dateTo && day > dateTo) return false
-        return true
-      })
-    }
-    const p = PERIODS.find(p => p.value === period)
-    if (!p || p.days === null) return ventas
-    const cutoff = new Date()
-    cutoff.setDate(cutoff.getDate() - p.days)
-    const cutoffStr = cutoff.toISOString().slice(0, 10)
-    return ventas.filter(v => (v.fecha?.slice(0, 10) ?? '') >= cutoffStr)
-  }, [ventas, period, dateFrom, dateTo])
-
-  // KPIs calculados del período
-  const kpis = useMemo(() => {
-    if (!filteredVentas.length) return null
-    const total = filteredVentas.reduce((acc, v) => acc + v.monto_total, 0)
-    const count = filteredVentas.length
-    const ticket = total / count
-    const prodMap = {}
-    filteredVentas.forEach(v => {
-      prodMap[v.nombre_producto] = (prodMap[v.nombre_producto] || 0) + v.cantidad
-    })
-    const topProd = Object.entries(prodMap).sort(([, a], [, b]) => b - a)[0]?.[0] ?? '—'
-    const catMap = {}
-    filteredVentas.forEach(v => {
-      const cat = v.categoria || 'Sin categoría'
-      catMap[cat] = (catMap[cat] || 0) + v.monto_total
-    })
-    const topCat = Object.entries(catMap).sort(([, a], [, b]) => b - a)[0]?.[0] ?? '—'
-    return { total, count, ticket, topProd, topCat }
-  }, [filteredVentas])
-
-  // Ventas por día
-  const ventasPorDia = useMemo(() => {
-    if (!filteredVentas.length) return []
-    const map = {}
-    filteredVentas.forEach(v => {
-      const day = v.fecha?.slice(0, 10) ?? ''
-      if (!map[day]) map[day] = 0
-      map[day] += v.monto_total
-    })
-    return Object.entries(map)
-      .sort(([a], [b]) => a.localeCompare(b))
-      .map(([fecha, total]) => ({ fecha, total: Math.round(total) }))
-  }, [filteredVentas])
-
-  // Ventas por categoría
-  const ventasPorCategoria = useMemo(() => {
-    if (!filteredVentas.length) return []
-    const map = {}
-    filteredVentas.forEach(v => {
-      const cat = v.categoria || 'Sin categoría'
-      if (!map[cat]) map[cat] = 0
-      map[cat] += v.monto_total
-    })
-    return Object.entries(map)
-      .sort(([, a], [, b]) => b - a)
-      .slice(0, 7)
-      .map(([categoria, total]) => ({ categoria, total: Math.round(total) }))
-  }, [filteredVentas])
-
-  // Top 5 productos del período
-  const topProductosChart = useMemo(() => {
-    if (!filteredVentas.length) return []
-    const map = {}
-    filteredVentas.forEach(v => {
-      if (!map[v.nombre_producto]) map[v.nombre_producto] = 0
-      map[v.nombre_producto] += v.monto_total
-    })
-    return Object.entries(map)
-      .sort(([, a], [, b]) => b - a)
-      .slice(0, 5)
-      .map(([nombre, monto]) => ({
-        nombre: nombre.length > 22 ? nombre.slice(0, 22) + '…' : nombre,
-        monto: Math.round(monto),
-      }))
-  }, [filteredVentas])
-
-  // Tabla — primeras 15 del período (ya vienen desc por fecha desde la API)
-  const transacciones = filteredVentas.slice(0, 15)
+    return () => { cancelled = true }
+  }, [period, groupBy, dateFrom, dateTo, refreshKey])
 
   const periodLabel = usingCustomDates
     ? `${dateFrom || '…'} → ${dateTo || '…'}`
@@ -230,6 +188,8 @@ function Ventas() {
     )
   }
 
+  const noData = !analytics || analytics.num_transacciones === 0
+
   return (
     <div className="p-6 max-w-6xl">
       {/* Header con filtros */}
@@ -240,7 +200,6 @@ function Ventas() {
         </div>
 
         <div className="flex flex-wrap items-center gap-2 mt-1">
-          {/* Período predefinido */}
           <select
             value={usingCustomDates ? 'all' : period}
             onChange={e => handlePeriodChange(e.target.value)}
@@ -258,7 +217,6 @@ function Ventas() {
 
           <span className="text-gray-300 text-sm select-none">|</span>
 
-          {/* Rango personalizado */}
           <div className="flex items-center gap-1.5">
             <label className="text-xs text-gray-400 whitespace-nowrap">Desde</label>
             <input
@@ -299,17 +257,11 @@ function Ventas() {
         </div>
       )}
 
-      {ventas.length === 0 && !error ? (
+      {noData && !error ? (
         <div className="p-8 bg-gray-50 border border-dashed border-gray-300 rounded-xl text-center text-gray-500">
           <p className="text-4xl mb-3">💰</p>
           <p className="font-medium">Sin datos de ventas</p>
-          <p className="text-sm mt-1">Carga un CSV en Configuración para comenzar.</p>
-        </div>
-      ) : filteredVentas.length === 0 ? (
-        <div className="p-8 bg-gray-50 border border-dashed border-gray-300 rounded-xl text-center text-gray-500">
-          <p className="text-4xl mb-3">🔍</p>
-          <p className="font-medium">Sin registros en este período</p>
-          <p className="text-sm mt-1">No hay ventas para «{periodLabel}». Prueba un rango más amplio.</p>
+          <p className="text-sm mt-1">Carga un CSV en Configuración para comenzar, o prueba un rango más amplio.</p>
         </div>
       ) : (
         <>
@@ -319,27 +271,26 @@ function Ventas() {
             <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
               <KpiMini
                 title="Total ventas"
-                value={fmtCurrency(kpis?.total)}
+                value={fmtCurrency(analytics.total_ventas)}
                 icon="💰"
                 color="green"
               />
               <KpiMini
                 title="Transacciones"
-                value={kpis?.count ?? '—'}
-                subtitle={period !== 'all' ? `${ventas.length} totales cargados` : undefined}
+                value={analytics.num_transacciones.toLocaleString()}
                 icon="🧾"
                 color="blue"
               />
               <KpiMini
                 title="Ticket promedio"
-                value={fmtCurrency(kpis?.ticket)}
+                value={fmtCurrency(analytics.ticket_promedio)}
                 icon="📊"
                 color="purple"
               />
               <KpiMini
                 title="Producto líder"
-                value={kpis?.topProd ?? '—'}
-                subtitle={kpis?.topCat ?? ''}
+                value={analytics.top_producto}
+                subtitle={analytics.top_categoria}
                 icon="⭐"
                 color="amber"
               />
@@ -348,12 +299,51 @@ function Ventas() {
 
           {/* Área chart + Barras por categoría */}
           <section className="mb-8 grid grid-cols-1 gap-6 lg:grid-cols-5">
-            {/* Área chart */}
             <div className="lg:col-span-3 bg-white rounded-xl border border-gray-200 p-5">
-              <SectionTitle>Ventas por día · {periodLabel}</SectionTitle>
-              {ventasPorDia.length > 1 ? (
+              <div className="flex items-center justify-between mb-3">
+                <SectionTitle>Ventas por {groupBy === 'dia' ? 'día' : groupBy} · {periodLabel}</SectionTitle>
+                <div className="flex items-center gap-2">
+                  <div className="flex bg-gray-100 rounded-lg p-0.5">
+                    {GROUP_OPTIONS.map(opt => (
+                      <button
+                        key={opt.value}
+                        onClick={() => setGroupBy(opt.value)}
+                        className={`px-2.5 py-1 text-xs font-medium rounded-md transition-colors cursor-pointer ${
+                          groupBy === opt.value
+                            ? 'bg-white text-indigo-600 shadow-sm'
+                            : 'text-gray-500 hover:text-gray-700'
+                        }`}
+                      >
+                        {opt.label}
+                      </button>
+                    ))}
+                  </div>
+                  <div className="flex bg-gray-100 rounded-lg p-0.5">
+                    <button
+                      onClick={() => setChartType('area')}
+                      className={`px-2 py-1 text-xs font-medium rounded-md transition-colors cursor-pointer ${
+                        chartType === 'area' ? 'bg-white text-indigo-600 shadow-sm' : 'text-gray-500 hover:text-gray-700'
+                      }`}
+                      title="Línea"
+                    >
+                      📈
+                    </button>
+                    <button
+                      onClick={() => setChartType('bar')}
+                      className={`px-2 py-1 text-xs font-medium rounded-md transition-colors cursor-pointer ${
+                        chartType === 'bar' ? 'bg-white text-indigo-600 shadow-sm' : 'text-gray-500 hover:text-gray-700'
+                      }`}
+                      title="Barras"
+                    >
+                      📊
+                    </button>
+                  </div>
+                </div>
+              </div>
+              {analytics.serie_temporal.length > 1 ? (
                 <ResponsiveContainer width="100%" height={220}>
-                  <AreaChart data={ventasPorDia} margin={{ top: 4, right: 4, left: 0, bottom: 0 }}>
+                  {chartType === 'area' ? (
+                  <AreaChart data={analytics.serie_temporal} margin={{ top: 4, right: 4, left: 0, bottom: 0 }}>
                     <defs>
                       <linearGradient id="gradVentas" x1="0" y1="0" x2="0" y2="1">
                         <stop offset="5%" stopColor="#6366f1" stopOpacity={0.2} />
@@ -363,7 +353,7 @@ function Ventas() {
                     <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
                     <XAxis
                       dataKey="fecha"
-                      tickFormatter={fmtShortDate}
+                      tickFormatter={groupBy === 'mes' ? fmtMonth : groupBy === 'semana' ? fmtWeek : fmtShortDate}
                       tick={{ fontSize: 10, fill: '#9ca3af' }}
                       tickLine={false}
                       interval="preserveStartEnd"
@@ -375,7 +365,11 @@ function Ventas() {
                       axisLine={false}
                       width={40}
                     />
-                    <Tooltip content={<CustomTooltipCurrency />} />
+                    <Tooltip
+                      labelFormatter={groupBy === 'mes' ? fmtMonth : groupBy === 'semana' ? fmtWeek : fmtShortDate}
+                      formatter={v => [fmtCurrency(v), 'Total']}
+                      contentStyle={{ fontSize: 11, borderRadius: 8, border: '1px solid #e5e7eb' }}
+                    />
                     <Area
                       type="monotone"
                       dataKey="total"
@@ -384,19 +378,43 @@ function Ventas() {
                       fill="url(#gradVentas)"
                     />
                   </AreaChart>
+                  ) : (
+                  <BarChart data={analytics.serie_temporal} margin={{ top: 4, right: 4, left: 0, bottom: 0 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                    <XAxis
+                      dataKey="fecha"
+                      tickFormatter={groupBy === 'mes' ? fmtMonth : groupBy === 'semana' ? fmtWeek : fmtShortDate}
+                      tick={{ fontSize: 10, fill: '#9ca3af' }}
+                      tickLine={false}
+                      interval="preserveStartEnd"
+                    />
+                    <YAxis
+                      tickFormatter={v => `$${(v / 1000).toFixed(0)}k`}
+                      tick={{ fontSize: 10, fill: '#9ca3af' }}
+                      tickLine={false}
+                      axisLine={false}
+                      width={40}
+                    />
+                    <Tooltip
+                      labelFormatter={groupBy === 'mes' ? fmtMonth : groupBy === 'semana' ? fmtWeek : fmtShortDate}
+                      formatter={v => [fmtCurrency(v), 'Total']}
+                      contentStyle={{ fontSize: 11, borderRadius: 8, border: '1px solid #e5e7eb' }}
+                    />
+                    <Bar dataKey="total" fill="#6366f1" radius={[4, 4, 0, 0]} />
+                  </BarChart>
+                  )}
                 </ResponsiveContainer>
               ) : (
-                <p className="text-sm text-gray-400 mt-4">No hay suficientes días para graficar.</p>
+                <p className="text-sm text-gray-400 mt-4">No hay suficientes puntos para graficar.</p>
               )}
             </div>
 
-            {/* Barras por categoría */}
             <div className="lg:col-span-2 bg-white rounded-xl border border-gray-200 p-5">
               <SectionTitle>Por categoría</SectionTitle>
-              {ventasPorCategoria.length > 0 ? (
+              {analytics.por_categoria.length > 0 ? (
                 <ResponsiveContainer width="100%" height={220}>
                   <BarChart
-                    data={ventasPorCategoria}
+                    data={analytics.por_categoria}
                     layout="vertical"
                     margin={{ top: 0, right: 4, left: 0, bottom: 0 }}
                   >
@@ -421,7 +439,7 @@ function Ventas() {
                       contentStyle={{ fontSize: 11, borderRadius: 8, border: '1px solid #e5e7eb' }}
                     />
                     <Bar dataKey="total" radius={[0, 4, 4, 0]}>
-                      {ventasPorCategoria.map((_, i) => (
+                      {analytics.por_categoria.map((_, i) => (
                         <Cell key={i} fill={CATEGORY_COLORS[i % CATEGORY_COLORS.length]} />
                       ))}
                     </Bar>
@@ -434,12 +452,12 @@ function Ventas() {
           </section>
 
           {/* Top 5 productos */}
-          {topProductosChart.length > 0 && (
+          {analytics.top_productos.length > 0 && (
             <section className="mb-8 bg-white rounded-xl border border-gray-200 p-5">
               <SectionTitle>Top 5 productos · {periodLabel}</SectionTitle>
               <ResponsiveContainer width="100%" height={160}>
                 <BarChart
-                  data={topProductosChart}
+                  data={analytics.top_productos}
                   layout="vertical"
                   margin={{ top: 0, right: 16, left: 0, bottom: 0 }}
                 >
@@ -512,9 +530,9 @@ function Ventas() {
                   ))}
                 </tbody>
               </table>
-              {filteredVentas.length > 15 && (
+              {analytics.num_transacciones > 15 && (
                 <p className="px-4 py-2 text-xs text-gray-400 border-t border-gray-100">
-                  Mostrando 15 de {filteredVentas.length} transacciones en este período.
+                  Mostrando 15 de {analytics.num_transacciones.toLocaleString()} transacciones en este período.
                 </p>
               )}
             </div>

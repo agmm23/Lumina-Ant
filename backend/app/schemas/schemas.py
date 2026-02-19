@@ -227,6 +227,84 @@ class Cliente(ClienteBase):
         from_attributes = True
 
 
+# ==================== COLUMN MAPPING ====================
+
+class AutoMapRequest(BaseModel):
+    """Request para auto-mapear headers CSV a columnas destino"""
+    headers: List[str]
+    datasource_type: str = Field(..., pattern="^(ventas|gastos|inventario|clientes)$")
+    user_id: str = "default"
+
+
+class ColumnMappingSuggestion(BaseModel):
+    """Una sugerencia de mapeo individual"""
+    csv_column: str
+    target_column: Optional[str] = None
+    confidence: float = Field(ge=0.0, le=1.0)
+    method: str  # 'exact', 'normalized', 'saved', 'synonym', 'fuzzy', 'none'
+
+
+class AutoMapResponse(BaseModel):
+    """Respuesta con sugerencias de auto-mapeo"""
+    mappings: List[ColumnMappingSuggestion]
+    all_mapped: bool
+    unmapped_required: List[str]
+    target_columns: List[dict]
+    has_saved_mappings: bool  # True si el usuario ya tiene mappings guardados para este datasource
+    structure_changed: bool  # True si las columnas del CSV difieren del mapping guardado
+
+
+class SaveMappingRequest(BaseModel):
+    """Request para guardar mappings confirmados"""
+    mappings: dict
+    user_id: str = "default"
+
+
+# ==================== ANALYTICS AGGREGATION ====================
+
+class TimeSeriesPoint(BaseModel):
+    """Punto de una serie temporal (día/semana/mes)"""
+    fecha: str
+    total: float
+
+class CategoryBreakdown(BaseModel):
+    """Desglose por categoría"""
+    categoria: str
+    total: float
+
+class TopItem(BaseModel):
+    """Item con nombre y monto (producto, proveedor, etc.)"""
+    nombre: str
+    monto: float
+
+class VentasAnalytics(BaseModel):
+    """Payload completo de analytics para la página de Ventas"""
+    total_ventas: float
+    num_transacciones: int
+    ticket_promedio: float
+    top_producto: str
+    top_categoria: str
+    serie_temporal: List[TimeSeriesPoint]
+    por_categoria: List[CategoryBreakdown]
+    top_productos: List[TopItem]
+
+class GastosAnalytics(BaseModel):
+    """Payload completo de analytics para la página de Gastos"""
+    total_gastos: float
+    num_registros: int
+    gasto_promedio: float
+    top_categoria: str
+    top_tipo_pago: str
+    serie_temporal: List[TimeSeriesPoint]
+    por_categoria: List[CategoryBreakdown]
+    top_proveedores: List[TopItem]
+
+class CiudadCount(BaseModel):
+    """Conteo de clientes por ciudad"""
+    ciudad: str
+    cantidad: int
+
+
 # ==================== RESPONSES ====================
 
 class MessageResponse(BaseModel):

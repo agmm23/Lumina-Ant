@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
-import { ventasService, gastosService, inventarioService, clientesService, analyticsService } from '../services/api'
+import { ventasService, gastosService, inventarioService, clientesService, analyticsService, mappingService } from '../services/api'
+import ColumnMapper from '../components/ColumnMapper'
 
 // ── Datos de fuentes CSV ───────────────────────────────────────────────────────
 
@@ -11,16 +12,6 @@ const DATASOURCES = [
     color: 'green',
     service: ventasService,
     description: 'Historial de transacciones de venta por producto y cliente.',
-    columns: [
-      { name: 'fecha', required: true, hint: 'YYYY-MM-DD o DD/MM/YYYY' },
-      { name: 'producto_id', required: true },
-      { name: 'nombre_producto', required: true },
-      { name: 'cantidad', required: true, hint: 'entero' },
-      { name: 'precio_unitario', required: true, hint: 'decimal' },
-      { name: 'monto_total', required: true, hint: 'decimal' },
-      { name: 'cliente_id', required: false },
-      { name: 'categoria', required: false },
-    ],
   },
   {
     id: 'gastos',
@@ -29,17 +20,6 @@ const DATASOURCES = [
     color: 'red',
     service: gastosService,
     description: 'Registro de gastos operativos por categoría y proveedor.',
-    columns: [
-      { name: 'fecha', required: true, hint: 'YYYY-MM-DD' },
-      { name: 'descripcion', required: true },
-      { name: 'categoria', required: true },
-      { name: 'monto', required: true, hint: 'decimal' },
-      { name: 'proveedor_id', required: true },
-      { name: 'nombre_proveedor', required: true },
-      { name: 'tipo_pago', required: true },
-      { name: 'numero_factura', required: false },
-      { name: 'notas', required: false },
-    ],
   },
   {
     id: 'inventario',
@@ -48,19 +28,6 @@ const DATASOURCES = [
     color: 'blue',
     service: inventarioService,
     description: 'Productos en stock con niveles mínimos y precios.',
-    columns: [
-      { name: 'producto_id', required: true },
-      { name: 'nombre_producto', required: true },
-      { name: 'categoria', required: true },
-      { name: 'cantidad_actual', required: true, hint: 'entero' },
-      { name: 'unidad_medida', required: true },
-      { name: 'precio_compra', required: true, hint: 'decimal' },
-      { name: 'precio_venta', required: true, hint: 'decimal' },
-      { name: 'descripcion', required: false },
-      { name: 'cantidad_minima', required: false, hint: 'entero' },
-      { name: 'proveedor_id', required: false },
-      { name: 'ubicacion', required: false },
-    ],
   },
   {
     id: 'clientes',
@@ -69,20 +36,6 @@ const DATASOURCES = [
     color: 'purple',
     service: clientesService,
     description: 'Base de clientes con datos de contacto y tipo.',
-    columns: [
-      { name: 'cliente_id', required: true },
-      { name: 'nombre', required: true },
-      { name: 'email', required: false },
-      { name: 'telefono', required: false },
-      { name: 'direccion', required: false },
-      { name: 'ciudad', required: false },
-      { name: 'codigo_postal', required: false },
-      { name: 'rfc', required: false },
-      { name: 'tipo_cliente', required: false, hint: 'Minorista / Mayorista / Corporativo' },
-      { name: 'fecha_registro', required: false },
-      { name: 'notas', required: false },
-      { name: 'activo', required: false, hint: 'true / false' },
-    ],
   },
 ]
 
@@ -95,6 +48,23 @@ const colorMap = {
 
 const STORAGE_KEY = (id) => `lumina_uploaded_${id}`
 
+/** Lee los headers (primera línea) de un CSV sin cargar todo el archivo */
+function parseCSVHeaders(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onload = (e) => {
+      let text = e.target.result
+      // Quitar BOM si existe
+      if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1)
+      const firstLine = text.split(/\r?\n/)[0]
+      const headers = firstLine.split(',').map(h => h.trim().replace(/^"|"$/g, ''))
+      resolve(headers)
+    }
+    reader.onerror = reject
+    reader.readAsText(file.slice(0, 4096))
+  })
+}
+
 // ── UploadCard ─────────────────────────────────────────────────────────────────
 
 function UploadCard({ datasource }) {
@@ -105,10 +75,16 @@ function UploadCard({ datasource }) {
     const saved = localStorage.getItem(STORAGE_KEY(datasource.id))
     return saved ? JSON.parse(saved) : null
   })
+
+  // Mapping state
+  const [step, setStep] = useState('idle') // 'idle' | 'analyzing' | 'mapping' | 'uploading'
+  const [mapResponse, setMapResponse] = useState(null) // auto-map API response
+  const [confirmedMapping, setConfirmedMapping] = useState(null)
+
   const inputRef = useRef()
   const c = colorMap[datasource.color]
 
-  function handleFile(f) {
+  async function handleFile(f) {
     if (!f) return
     if (!f.name.endsWith('.csv')) {
       setResult({ type: 'error', message: 'Solo se aceptan archivos .csv' })
@@ -116,6 +92,38 @@ function UploadCard({ datasource }) {
     }
     setFile(f)
     setResult(null)
+    setConfirmedMapping(null)
+
+    // Parse headers y llamar auto-map
+    setStep('analyzing')
+    try {
+      const headers = await parseCSVHeaders(f)
+      const res = await mappingService.autoMap(headers, datasource.id)
+      const data = res.data
+      setMapResponse(data)
+
+      // Si hay mappings guardados, la estructura no cambió, y todo está mapeado:
+      // auto-confirmar (no es primera vez)
+      if (data.has_saved_mappings && !data.structure_changed && data.all_mapped) {
+        // Construir mapping desde sugerencias
+        const autoMapping = {}
+        for (const s of data.mappings) {
+          if (s.target_column && s.csv_column !== s.target_column) {
+            autoMapping[s.csv_column] = s.target_column
+          }
+        }
+        setConfirmedMapping(autoMapping)
+        setStep('idle')
+      } else {
+        // Primera vez o estructura cambió → mostrar UI de mapeo siempre
+        setStep('mapping')
+      }
+    } catch (err) {
+      console.error('Error en auto-map:', err)
+      // Fallback: dejar subir sin mapping (como antes)
+      setStep('idle')
+      setMapResponse(null)
+    }
   }
 
   function onDrop(e) {
@@ -124,26 +132,58 @@ function UploadCard({ datasource }) {
     handleFile(e.dataTransfer.files[0])
   }
 
+  function handleMappingConfirm(mapping) {
+    setConfirmedMapping(mapping)
+    setStep('idle')
+
+    // Guardar mapping en backend para futuras sesiones
+    const fullMapping = {}
+    if (mapResponse) {
+      for (const s of mapResponse.mappings) {
+        const target = mapping[s.csv_column] !== undefined
+          ? (mapping[s.csv_column] || s.csv_column) // manual override
+          : s.target_column // from suggestion
+        if (target) fullMapping[s.csv_column] = target
+      }
+    }
+    mappingService.save(datasource.id, fullMapping).catch(() => {})
+  }
+
+  function handleMappingCancel() {
+    setStep('idle')
+    setFile(null)
+    setMapResponse(null)
+    setConfirmedMapping(null)
+  }
+
   async function handleUpload() {
     if (!file) return
+    setStep('uploading')
     setUploading(true)
     setResult(null)
     const fileName = file.name
     try {
-      const res = await datasource.service.uploadCSV(file)
+      const res = await datasource.service.uploadCSV(file, confirmedMapping)
       const data = res.data
       const successResult = { type: 'success', message: data.message, fileName, detail: data.data }
       setResult(successResult)
       localStorage.setItem(STORAGE_KEY(datasource.id), JSON.stringify(successResult))
       setFile(null)
+      setConfirmedMapping(null)
+      setMapResponse(null)
     } catch (err) {
       const msg = err.response?.data?.detail || err.message || 'Error al subir el archivo'
       setResult({ type: 'error', message: msg })
       localStorage.removeItem(STORAGE_KEY(datasource.id))
     } finally {
       setUploading(false)
+      setStep('idle')
     }
   }
+
+  const isMapping = step === 'mapping'
+  const isAnalyzing = step === 'analyzing'
+  const hasConfirmedMapping = confirmedMapping !== null
 
   return (
     <div className={`bg-white rounded-xl border ${c.border} p-5`}>
@@ -156,79 +196,97 @@ function UploadCard({ datasource }) {
         </div>
       </div>
 
-      {/* Columnas esperadas */}
-      <div className="mb-4">
-        <p className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">Columnas del CSV</p>
-        <div className="flex flex-wrap gap-1.5">
-          {datasource.columns.map((col) => (
-            <span
-              key={col.name}
-              title={col.hint || ''}
-              className={`text-xs px-2 py-0.5 rounded-full font-mono ${
-                col.required
-                  ? `${c.badge} font-semibold`
-                  : 'bg-gray-100 text-gray-500'
-              }`}
-            >
-              {col.name}
-              {col.required ? '' : ' *'}
-            </span>
-          ))}
-        </div>
-        <p className="text-xs text-gray-400 mt-1.5">* opcional</p>
-      </div>
-
-      {/* Drop zone */}
-      <div
-        onDragOver={(e) => { e.preventDefault(); setDragging(true) }}
-        onDragLeave={() => setDragging(false)}
-        onDrop={onDrop}
-        onClick={() => inputRef.current?.click()}
-        className={`border-2 border-dashed rounded-lg p-4 text-center cursor-pointer transition-colors ${
-          dragging
-            ? `border-blue-400 bg-blue-50`
-            : file
-            ? `border-gray-300 bg-gray-50`
-            : `border-gray-200 bg-white ${c.hover}`
-        }`}
-      >
-        <input
-          ref={inputRef}
-          type="file"
-          accept=".csv"
-          className="hidden"
-          onChange={(e) => handleFile(e.target.files[0])}
+      {/* Mapping UI or Drop zone */}
+      {isMapping && mapResponse ? (
+        <ColumnMapper
+          suggestions={mapResponse.mappings}
+          targetColumns={mapResponse.target_columns}
+          structureChanged={mapResponse.structure_changed}
+          hasSavedMappings={mapResponse.has_saved_mappings}
+          onConfirm={handleMappingConfirm}
+          onCancel={handleMappingCancel}
+          color={datasource.color}
         />
-        {file ? (
-          <div className="flex items-center justify-center gap-2 text-sm text-gray-700">
-            <span className="text-lg">📄</span>
-            <span className="font-medium truncate max-w-48">{file.name}</span>
-            <button
-              onClick={(e) => { e.stopPropagation(); setFile(null) }}
-              className="text-gray-400 hover:text-red-500 ml-1 cursor-pointer"
-            >
-              ✕
-            </button>
+      ) : (
+        <>
+          {/* Drop zone */}
+          <div
+            onDragOver={(e) => { e.preventDefault(); setDragging(true) }}
+            onDragLeave={() => setDragging(false)}
+            onDrop={onDrop}
+            onClick={() => !isAnalyzing && inputRef.current?.click()}
+            className={`border-2 border-dashed rounded-lg p-4 text-center transition-colors ${
+              isAnalyzing
+                ? 'border-blue-300 bg-blue-50 cursor-wait'
+                : dragging
+                ? 'border-blue-400 bg-blue-50 cursor-pointer'
+                : file
+                ? 'border-gray-300 bg-gray-50 cursor-pointer'
+                : `border-gray-200 bg-white ${c.hover} cursor-pointer`
+            }`}
+          >
+            <input
+              ref={inputRef}
+              type="file"
+              accept=".csv"
+              className="hidden"
+              onChange={(e) => { handleFile(e.target.files[0]); e.target.value = '' }}
+            />
+            {isAnalyzing ? (
+              <div className="flex items-center justify-center gap-2 text-sm text-blue-600">
+                <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                </svg>
+                Analizando columnas...
+              </div>
+            ) : file ? (
+              <div className="flex items-center justify-center gap-2 text-sm text-gray-700">
+                <span className="text-lg">📄</span>
+                <span className="font-medium truncate max-w-48">{file.name}</span>
+                {hasConfirmedMapping && (
+                  <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full">Mapeo listo</span>
+                )}
+                <button
+                  onClick={(e) => { e.stopPropagation(); setFile(null); setConfirmedMapping(null); setMapResponse(null) }}
+                  className="text-gray-400 hover:text-red-500 ml-1 cursor-pointer"
+                >
+                  ✕
+                </button>
+              </div>
+            ) : (
+              <div className="text-sm text-gray-400">
+                <p>Arrastra tu CSV aquí o <span className="text-blue-500 underline">selecciona archivo</span></p>
+              </div>
+            )}
           </div>
-        ) : (
-          <div className="text-sm text-gray-400">
-            <p>Arrastra tu CSV aquí o <span className="text-blue-500 underline">selecciona archivo</span></p>
-          </div>
-        )}
-      </div>
 
-      {/* Botón de carga */}
-      <button
-        onClick={handleUpload}
-        disabled={!file || uploading}
-        className={`mt-3 w-full py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
-          !file || uploading
-            ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-            : 'bg-blue-600 text-white hover:bg-blue-700'
-        }`}
-      >
-        {uploading ? 'Cargando...' : 'Subir CSV'}
-      </button>
+          {/* Editar mapeo / Subir */}
+          {file && !isAnalyzing && (
+            <div className="mt-3 space-y-2">
+              {hasConfirmedMapping && (
+                <button
+                  onClick={() => setStep('mapping')}
+                  className="text-xs text-blue-600 hover:text-blue-800 underline cursor-pointer"
+                >
+                  Editar mapeo de columnas
+                </button>
+              )}
+              <button
+                onClick={handleUpload}
+                disabled={!hasConfirmedMapping || uploading}
+                className={`w-full py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
+                  !hasConfirmedMapping || uploading
+                    ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                    : 'bg-blue-600 text-white hover:bg-blue-700'
+                }`}
+              >
+                {uploading ? 'Cargando...' : 'Subir CSV'}
+              </button>
+            </div>
+          )}
+        </>
+      )}
 
       {/* Resultado */}
       {result && (
@@ -255,6 +313,7 @@ function UploadCard({ datasource }) {
           )}
         </div>
       )}
+
     </div>
   )
 }

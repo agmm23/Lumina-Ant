@@ -1,9 +1,10 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, useCallback } from 'react'
 import {
   BarChart, Bar, XAxis, YAxis,
   CartesianGrid, Tooltip, ResponsiveContainer, Cell,
 } from 'recharts'
 import { inventarioService } from '../services/api'
+import useWatcherRefresh from '../hooks/useWatcherRefresh'
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -75,7 +76,7 @@ function StockBadge({ actual, minimo }) {
 
 function Inventario() {
   const [items, setItems] = useState([])
-  const [valor, setValor] = useState(null)
+  const [analytics, setAnalytics] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
@@ -83,22 +84,24 @@ function Inventario() {
   const [search, setSearch] = useState('')
   const [soloAlerta, setSoloAlerta] = useState(false)
   const [catFilter, setCatFilter] = useState('all')
+  const [refreshKey, setRefreshKey] = useState(0)
+  useWatcherRefresh(useCallback(() => setRefreshKey(k => k + 1), []))
 
   useEffect(() => {
     async function fetchData() {
       setLoading(true)
       setError(null)
-      const [itemsRes, valorRes] = await Promise.allSettled([
-        inventarioService.getAll({ limit: 500 }),
-        inventarioService.getValor(),
+      const [itemsRes, analyticsRes] = await Promise.allSettled([
+        inventarioService.getAll(),
+        inventarioService.getAnalytics(),
       ])
       if (itemsRes.status === 'fulfilled') setItems(itemsRes.value.data)
-      if (valorRes.status === 'fulfilled') setValor(valorRes.value.data)
+      if (analyticsRes.status === 'fulfilled') setAnalytics(analyticsRes.value.data)
       if (itemsRes.status === 'rejected') setError('No se pudo conectar con la API.')
       setLoading(false)
     }
     fetchData()
-  }, [])
+  }, [refreshKey])
 
   // Categorías únicas para el filtro
   const categorias = useMemo(() => {
@@ -125,14 +128,13 @@ function Inventario() {
     })
   }, [items, soloAlerta, catFilter, search])
 
-  // KPIs globales (siempre del total, no del filtrado)
-  const kpis = useMemo(() => {
-    const totalProductos = items.length
-    const bajosStock = items.filter(i => i.cantidad_minima != null && i.cantidad_actual <= i.cantidad_minima).length
-    const totalUnidades = items.reduce((acc, i) => acc + (i.cantidad_actual || 0), 0)
-    const categoriasCuenta = new Set(items.map(i => i.categoria).filter(Boolean)).size
-    return { totalProductos, bajosStock, totalUnidades, categoriasCuenta }
-  }, [items])
+  // KPIs from backend analytics
+  const kpis = analytics ? {
+    totalProductos: analytics.total_productos,
+    bajosStock: analytics.bajos_stock,
+    totalUnidades: analytics.total_unidades,
+    categoriasCuenta: analytics.categorias_count,
+  } : { totalProductos: 0, bajosStock: 0, totalUnidades: 0, categoriasCuenta: 0 }
 
   // Stock por categoría
   const stockPorCategoria = useMemo(() => {
@@ -269,13 +271,13 @@ function Inventario() {
               />
               <KpiMini
                 title="Valor (venta)"
-                value={fmtCurrency(valor?.valor_inventario_venta)}
+                value={fmtCurrency(analytics?.valor_inventario_venta)}
                 icon="💵"
                 color="green"
               />
               <KpiMini
                 title="Costo (compra)"
-                value={fmtCurrency(valor?.costo_inventario)}
+                value={fmtCurrency(analytics?.costo_inventario)}
                 icon="💳"
                 color="amber"
               />
@@ -442,11 +444,6 @@ function Inventario() {
                     })}
                   </tbody>
                 </table>
-                {filteredItems.length >= 500 && (
-                  <p className="px-4 py-2 text-xs text-gray-400 border-t border-gray-100">
-                    Mostrando los primeros 500 productos cargados.
-                  </p>
-                )}
               </div>
             )}
           </section>

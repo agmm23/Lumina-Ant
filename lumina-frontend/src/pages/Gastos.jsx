@@ -1,9 +1,10 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import {
   AreaChart, Area, BarChart, Bar, XAxis, YAxis,
   CartesianGrid, Tooltip, ResponsiveContainer, Cell,
 } from 'recharts'
 import { gastosService } from '../services/api'
+import useWatcherRefresh from '../hooks/useWatcherRefresh'
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -22,9 +23,39 @@ function fmtDate(dateStr) {
 
 function fmtShortDate(dateStr) {
   if (!dateStr) return ''
-  const d = new Date(dateStr)
+  const d = new Date(dateStr + 'T00:00:00')
   return d.toLocaleDateString('es-MX', { day: '2-digit', month: 'short' })
 }
+
+function fmtWeek(dateStr) {
+  if (!dateStr) return ''
+  const d = new Date(dateStr + 'T00:00:00')
+  const end = new Date(d)
+  end.setDate(d.getDate() + 6)
+  const fmt = (dt) => dt.toLocaleDateString('es-MX', { day: '2-digit', month: 'short' })
+  return `${fmt(d)} – ${fmt(end)}`
+}
+
+function fmtMonth(dateStr) {
+  if (!dateStr) return ''
+  const d = new Date(dateStr + 'T00:00:00')
+  return d.toLocaleDateString('es-MX', { month: 'short', year: '2-digit' })
+}
+
+function periodToDates(period) {
+  const p = PERIODS.find(x => x.value === period)
+  if (!p || p.days === null) return {}
+  const now = new Date()
+  const from = new Date(now)
+  from.setDate(now.getDate() - p.days)
+  return { date_from: from.toISOString().slice(0, 10) }
+}
+
+const GROUP_OPTIONS = [
+  { value: 'dia', label: 'Día' },
+  { value: 'semana', label: 'Semana' },
+  { value: 'mes', label: 'Mes' },
+]
 
 // ── Constantes ────────────────────────────────────────────────────────────────
 
@@ -68,25 +99,20 @@ function SectionTitle({ children }) {
   )
 }
 
-function CustomTooltipCurrency({ active, payload, label }) {
-  if (!active || !payload?.length) return null
-  return (
-    <div className="bg-white border border-gray-200 rounded-lg shadow-sm px-3 py-2 text-xs">
-      <p className="text-gray-500 mb-1">{fmtShortDate(label)}</p>
-      <p className="font-semibold text-gray-900">{fmtCurrency(payload[0].value)}</p>
-    </div>
-  )
-}
-
 // ── Main Page ─────────────────────────────────────────────────────────────────
 
 function Gastos() {
-  const [gastos, setGastos] = useState([])
+  const [analytics, setAnalytics] = useState(null)
+  const [transacciones, setTransacciones] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-  const [period, setPeriod] = useState('30d')
+  const [period, setPeriod] = useState('all')
+  const [groupBy, setGroupBy] = useState('dia')
+  const [chartType, setChartType] = useState('area') // 'area' | 'bar'
   const [dateFrom, setDateFrom] = useState('')
   const [dateTo, setDateTo] = useState('')
+  const [refreshKey, setRefreshKey] = useState(0)
+  useWatcherRefresh(useCallback(() => setRefreshKey(k => k + 1), []))
 
   function handlePeriodChange(val) {
     setPeriod(val)
@@ -113,109 +139,38 @@ function Gastos() {
   const usingCustomDates = dateFrom || dateTo
 
   useEffect(() => {
+    let cancelled = false
     async function fetchData() {
       setLoading(true)
       setError(null)
       try {
-        const res = await gastosService.getAll({ limit: 500 })
-        setGastos(res.data)
+        const params = { group_by: groupBy }
+        if (dateFrom || dateTo) {
+          if (dateFrom) params.date_from = dateFrom
+          if (dateTo) params.date_to = dateTo
+        } else {
+          const dates = periodToDates(period)
+          if (dates.date_from) params.date_from = dates.date_from
+          if (dates.date_to) params.date_to = dates.date_to
+        }
+
+        const [analyticsRes, txRes] = await Promise.all([
+          gastosService.getAnalytics(params),
+          gastosService.getAll({ ...params, limit: 15 }),
+        ])
+        if (!cancelled) {
+          setAnalytics(analyticsRes.data)
+          setTransacciones(txRes.data)
+        }
       } catch {
-        setError('No se pudo conectar con la API.')
+        if (!cancelled) setError('No se pudo conectar con la API.')
       } finally {
-        setLoading(false)
+        if (!cancelled) setLoading(false)
       }
     }
     fetchData()
-  }, [])
-
-  // Gastos filtrados
-  const filteredGastos = useMemo(() => {
-    if (dateFrom || dateTo) {
-      return gastos.filter(g => {
-        const day = g.fecha?.slice(0, 10) ?? ''
-        if (dateFrom && day < dateFrom) return false
-        if (dateTo && day > dateTo) return false
-        return true
-      })
-    }
-    const p = PERIODS.find(p => p.value === period)
-    if (!p || p.days === null) return gastos
-    const cutoff = new Date()
-    cutoff.setDate(cutoff.getDate() - p.days)
-    const cutoffStr = cutoff.toISOString().slice(0, 10)
-    return gastos.filter(g => (g.fecha?.slice(0, 10) ?? '') >= cutoffStr)
-  }, [gastos, period, dateFrom, dateTo])
-
-  // KPIs calculados
-  const kpis = useMemo(() => {
-    if (!filteredGastos.length) return null
-    const total = filteredGastos.reduce((acc, g) => acc + g.monto, 0)
-    const count = filteredGastos.length
-    const promedio = total / count
-    const catMap = {}
-    filteredGastos.forEach(g => {
-      const cat = g.categoria || 'Sin categoría'
-      catMap[cat] = (catMap[cat] || 0) + g.monto
-    })
-    const topCat = Object.entries(catMap).sort(([, a], [, b]) => b - a)[0]?.[0] ?? '—'
-    const pagoMap = {}
-    filteredGastos.forEach(g => {
-      const tp = g.tipo_pago || 'No especificado'
-      pagoMap[tp] = (pagoMap[tp] || 0) + g.monto
-    })
-    const topPago = Object.entries(pagoMap).sort(([, a], [, b]) => b - a)[0]?.[0] ?? '—'
-    return { total, count, promedio, topCat, topPago }
-  }, [filteredGastos])
-
-  // Gastos por día
-  const gastosPorDia = useMemo(() => {
-    if (!filteredGastos.length) return []
-    const map = {}
-    filteredGastos.forEach(g => {
-      const day = g.fecha?.slice(0, 10) ?? ''
-      if (!map[day]) map[day] = 0
-      map[day] += g.monto
-    })
-    return Object.entries(map)
-      .sort(([a], [b]) => a.localeCompare(b))
-      .map(([fecha, total]) => ({ fecha, total: Math.round(total) }))
-  }, [filteredGastos])
-
-  // Gastos por categoría
-  const gastosPorCategoria = useMemo(() => {
-    if (!filteredGastos.length) return []
-    const map = {}
-    filteredGastos.forEach(g => {
-      const cat = g.categoria || 'Sin categoría'
-      if (!map[cat]) map[cat] = 0
-      map[cat] += g.monto
-    })
-    return Object.entries(map)
-      .sort(([, a], [, b]) => b - a)
-      .slice(0, 7)
-      .map(([categoria, total]) => ({ categoria, total: Math.round(total) }))
-  }, [filteredGastos])
-
-  // Top 5 proveedores
-  const topProveedores = useMemo(() => {
-    if (!filteredGastos.length) return []
-    const map = {}
-    filteredGastos.forEach(g => {
-      const prov = g.nombre_proveedor || 'Sin proveedor'
-      if (!map[prov]) map[prov] = 0
-      map[prov] += g.monto
-    })
-    return Object.entries(map)
-      .sort(([, a], [, b]) => b - a)
-      .slice(0, 5)
-      .map(([nombre, monto]) => ({
-        nombre: nombre.length > 22 ? nombre.slice(0, 22) + '…' : nombre,
-        monto: Math.round(monto),
-      }))
-  }, [filteredGastos])
-
-  // Tabla — últimas 15
-  const transacciones = filteredGastos.slice(0, 15)
+    return () => { cancelled = true }
+  }, [period, groupBy, dateFrom, dateTo, refreshKey])
 
   const periodLabel = usingCustomDates
     ? `${dateFrom || '…'} → ${dateTo || '…'}`
@@ -230,6 +185,8 @@ function Gastos() {
       </div>
     )
   }
+
+  const noData = !analytics || analytics.num_registros === 0
 
   return (
     <div className="p-6 max-w-6xl">
@@ -297,17 +254,11 @@ function Gastos() {
         </div>
       )}
 
-      {gastos.length === 0 && !error ? (
+      {noData && !error ? (
         <div className="p-8 bg-gray-50 border border-dashed border-gray-300 rounded-xl text-center text-gray-500">
           <p className="text-4xl mb-3">💸</p>
           <p className="font-medium">Sin datos de gastos</p>
-          <p className="text-sm mt-1">Carga un CSV en Configuración para comenzar.</p>
-        </div>
-      ) : filteredGastos.length === 0 ? (
-        <div className="p-8 bg-gray-50 border border-dashed border-gray-300 rounded-xl text-center text-gray-500">
-          <p className="text-4xl mb-3">🔍</p>
-          <p className="font-medium">Sin registros en este período</p>
-          <p className="text-sm mt-1">No hay gastos para «{periodLabel}». Prueba un rango más amplio.</p>
+          <p className="text-sm mt-1">Carga un CSV en Configuración para comenzar, o prueba un rango más amplio.</p>
         </div>
       ) : (
         <>
@@ -317,27 +268,26 @@ function Gastos() {
             <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
               <KpiMini
                 title="Total gastos"
-                value={fmtCurrency(kpis?.total)}
+                value={fmtCurrency(analytics.total_gastos)}
                 icon="💸"
                 color="red"
               />
               <KpiMini
                 title="Registros"
-                value={kpis?.count ?? '—'}
-                subtitle={period !== 'all' ? `${gastos.length} totales cargados` : undefined}
+                value={analytics.num_registros.toLocaleString()}
                 icon="🧾"
                 color="orange"
               />
               <KpiMini
                 title="Gasto promedio"
-                value={fmtCurrency(kpis?.promedio)}
+                value={fmtCurrency(analytics.gasto_promedio)}
                 icon="📊"
                 color="purple"
               />
               <KpiMini
                 title="Categoría principal"
-                value={kpis?.topCat ?? '—'}
-                subtitle={kpis?.topPago ? `Pago: ${kpis.topPago}` : undefined}
+                value={analytics.top_categoria}
+                subtitle={analytics.top_tipo_pago ? `Pago: ${analytics.top_tipo_pago}` : undefined}
                 icon="📂"
                 color="amber"
               />
@@ -346,12 +296,51 @@ function Gastos() {
 
           {/* Área chart + Barras por categoría */}
           <section className="mb-8 grid grid-cols-1 gap-6 lg:grid-cols-5">
-            {/* Área chart */}
             <div className="lg:col-span-3 bg-white rounded-xl border border-gray-200 p-5">
-              <SectionTitle>Gastos por día · {periodLabel}</SectionTitle>
-              {gastosPorDia.length > 1 ? (
+              <div className="flex items-center justify-between mb-3">
+                <SectionTitle>Gastos por {groupBy === 'dia' ? 'día' : groupBy} · {periodLabel}</SectionTitle>
+                <div className="flex items-center gap-2">
+                  <div className="flex bg-gray-100 rounded-lg p-0.5">
+                    {GROUP_OPTIONS.map(opt => (
+                      <button
+                        key={opt.value}
+                        onClick={() => setGroupBy(opt.value)}
+                        className={`px-2.5 py-1 text-xs font-medium rounded-md transition-colors cursor-pointer ${
+                          groupBy === opt.value
+                            ? 'bg-white text-rose-600 shadow-sm'
+                            : 'text-gray-500 hover:text-gray-700'
+                        }`}
+                      >
+                        {opt.label}
+                      </button>
+                    ))}
+                  </div>
+                  <div className="flex bg-gray-100 rounded-lg p-0.5">
+                    <button
+                      onClick={() => setChartType('area')}
+                      className={`px-2 py-1 text-xs font-medium rounded-md transition-colors cursor-pointer ${
+                        chartType === 'area' ? 'bg-white text-rose-600 shadow-sm' : 'text-gray-500 hover:text-gray-700'
+                      }`}
+                      title="Línea"
+                    >
+                      📈
+                    </button>
+                    <button
+                      onClick={() => setChartType('bar')}
+                      className={`px-2 py-1 text-xs font-medium rounded-md transition-colors cursor-pointer ${
+                        chartType === 'bar' ? 'bg-white text-rose-600 shadow-sm' : 'text-gray-500 hover:text-gray-700'
+                      }`}
+                      title="Barras"
+                    >
+                      📊
+                    </button>
+                  </div>
+                </div>
+              </div>
+              {analytics.serie_temporal.length > 1 ? (
                 <ResponsiveContainer width="100%" height={220}>
-                  <AreaChart data={gastosPorDia} margin={{ top: 4, right: 4, left: 0, bottom: 0 }}>
+                  {chartType === 'area' ? (
+                  <AreaChart data={analytics.serie_temporal} margin={{ top: 4, right: 4, left: 0, bottom: 0 }}>
                     <defs>
                       <linearGradient id="gradGastos" x1="0" y1="0" x2="0" y2="1">
                         <stop offset="5%" stopColor="#f43f5e" stopOpacity={0.2} />
@@ -361,7 +350,7 @@ function Gastos() {
                     <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
                     <XAxis
                       dataKey="fecha"
-                      tickFormatter={fmtShortDate}
+                      tickFormatter={groupBy === 'mes' ? fmtMonth : groupBy === 'semana' ? fmtWeek : fmtShortDate}
                       tick={{ fontSize: 10, fill: '#9ca3af' }}
                       tickLine={false}
                       interval="preserveStartEnd"
@@ -373,7 +362,11 @@ function Gastos() {
                       axisLine={false}
                       width={40}
                     />
-                    <Tooltip content={<CustomTooltipCurrency />} />
+                    <Tooltip
+                      labelFormatter={groupBy === 'mes' ? fmtMonth : groupBy === 'semana' ? fmtWeek : fmtShortDate}
+                      formatter={v => [fmtCurrency(v), 'Total']}
+                      contentStyle={{ fontSize: 11, borderRadius: 8, border: '1px solid #e5e7eb' }}
+                    />
                     <Area
                       type="monotone"
                       dataKey="total"
@@ -382,19 +375,43 @@ function Gastos() {
                       fill="url(#gradGastos)"
                     />
                   </AreaChart>
+                  ) : (
+                  <BarChart data={analytics.serie_temporal} margin={{ top: 4, right: 4, left: 0, bottom: 0 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                    <XAxis
+                      dataKey="fecha"
+                      tickFormatter={groupBy === 'mes' ? fmtMonth : groupBy === 'semana' ? fmtWeek : fmtShortDate}
+                      tick={{ fontSize: 10, fill: '#9ca3af' }}
+                      tickLine={false}
+                      interval="preserveStartEnd"
+                    />
+                    <YAxis
+                      tickFormatter={v => `$${(v / 1000).toFixed(0)}k`}
+                      tick={{ fontSize: 10, fill: '#9ca3af' }}
+                      tickLine={false}
+                      axisLine={false}
+                      width={40}
+                    />
+                    <Tooltip
+                      labelFormatter={groupBy === 'mes' ? fmtMonth : groupBy === 'semana' ? fmtWeek : fmtShortDate}
+                      formatter={v => [fmtCurrency(v), 'Total']}
+                      contentStyle={{ fontSize: 11, borderRadius: 8, border: '1px solid #e5e7eb' }}
+                    />
+                    <Bar dataKey="total" fill="#f43f5e" radius={[4, 4, 0, 0]} />
+                  </BarChart>
+                  )}
                 </ResponsiveContainer>
               ) : (
-                <p className="text-sm text-gray-400 mt-4">No hay suficientes días para graficar.</p>
+                <p className="text-sm text-gray-400 mt-4">No hay suficientes puntos para graficar.</p>
               )}
             </div>
 
-            {/* Barras por categoría */}
             <div className="lg:col-span-2 bg-white rounded-xl border border-gray-200 p-5">
               <SectionTitle>Por categoría</SectionTitle>
-              {gastosPorCategoria.length > 0 ? (
+              {analytics.por_categoria.length > 0 ? (
                 <ResponsiveContainer width="100%" height={220}>
                   <BarChart
-                    data={gastosPorCategoria}
+                    data={analytics.por_categoria}
                     layout="vertical"
                     margin={{ top: 0, right: 4, left: 0, bottom: 0 }}
                   >
@@ -419,7 +436,7 @@ function Gastos() {
                       contentStyle={{ fontSize: 11, borderRadius: 8, border: '1px solid #e5e7eb' }}
                     />
                     <Bar dataKey="total" radius={[0, 4, 4, 0]}>
-                      {gastosPorCategoria.map((_, i) => (
+                      {analytics.por_categoria.map((_, i) => (
                         <Cell key={i} fill={CATEGORY_COLORS[i % CATEGORY_COLORS.length]} />
                       ))}
                     </Bar>
@@ -432,12 +449,12 @@ function Gastos() {
           </section>
 
           {/* Top 5 proveedores */}
-          {topProveedores.length > 0 && (
+          {analytics.top_proveedores.length > 0 && (
             <section className="mb-8 bg-white rounded-xl border border-gray-200 p-5">
               <SectionTitle>Top 5 proveedores · {periodLabel}</SectionTitle>
               <ResponsiveContainer width="100%" height={160}>
                 <BarChart
-                  data={topProveedores}
+                  data={analytics.top_proveedores}
                   layout="vertical"
                   margin={{ top: 0, right: 16, left: 0, bottom: 0 }}
                 >
@@ -516,9 +533,9 @@ function Gastos() {
                   ))}
                 </tbody>
               </table>
-              {filteredGastos.length > 15 && (
+              {analytics.num_registros > 15 && (
                 <p className="px-4 py-2 text-xs text-gray-400 border-t border-gray-100">
-                  Mostrando 15 de {filteredGastos.length} registros en este período.
+                  Mostrando 15 de {analytics.num_registros.toLocaleString()} registros en este período.
                 </p>
               )}
             </div>

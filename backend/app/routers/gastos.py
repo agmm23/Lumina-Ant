@@ -3,17 +3,24 @@ Lumina_Ant - Router de Gastos
 Endpoints para gestión de gastos: CRUD y carga de archivos CSV
 """
 
-from fastapi import APIRouter, Depends, UploadFile, File, HTTPException, status
+from fastapi import APIRouter, Depends, UploadFile, File, Form, HTTPException, status
 from sqlalchemy.orm import Session
-from typing import List
+from typing import List, Optional
 import pandas as pd
 from datetime import datetime
 from io import BytesIO
+import json
 import logging
+
+from sqlalchemy import func, text as sa_text
 
 from app.database import get_db
 from app.models.models import Gasto
-from app.schemas.schemas import Gasto as GastoSchema, GastoCreate, MessageResponse
+from app.schemas.schemas import (
+    Gasto as GastoSchema, GastoCreate, MessageResponse,
+    GastosAnalytics, TimeSeriesPoint, CategoryBreakdown, TopItem,
+)
+from app.services.csv_import import parse_gastos_df, import_gastos_rows, save_and_watch
 
 logger = logging.getLogger(__name__)
 
@@ -23,6 +30,7 @@ router = APIRouter(prefix="/api/gastos", tags=["gastos"])
 @router.post("/upload-csv", response_model=MessageResponse)
 async def upload_gastos_csv(
     file: UploadFile = File(...),
+    column_mapping: Optional[str] = Form(None),
     db: Session = Depends(get_db)
 ):
     """
@@ -48,84 +56,34 @@ async def upload_gastos_csv(
         )
 
     try:
-        # Leer archivo CSV
         contents = await file.read()
         df = pd.read_csv(BytesIO(contents))
-
         logger.info(f"CSV cargado: {file.filename}, {len(df)} registros")
 
-        # Validar columnas requeridas
-        required_cols = ['fecha', 'descripcion', 'categoria', 'monto']
-        missing_cols = [col for col in required_cols if col not in df.columns]
+        if column_mapping:
+            mapping = json.loads(column_mapping)
+            df = df.rename(columns=mapping)
 
-        if missing_cols:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail=f"Columnas faltantes en CSV: {', '.join(missing_cols)}"
-            )
+        df = parse_gastos_df(df)
+        gastos_creados, errores = import_gastos_rows(df, db)
 
-        # Convertir fecha a datetime
-        try:
-            df['fecha'] = pd.to_datetime(df['fecha'])
-        except Exception as e:
-            logger.error(f"Error convirtiendo fechas: {e}")
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="Formato de fecha inválido. Use YYYY-MM-DD o DD/MM/YYYY"
-            )
-
-        # Validar datos numéricos
-        try:
-            df['monto'] = df['monto'].astype(float)
-        except Exception as e:
-            logger.error(f"Error convirtiendo monto: {e}")
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="Monto inválido en CSV"
-            )
-
-        # Insertar registros en la base de datos
-        gastos_creados = 0
-        errores = []
-
-        for idx, row in df.iterrows():
-            try:
-                gasto = Gasto(
-                    fecha=row['fecha'].to_pydatetime(),
-                    descripcion=str(row['descripcion']),
-                    categoria=str(row['categoria']),
-                    monto=float(row['monto']),
-                    proveedor_id=str(row.get('proveedor_id', '')) if pd.notna(row.get('proveedor_id')) else None,
-                    nombre_proveedor=str(row.get('nombre_proveedor', '')) if pd.notna(row.get('nombre_proveedor')) else None,
-                    tipo_pago=str(row.get('tipo_pago', '')) if pd.notna(row.get('tipo_pago')) else None,
-                    numero_factura=str(row.get('numero_factura', '')) if pd.notna(row.get('numero_factura')) else None,
-                    notas=str(row.get('notas', '')) if pd.notna(row.get('notas')) else None
-                )
-                db.add(gasto)
-                gastos_creados += 1
-            except Exception as e:
-                errores.append(f"Fila {idx + 2}: {str(e)}")
-                logger.warning(f"Error en fila {idx + 2}: {e}")
-
-        db.commit()
+        watched_path = save_and_watch("gastos", df, db, file.filename)
 
         mensaje = f"Se cargaron {gastos_creados} gastos exitosamente"
         if errores:
             mensaje += f". {len(errores)} registros con errores"
-
         logger.info(f"Importación completada: {gastos_creados} gastos, {len(errores)} errores")
 
         return MessageResponse(
             status="success",
             message=mensaje,
-            data={
-                "gastos_creados": gastos_creados,
-                "errores": errores[:10] if errores else []
-            }
+            data={"gastos_creados": gastos_creados, "errores": errores[:10] if errores else [], "watched_path": watched_path},
         )
 
     except HTTPException:
         raise
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
     except Exception as e:
         db.rollback()
         logger.error(f"Error procesando CSV: {e}")
@@ -135,19 +93,137 @@ async def upload_gastos_csv(
         )
 
 
+@router.get("/analytics/resumen", response_model=GastosAnalytics)
+def get_gastos_analytics(
+    date_from: Optional[str] = None,
+    date_to: Optional[str] = None,
+    group_by: str = "dia",
+    db: Session = Depends(get_db),
+):
+    """
+    Retorna todos los datos agregados que necesita la página de Gastos.
+    Toda la agregación se hace en SQL.
+    """
+    filters = []
+    if date_from:
+        filters.append(Gasto.fecha >= date_from)
+    if date_to:
+        filters.append(Gasto.fecha <= date_to + " 23:59:59")
+
+    # ── KPIs ──
+    kpi = db.query(
+        func.coalesce(func.sum(Gasto.monto), 0).label("total"),
+        func.count(Gasto.id).label("count"),
+    ).filter(*filters).first()
+
+    total_gastos = float(kpi.total)
+    num_reg = int(kpi.count)
+    promedio = round(total_gastos / num_reg, 2) if num_reg > 0 else 0.0
+
+    # Top categoría (por monto)
+    top_cat = db.query(
+        func.coalesce(Gasto.categoria, "Sin categoría").label("cat"),
+    ).filter(*filters).group_by("cat").order_by(
+        func.sum(Gasto.monto).desc()
+    ).limit(1).first()
+
+    # Top tipo de pago (por monto)
+    top_tp = db.query(
+        func.coalesce(Gasto.tipo_pago, "Sin tipo").label("tp"),
+    ).filter(*filters).group_by("tp").order_by(
+        func.sum(Gasto.monto).desc()
+    ).limit(1).first()
+
+    # ── Serie temporal ──
+    params = {}
+    if date_from:
+        params["df"] = date_from
+    if date_to:
+        params["dt"] = date_to + " 23:59:59"
+
+    where = "WHERE 1=1"
+    if date_from:
+        where += " AND fecha >= :df"
+    if date_to:
+        where += " AND fecha <= :dt"
+
+    if group_by == "semana":
+        sql = f"""
+            SELECT date(fecha, '-' || ((CAST(strftime('%w', fecha) AS INTEGER) + 6) % 7) || ' days') AS fk,
+                   SUM(monto) AS total
+            FROM gastos {where}
+            GROUP BY fk ORDER BY fk
+        """
+    elif group_by == "mes":
+        sql = f"""
+            SELECT strftime('%Y-%m-01', fecha) AS fk, SUM(monto) AS total
+            FROM gastos {where}
+            GROUP BY fk ORDER BY fk
+        """
+    else:
+        sql = f"""
+            SELECT strftime('%Y-%m-%d', fecha) AS fk, SUM(monto) AS total
+            FROM gastos {where}
+            GROUP BY fk ORDER BY fk
+        """
+
+    serie_rows = db.execute(sa_text(sql), params).fetchall()
+    serie_temporal = [TimeSeriesPoint(fecha=r[0], total=round(float(r[1]))) for r in serie_rows]
+
+    # ── Por categoría (top 7) ──
+    cat_rows = db.query(
+        func.coalesce(Gasto.categoria, "Sin categoría").label("cat"),
+        func.sum(Gasto.monto).label("total"),
+    ).filter(*filters).group_by("cat").order_by(
+        func.sum(Gasto.monto).desc()
+    ).limit(7).all()
+
+    # ── Top 5 proveedores ──
+    prov_rows = db.query(
+        func.coalesce(Gasto.nombre_proveedor, "Sin proveedor").label("prov"),
+        func.sum(Gasto.monto).label("total"),
+    ).filter(*filters).group_by("prov").order_by(
+        func.sum(Gasto.monto).desc()
+    ).limit(5).all()
+
+    return GastosAnalytics(
+        total_gastos=round(total_gastos, 2),
+        num_registros=num_reg,
+        gasto_promedio=promedio,
+        top_categoria=top_cat.cat if top_cat else "N/A",
+        top_tipo_pago=top_tp.tp if top_tp else "N/A",
+        serie_temporal=serie_temporal,
+        por_categoria=[CategoryBreakdown(categoria=r.cat, total=round(float(r.total))) for r in cat_rows],
+        top_proveedores=[
+            TopItem(
+                nombre=r.prov[:22] + "…" if len(r.prov) > 22 else r.prov,
+                monto=round(float(r.total)),
+            ) for r in prov_rows
+        ],
+    )
+
+
 @router.get("/", response_model=List[GastoSchema])
 def get_gastos(
     skip: int = 0,
-    limit: int = 100,
-    db: Session = Depends(get_db)
+    limit: int = 15,
+    date_from: Optional[str] = None,
+    date_to: Optional[str] = None,
+    db: Session = Depends(get_db),
 ):
     """
-    Obtiene lista de gastos con paginación
-
-    - skip: Número de registros a saltar
-    - limit: Número máximo de registros a retornar
+    Obtiene lista de gastos con paginación y filtro de fechas opcionales.
+    limit=0 retorna todos los registros.
     """
-    gastos = db.query(Gasto).order_by(Gasto.fecha.desc()).offset(skip).limit(limit).all()
+    query = db.query(Gasto)
+    if date_from:
+        query = query.filter(Gasto.fecha >= date_from)
+    if date_to:
+        query = query.filter(Gasto.fecha <= date_to + " 23:59:59")
+    query = query.order_by(Gasto.fecha.desc()).offset(skip)
+    if limit > 0:
+        query = query.limit(limit)
+    gastos = query.all()
     logger.info(f"Consultados {len(gastos)} gastos (skip={skip}, limit={limit})")
     return gastos
 

@@ -142,3 +142,34 @@ class Cliente(Base):
 
     def __repr__(self):
         return f"<Cliente {self.id}: {self.nombre} ({self.cliente_id})>"
+
+
+class ColumnMapping(Base):
+    """
+    Mapeos de columnas CSV guardados por usuario y datasource.
+    Permite persistir cómo el usuario mapea sus columnas CSV a los campos del sistema.
+    """
+    __tablename__ = "column_mappings"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(String(100), nullable=False, default="default", index=True)
+    datasource_type = Column(String(50), nullable=False, index=True)
+    original_column = Column(String(200), nullable=False)
+    mapped_column = Column(String(200), nullable=False)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+
+class WatchedFile(Base):
+    """Archivo CSV monitoreado para importación automática."""
+    __tablename__ = "watched_files"
+
+    id = Column(Integer, primary_key=True, index=True)
+    datasource_type = Column(String(20), nullable=False, unique=True)  # ventas|gastos|inventario|clientes
+    file_path = Column(String(500), nullable=False)
+    enabled = Column(Boolean, default=True)
+    last_row_count = Column(Integer, default=0)
+    last_mtime = Column(Float, default=0.0)
+    last_imported_at = Column(DateTime(timezone=True), nullable=True)
+    last_import_count = Column(Integer, default=0)
+    last_error = Column(String(1000), nullable=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())

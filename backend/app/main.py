@@ -9,7 +9,9 @@ import logging
 
 from app.config import get_settings
 from app.database import engine, Base
-from app.routers import ventas, analytics, gastos, inventarios, clientes
+import asyncio
+from app.routers import ventas, analytics, gastos, inventarios, clientes, mappings, watcher
+from app.services.watcher_service import watcher_loop
 
 # Configurar logging
 logging.basicConfig(
@@ -70,8 +72,10 @@ app.include_router(gastos.router)
 app.include_router(inventarios.router)
 app.include_router(clientes.router)
 app.include_router(analytics.router)
+app.include_router(mappings.router)
+app.include_router(watcher.router)
 
-logger.info("Routers registrados: ventas, gastos, inventarios, clientes, analytics")
+logger.info("Routers registrados: ventas, gastos, inventarios, clientes, analytics, mappings, watcher")
 
 
 # Endpoints raíz
@@ -155,14 +159,19 @@ def app_info():
 
 # Event handlers
 
+_watcher_task: asyncio.Task | None = None
+
+
 @app.on_event("startup")
 async def startup_event():
     """
     Acciones al iniciar la aplicación
     """
+    global _watcher_task
     logger.info(f"🚀 {settings.app_name} v{settings.version} iniciada")
     logger.info(f"📊 Base de datos: {settings.database_url}")
     logger.info(f"🤖 IA: {'Configurada' if settings.anthropic_api_key else 'No configurada'}")
+    _watcher_task = asyncio.create_task(watcher_loop())
     logger.info("✅ Aplicación lista para recibir requests")
 
 
@@ -171,6 +180,9 @@ async def shutdown_event():
     """
     Acciones al cerrar la aplicación
     """
+    global _watcher_task
+    if _watcher_task:
+        _watcher_task.cancel()
     logger.info("👋 Cerrando aplicación Lumina_Ant")
 
 

@@ -1,9 +1,10 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, useCallback } from 'react'
 import {
   BarChart, Bar, XAxis, YAxis,
   CartesianGrid, Tooltip, ResponsiveContainer, Cell,
 } from 'recharts'
 import { clientesService } from '../services/api'
+import useWatcherRefresh from '../hooks/useWatcherRefresh'
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -72,8 +73,7 @@ function ActivoBadge({ activo }) {
 
 function Clientes() {
   const [clientes, setClientes] = useState([])
-  const [stats, setStats] = useState(null)
-  const [tiposData, setTiposData] = useState([])
+  const [analytics, setAnalytics] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
@@ -81,24 +81,24 @@ function Clientes() {
   const [search, setSearch] = useState('')
   const [tipoFilter, setTipoFilter] = useState('all')
   const [activoFilter, setActivoFilter] = useState('activos')
+  const [refreshKey, setRefreshKey] = useState(0)
+  useWatcherRefresh(useCallback(() => setRefreshKey(k => k + 1), []))
 
   useEffect(() => {
     async function fetchData() {
       setLoading(true)
       setError(null)
-      const [clientesRes, statsRes, tiposRes] = await Promise.allSettled([
-        clientesService.getAll({ limit: 500, solo_activos: false }),
-        clientesService.getCount(),
-        clientesService.getPorTipo(),
+      const [clientesRes, analyticsRes] = await Promise.allSettled([
+        clientesService.getAll({ solo_activos: false }),
+        clientesService.getAnalytics(),
       ])
       if (clientesRes.status === 'fulfilled') setClientes(clientesRes.value.data)
-      if (statsRes.status === 'fulfilled') setStats(statsRes.value.data)
-      if (tiposRes.status === 'fulfilled') setTiposData(tiposRes.value.data.data ?? [])
+      if (analyticsRes.status === 'fulfilled') setAnalytics(analyticsRes.value.data)
       if (clientesRes.status === 'rejected') setError('No se pudo conectar con la API.')
       setLoading(false)
     }
     fetchData()
-  }, [])
+  }, [refreshKey])
 
   // Tipos únicos para el filtro
   const tipos = useMemo(() => {
@@ -125,43 +125,10 @@ function Clientes() {
     })
   }, [clientes, activoFilter, tipoFilter, search])
 
-  // Clientes por tipo para la gráfica
-  const clientesPorTipo = useMemo(() => {
-    if (tiposData.length > 0) {
-      return tiposData
-        .sort((a, b) => b.cantidad - a.cantidad)
-        .slice(0, 8)
-        .map(({ tipo, cantidad }) => ({ tipo: tipo || 'Sin tipo', cantidad }))
-    }
-    // fallback: computar desde los datos locales
-    const map = {}
-    clientes.filter(c => c.activo).forEach(c => {
-      const t = c.tipo_cliente || 'Sin tipo'
-      map[t] = (map[t] || 0) + 1
-    })
-    return Object.entries(map)
-      .sort(([, a], [, b]) => b - a)
-      .slice(0, 8)
-      .map(([tipo, cantidad]) => ({ tipo, cantidad }))
-  }, [tiposData, clientes])
-
-  // Top ciudades
-  const clientesPorCiudad = useMemo(() => {
-    const map = {}
-    clientes.filter(c => c.ciudad).forEach(c => {
-      map[c.ciudad] = (map[c.ciudad] || 0) + 1
-    })
-    return Object.entries(map)
-      .sort(([, a], [, b]) => b - a)
-      .slice(0, 8)
-      .map(([ciudad, cantidad]) => ({ ciudad, cantidad }))
-  }, [clientes])
-
-  // Métricas globales
-  const ciudadesUnicas = useMemo(
-    () => new Set(clientes.map(c => c.ciudad).filter(Boolean)).size,
-    [clientes]
-  )
+  // Charts from analytics
+  const clientesPorTipo = analytics?.por_tipo ?? []
+  const clientesPorCiudad = analytics?.por_ciudad ?? []
+  const ciudadesUnicas = clientesPorCiudad.length
 
   const activeFilters = search || tipoFilter !== 'all' || activoFilter !== 'activos'
 
@@ -261,26 +228,26 @@ function Clientes() {
             <div className="grid grid-cols-2 gap-4 lg:grid-cols-5">
               <KpiMini
                 title="Total clientes"
-                value={fmtNum(stats?.total_clientes ?? clientes.length)}
+                value={fmtNum(analytics?.total_clientes ?? clientes.length)}
                 icon="👥"
                 color="purple"
               />
               <KpiMini
                 title="Activos"
-                value={fmtNum(stats?.clientes_activos)}
+                value={fmtNum(analytics?.clientes_activos)}
                 subtitle="en operación"
                 icon="✅"
                 color="green"
               />
               <KpiMini
                 title="Inactivos"
-                value={fmtNum(stats?.clientes_inactivos)}
+                value={fmtNum(analytics?.clientes_inactivos)}
                 icon="💤"
                 color="gray"
               />
               <KpiMini
                 title="Tipos"
-                value={fmtNum(tipos.length - 1 || tiposData.length)}
+                value={fmtNum(clientesPorTipo.length)}
                 subtitle="segmentos"
                 icon="🏷️"
                 color="indigo"
@@ -437,11 +404,6 @@ function Clientes() {
                     ))}
                   </tbody>
                 </table>
-                {clientes.length >= 500 && (
-                  <p className="px-4 py-2 text-xs text-gray-400 border-t border-gray-100">
-                    Mostrando los primeros 500 clientes cargados.
-                  </p>
-                )}
               </div>
             )}
           </section>

@@ -1,21 +1,21 @@
-producto_id,nombre_producto,descripcion,categoria,cantidad_actual,cantidad_minima,unidad_medida,precio_compra,precio_venta,proveedor_id,ubicacion
-P001,Laptop Dell Inspiron 15,Laptop 15 pulgadas 16GB RAM 512GB SSD,Electrónica,25,5,unidades,680.00,850.00,PROV020,Almacén A - Estante 1
-P002,Mouse Logitech MX Master,Mouse inalámbrico ergonómico,Accesorios,150,20,unidades,18.00,25.00,PROV021,Almacén B - Estante 3
-P003,Teclado Mecánico Corsair,Teclado mecánico RGB switches azules,Accesorios,45,10,unidades,85.00,120.00,PROV022,Almacén B - Estante 3
-P004,Monitor LG 27 pulgadas,Monitor IPS 27 pulgadas Full HD,Electrónica,18,5,unidades,220.00,300.00,PROV020,Almacén A - Estante 2
-P005,Webcam HD Logitech,Webcam 1080p con micrófono,Accesorios,80,15,unidades,55.00,75.00,PROV021,Almacén B - Estante 4
-P006,Audífonos Sony WH-1000XM4,Audífonos cancelación ruido Bluetooth,Audio,30,8,unidades,210.00,280.00,PROV023,Almacén A - Estante 3
-P007,Cable HDMI 2m,Cable HDMI 2.0 alta velocidad 2 metros,Accesorios,200,30,unidades,8.00,15.00,PROV024,Almacén B - Estante 5
-P008,Disco Duro Externo 1TB,Disco duro portátil USB 3.0 1TB,Almacenamiento,65,12,unidades,60.00,85.00,PROV025,Almacén A - Estante 4
-P009,Impresora HP LaserJet,Impresora láser monocromática,Oficina,8,3,unidades,320.00,450.00,PROV026,Almacén C - Bodega
-P010,Router WiFi TP-Link,Router inalámbrico AC1750,Redes,40,10,unidades,45.00,65.00,PROV027,Almacén B - Estante 2
-P011,Tablet Samsung Galaxy Tab,Tablet 10.1 pulgadas 64GB,Electrónica,22,5,unidades,260.00,350.00,PROV028,Almacén A - Estante 1
-P012,Smartphone Samsung S23,Smartphone 5G 128GB,Móviles,15,4,unidades,720.00,950.00,PROV028,Vitrina Principal
-P013,Cargador USB-C 65W,Cargador rápido USB-C Power Delivery,Accesorios,95,20,unidades,22.00,35.00,PROV024,Almacén B - Estante 5
-P014,Hub USB 4 puertos,Hub USB 3.0 con 4 puertos,Accesorios,120,25,unidades,12.00,20.00,PROV024,Almacén B - Estante 5
-P015,SSD Samsung 1TB,Disco SSD interno SATA 1TB,Almacenamiento,35,8,unidades,75.00,110.00,PROV025,Almacén A - Estante 4
-P016,Memoria RAM 16GB DDR4,Módulo RAM DDR4 3200MHz,Componentes,60,15,unidades,45.00,65.00,PROV029,Almacén C - Estante 1
-P017,Fuente poder 750W,Fuente de poder modular 80+ Gold,Componentes,20,5,unidades,85.00,120.00,PROV029,Almacén C - Estante 1
-P018,Case ATX RGB,Gabinete ATX con panel vidrio templado,Componentes,12,3,unidades,60.00,90.00,PROV029,Almacén C - Bodega
-P019,Mousepad gaming XL,Mousepad extra grande RGB,Accesorios,85,15,unidades,18.00,28.00,PROV022,Almacén B - Estante 3
-P020,Silla gamer ergonómica,Silla gaming con soporte lumbar,Muebles,6,2,unidades,180.00,280.00,PROV030,Almacén C - Bodega
+producto_id,nombre_producto,cantidad_actual,descripcion,categoria,cantidad_minima,unidad_medida,precio_compra,precio_venta,proveedor_id,ubicacion
+P001,Laptop HP ProBook 450,46,Producto de electrónica,Electrónica,18,pieza,8125.0,12500.0,PRV011,Almacén principal
+P002,Monitor Dell 27 pulgadas,57,Producto de electrónica,Electrónica,16,pieza,3770.0,5800.0,PRV008,Bodega B
+P003,Teclado Logitech MX Keys,12,Producto de periféricos,Periféricos,13,pieza,1365.0,2100.0,PRV010,Estante 2
+P004,Mouse Logitech MX Master,98,Producto de periféricos,Periféricos,19,pieza,1072.5,1650.0,PRV001,Almacén principal
+P005,Auriculares Sony WH-1000XM5,81,Producto de audio,Audio,20,pieza,4225.0,6500.0,PRV001,Almacén principal
+P006,Webcam Logitech C920,101,Producto de periféricos,Periféricos,15,pieza,1170.0,1800.0,PRV011,Estante 2
+P007,Disco SSD Samsung 1TB,128,Producto de almacenamiento,Almacenamiento,7,pieza,1430.0,2200.0,PRV006,Bodega B
+P008,Memoria RAM 16GB DDR4,17,Producto de componentes,Componentes,16,pieza,910.0,1400.0,PRV007,Estante 2
+P009,Cable HDMI 2m,18,Producto de accesorios,Accesorios,10,pieza,117.0,180.0,PRV009,Estante 1
+P010,Hub USB-C 7 puertos,66,Producto de accesorios,Accesorios,5,pieza,552.5,850.0,PRV002,Estante 1
+P011,Silla Ergonómica Premium,12,Producto de mobiliario,Mobiliario,5,pieza,5525.0,8500.0,PRV010,Vitrina
+P012,Escritorio Ajustable,70,Producto de mobiliario,Mobiliario,20,pieza,7800.0,12000.0,PRV004,Estante 2
+P013,Impresora HP LaserJet,155,Producto de impresión,Impresión,13,pieza,2925.0,4500.0,PRV008,Estante 2
+P014,Toner HP 26A,57,Producto de consumibles,Consumibles,6,pieza,617.5,950.0,PRV004,Bodega A
+P015,UPS APC 1500VA,168,Producto de energía,Energía,16,pieza,2470.0,3800.0,PRV007,Almacén principal
+P016,Router WiFi 6,84,Producto de redes,Redes,17,pieza,1820.0,2800.0,PRV012,Bodega B
+P017,Switch 24 puertos,63,Producto de redes,Redes,13,pieza,2730.0,4200.0,PRV007,Bodega A
+P018,Tablet Samsung Galaxy Tab,46,Producto de electrónica,Electrónica,7,pieza,4680.0,7200.0,PRV004,Almacén principal
+P019,Cargador Universal 65W,24,Producto de accesorios,Accesorios,5,pieza,422.5,650.0,PRV005,Estante 1
+P020,Mochila para Laptop,166,Producto de accesorios,Accesorios,3,pieza,780.0,1200.0,PRV002,Estante 2

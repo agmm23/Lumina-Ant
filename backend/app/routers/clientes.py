@@ -3,17 +3,21 @@ Lumina_Ant - Router de Clientes
 Endpoints para gestión de clientes: CRUD y carga de archivos CSV
 """
 
-from fastapi import APIRouter, Depends, UploadFile, File, HTTPException, status
+from fastapi import APIRouter, Depends, UploadFile, File, Form, HTTPException, status
 from sqlalchemy.orm import Session
-from typing import List
+from typing import List, Optional
 import pandas as pd
 from datetime import datetime
 from io import BytesIO
+import json
 import logging
+
+from sqlalchemy import func
 
 from app.database import get_db
 from app.models.models import Cliente
-from app.schemas.schemas import Cliente as ClienteSchema, ClienteCreate, ClienteUpdate, MessageResponse
+from app.schemas.schemas import Cliente as ClienteSchema, ClienteCreate, ClienteUpdate, MessageResponse, CiudadCount
+from app.services.csv_import import parse_clientes_df, import_clientes_rows, save_and_watch
 
 logger = logging.getLogger(__name__)
 
@@ -23,6 +27,7 @@ router = APIRouter(prefix="/api/clientes", tags=["clientes"])
 @router.post("/upload-csv", response_model=MessageResponse)
 async def upload_clientes_csv(
     file: UploadFile = File(...),
+    column_mapping: Optional[str] = Form(None),
     db: Session = Depends(get_db)
 ):
     """
@@ -51,105 +56,34 @@ async def upload_clientes_csv(
         )
 
     try:
-        # Leer archivo CSV
         contents = await file.read()
         df = pd.read_csv(BytesIO(contents))
-
         logger.info(f"CSV cargado: {file.filename}, {len(df)} registros")
 
-        # Validar columnas requeridas
-        required_cols = ['cliente_id', 'nombre', 'fecha_registro']
-        missing_cols = [col for col in required_cols if col not in df.columns]
+        if column_mapping:
+            mapping = json.loads(column_mapping)
+            df = df.rename(columns=mapping)
 
-        if missing_cols:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail=f"Columnas faltantes en CSV: {', '.join(missing_cols)}"
-            )
+        df = parse_clientes_df(df)
+        clientes_creados, clientes_actualizados, errores = import_clientes_rows(df, db)
 
-        # Convertir fecha a datetime
-        try:
-            df['fecha_registro'] = pd.to_datetime(df['fecha_registro'])
-        except Exception as e:
-            logger.error(f"Error convirtiendo fechas: {e}")
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="Formato de fecha inválido. Use YYYY-MM-DD o DD/MM/YYYY"
-            )
-
-        # Convertir activo a booleano si existe
-        if 'activo' in df.columns:
-            df['activo'] = df['activo'].fillna(True).astype(bool)
-
-        # Insertar o actualizar registros en la base de datos
-        clientes_creados = 0
-        clientes_actualizados = 0
-        errores = []
-
-        for idx, row in df.iterrows():
-            try:
-                cliente_id = str(row['cliente_id'])
-
-                # Verificar si ya existe
-                existing = db.query(Cliente).filter(Cliente.cliente_id == cliente_id).first()
-
-                if existing:
-                    # Actualizar
-                    existing.nombre = str(row['nombre'])
-                    existing.email = str(row.get('email', '')) if pd.notna(row.get('email')) else None
-                    existing.telefono = str(row.get('telefono', '')) if pd.notna(row.get('telefono')) else None
-                    existing.direccion = str(row.get('direccion', '')) if pd.notna(row.get('direccion')) else None
-                    existing.ciudad = str(row.get('ciudad', '')) if pd.notna(row.get('ciudad')) else None
-                    existing.codigo_postal = str(row.get('codigo_postal', '')) if pd.notna(row.get('codigo_postal')) else None
-                    existing.rfc = str(row.get('rfc', '')) if pd.notna(row.get('rfc')) else None
-                    existing.tipo_cliente = str(row.get('tipo_cliente', '')) if pd.notna(row.get('tipo_cliente')) else None
-                    existing.fecha_registro = row['fecha_registro'].to_pydatetime()
-                    existing.notas = str(row.get('notas', '')) if pd.notna(row.get('notas')) else None
-                    existing.activo = bool(row.get('activo', True)) if pd.notna(row.get('activo')) else True
-                    clientes_actualizados += 1
-                else:
-                    # Crear nuevo
-                    cliente = Cliente(
-                        cliente_id=cliente_id,
-                        nombre=str(row['nombre']),
-                        email=str(row.get('email', '')) if pd.notna(row.get('email')) else None,
-                        telefono=str(row.get('telefono', '')) if pd.notna(row.get('telefono')) else None,
-                        direccion=str(row.get('direccion', '')) if pd.notna(row.get('direccion')) else None,
-                        ciudad=str(row.get('ciudad', '')) if pd.notna(row.get('ciudad')) else None,
-                        codigo_postal=str(row.get('codigo_postal', '')) if pd.notna(row.get('codigo_postal')) else None,
-                        rfc=str(row.get('rfc', '')) if pd.notna(row.get('rfc')) else None,
-                        tipo_cliente=str(row.get('tipo_cliente', '')) if pd.notna(row.get('tipo_cliente')) else None,
-                        fecha_registro=row['fecha_registro'].to_pydatetime(),
-                        notas=str(row.get('notas', '')) if pd.notna(row.get('notas')) else None,
-                        activo=bool(row.get('activo', True)) if pd.notna(row.get('activo')) else True
-                    )
-                    db.add(cliente)
-                    clientes_creados += 1
-
-            except Exception as e:
-                errores.append(f"Fila {idx + 2}: {str(e)}")
-                logger.warning(f"Error en fila {idx + 2}: {e}")
-
-        db.commit()
+        watched_path = save_and_watch("clientes", df, db, file.filename)
 
         mensaje = f"Se procesaron {clientes_creados + clientes_actualizados} clientes: {clientes_creados} creados, {clientes_actualizados} actualizados"
         if errores:
             mensaje += f". {len(errores)} registros con errores"
-
         logger.info(f"Importación completada: {clientes_creados} creados, {clientes_actualizados} actualizados, {len(errores)} errores")
 
         return MessageResponse(
             status="success",
             message=mensaje,
-            data={
-                "clientes_creados": clientes_creados,
-                "clientes_actualizados": clientes_actualizados,
-                "errores": errores[:10] if errores else []
-            }
+            data={"clientes_creados": clientes_creados, "clientes_actualizados": clientes_actualizados, "errores": errores[:10] if errores else [], "watched_path": watched_path},
         )
 
     except HTTPException:
         raise
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
     except Exception as e:
         db.rollback()
         logger.error(f"Error procesando CSV: {e}")
@@ -159,26 +93,57 @@ async def upload_clientes_csv(
         )
 
 
+@router.get("/analytics/resumen")
+def get_clientes_analytics(db: Session = Depends(get_db)):
+    """
+    Retorna KPIs agregados de clientes.
+    """
+    total = db.query(func.count(Cliente.id)).scalar()
+    activos = db.query(func.count(Cliente.id)).filter(Cliente.activo == True).scalar()
+
+    # Por tipo
+    tipo_rows = db.query(
+        func.coalesce(Cliente.tipo_cliente, "Sin tipo").label("tipo"),
+        func.count(Cliente.id).label("cant"),
+    ).filter(Cliente.activo == True).group_by("tipo").all()
+
+    # Por ciudad (top 8)
+    ciudad_rows = db.query(
+        func.coalesce(Cliente.ciudad, "Sin ciudad").label("ciudad"),
+        func.count(Cliente.id).label("cant"),
+    ).filter(Cliente.activo == True).group_by("ciudad").order_by(
+        func.count(Cliente.id).desc()
+    ).limit(8).all()
+
+    return {
+        "total_clientes": int(total),
+        "clientes_activos": int(activos),
+        "clientes_inactivos": int(total) - int(activos),
+        "por_tipo": [{"tipo": r.tipo, "cantidad": int(r.cant)} for r in tipo_rows],
+        "por_ciudad": [CiudadCount(ciudad=r.ciudad, cantidad=int(r.cant)) for r in ciudad_rows],
+    }
+
+
 @router.get("/", response_model=List[ClienteSchema])
 def get_clientes(
     skip: int = 0,
-    limit: int = 100,
+    limit: int = 0,
     solo_activos: bool = True,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
 ):
     """
-    Obtiene lista de clientes con paginación
-
-    - skip: Número de registros a saltar
-    - limit: Número máximo de registros a retornar
-    - solo_activos: Si True, solo retorna clientes activos
+    Obtiene lista de clientes con paginación.
+    limit=0 retorna todos los registros.
     """
     query = db.query(Cliente)
 
     if solo_activos:
         query = query.filter(Cliente.activo == True)
 
-    clientes = query.order_by(Cliente.nombre).offset(skip).limit(limit).all()
+    query = query.order_by(Cliente.nombre).offset(skip)
+    if limit > 0:
+        query = query.limit(limit)
+    clientes = query.all()
     logger.info(f"Consultados {len(clientes)} clientes (skip={skip}, limit={limit}, solo_activos={solo_activos})")
     return clientes
 

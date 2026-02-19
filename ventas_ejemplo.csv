@@ -1,41 +1,2476 @@
 fecha,producto_id,nombre_producto,cantidad,precio_unitario,monto_total,cliente_id,categoria
-2024-01-15,P001,Laptop Dell Inspiron 15,2,850.00,1700.00,C001,Electrónica
-2024-01-15,P002,Mouse Logitech MX Master,5,25.00,125.00,C002,Accesorios
-2024-01-16,P003,Teclado Mecánico Corsair,3,120.00,360.00,C001,Accesorios
-2024-01-16,P001,Laptop Dell Inspiron 15,1,850.00,850.00,C003,Electrónica
-2024-01-17,P004,Monitor LG 27 pulgadas,2,300.00,600.00,C002,Electrónica
-2024-01-17,P002,Mouse Logitech MX Master,10,25.00,250.00,C004,Accesorios
-2024-01-18,P001,Laptop Dell Inspiron 15,4,850.00,3400.00,C005,Electrónica
-2024-01-18,P005,Webcam HD Logitech,6,75.00,450.00,C001,Accesorios
-2024-01-19,P003,Teclado Mecánico Corsair,2,120.00,240.00,C003,Accesorios
-2024-01-19,P001,Laptop Dell Inspiron 15,1,850.00,850.00,C002,Electrónica
-2024-01-20,P006,Audífonos Sony WH-1000XM4,3,280.00,840.00,C006,Audio
-2024-01-20,P007,Cable HDMI 2m,8,15.00,120.00,C004,Accesorios
-2024-01-21,P004,Monitor LG 27 pulgadas,3,300.00,900.00,C007,Electrónica
-2024-01-21,P002,Mouse Logitech MX Master,7,25.00,175.00,C003,Accesorios
-2024-01-22,P008,Disco Duro Externo 1TB,5,85.00,425.00,C001,Almacenamiento
-2024-01-22,P001,Laptop Dell Inspiron 15,2,850.00,1700.00,C008,Electrónica
-2024-01-23,P009,Impresora HP LaserJet,1,450.00,450.00,C005,Oficina
-2024-01-23,P003,Teclado Mecánico Corsair,4,120.00,480.00,C002,Accesorios
-2024-01-24,P010,Router WiFi TP-Link,6,65.00,390.00,C009,Redes
-2024-01-24,P006,Audífonos Sony WH-1000XM4,2,280.00,560.00,C004,Audio
-2024-01-25,P004,Monitor LG 27 pulgadas,1,300.00,300.00,C010,Electrónica
-2024-01-25,P008,Disco Duro Externo 1TB,3,85.00,255.00,C003,Almacenamiento
-2024-01-26,P001,Laptop Dell Inspiron 15,3,850.00,2550.00,C011,Electrónica
-2024-01-26,P002,Mouse Logitech MX Master,12,25.00,300.00,C007,Accesorios
-2024-01-27,P011,Tablet Samsung Galaxy Tab,2,350.00,700.00,C006,Electrónica
-2024-01-27,P007,Cable HDMI 2m,15,15.00,225.00,C012,Accesorios
-2024-01-28,P009,Impresora HP LaserJet,2,450.00,900.00,C008,Oficina
-2024-01-28,P003,Teclado Mecánico Corsair,5,120.00,600.00,C001,Accesorios
-2024-01-29,P006,Audífonos Sony WH-1000XM4,4,280.00,1120.00,C013,Audio
-2024-01-29,P010,Router WiFi TP-Link,3,65.00,195.00,C002,Redes
-2024-01-30,P001,Laptop Dell Inspiron 15,5,850.00,4250.00,C014,Electrónica
-2024-01-30,P004,Monitor LG 27 pulgadas,2,300.00,600.00,C005,Electrónica
-2024-01-31,P008,Disco Duro Externo 1TB,8,85.00,680.00,C009,Almacenamiento
-2024-01-31,P002,Mouse Logitech MX Master,20,25.00,500.00,C015,Accesorios
-2024-02-01,P012,Smartphone Samsung S23,1,950.00,950.00,C006,Móviles
-2024-02-01,P011,Tablet Samsung Galaxy Tab,3,350.00,1050.00,C010,Electrónica
-2024-02-02,P001,Laptop Dell Inspiron 15,6,850.00,5100.00,C016,Electrónica
-2024-02-02,P003,Teclado Mecánico Corsair,8,120.00,960.00,C004,Accesorios
-2024-02-03,P006,Audífonos Sony WH-1000XM4,5,280.00,1400.00,C017,Audio
-2024-02-03,P009,Impresora HP LaserJet,3,450.00,1350.00,C011,Oficina
+2024-01-01,P001,Laptop HP ProBook 450,5,12181.11,60905.55,C012,Electrónica
+2024-01-01,P005,Auriculares Sony WH-1000XM5,2,6614.85,13229.7,C012,Audio
+2024-01-02,P003,Teclado Logitech MX Keys,7,2001.67,14011.69,C010,Periféricos
+2024-01-02,P003,Teclado Logitech MX Keys,4,2101.12,8404.48,C004,Periféricos
+2024-01-02,P001,Laptop HP ProBook 450,4,12770.02,51080.08,C009,Electrónica
+2024-01-02,P018,Tablet Samsung Galaxy Tab,4,7163.43,28653.72,C007,Electrónica
+2024-01-02,P009,Cable HDMI 2m,1,184.66,184.66,C013,Accesorios
+2024-01-02,P006,Webcam Logitech C920,7,1771.25,12398.75,C012,Periféricos
+2024-01-03,P007,Disco SSD Samsung 1TB,6,2112.49,12674.94,C013,Almacenamiento
+2024-01-03,P013,Impresora HP LaserJet,6,4656.37,27938.22,C002,Impresión
+2024-01-03,P020,Mochila para Laptop,1,1227.57,1227.57,C005,Accesorios
+2024-01-04,P004,Mouse Logitech MX Master,7,1580.5,11063.5,C015,Periféricos
+2024-01-04,P010,Hub USB-C 7 puertos,10,882.76,8827.6,C014,Accesorios
+2024-01-04,P012,Escritorio Ajustable,4,12245.49,48981.96,C010,Mobiliario
+2024-01-04,P002,Monitor Dell 27 pulgadas,4,5958.38,23833.52,C011,Electrónica
+2024-01-04,P003,Teclado Logitech MX Keys,4,2176.96,8707.84,C014,Periféricos
+2024-01-04,P013,Impresora HP LaserJet,8,4561.06,36488.48,C005,Impresión
+2024-01-05,P006,Webcam Logitech C920,6,1747.71,10486.26,C006,Periféricos
+2024-01-05,P009,Cable HDMI 2m,2,181.96,363.92,C012,Accesorios
+2024-01-05,P006,Webcam Logitech C920,4,1739.41,6957.64,C009,Periféricos
+2024-01-05,P013,Impresora HP LaserJet,9,4373.83,39364.47,C005,Impresión
+2024-01-06,P002,Monitor Dell 27 pulgadas,1,5976.93,5976.93,C004,Electrónica
+2024-01-07,P009,Cable HDMI 2m,4,187.44,749.76,C002,Accesorios
+2024-01-08,P011,Silla Ergonómica Premium,8,8411.29,67290.32,C004,Mobiliario
+2024-01-08,P015,UPS APC 1500VA,5,3663.06,18315.3,C003,Energía
+2024-01-08,P018,Tablet Samsung Galaxy Tab,5,7377.85,36889.25,C009,Electrónica
+2024-01-08,P014,Toner HP 26A,10,940.44,9404.4,C015,Consumibles
+2024-01-08,P008,Memoria RAM 16GB DDR4,9,1399.09,12591.81,C003,Componentes
+2024-01-08,P002,Monitor Dell 27 pulgadas,2,5598.65,11197.3,C014,Electrónica
+2024-01-09,P014,Toner HP 26A,2,939.05,1878.1,C010,Consumibles
+2024-01-09,P020,Mochila para Laptop,9,1170.17,10531.53,C008,Accesorios
+2024-01-09,P018,Tablet Samsung Galaxy Tab,1,7329.8,7329.8,C014,Electrónica
+2024-01-10,P018,Tablet Samsung Galaxy Tab,5,7393.39,36966.95,C013,Electrónica
+2024-01-10,P011,Silla Ergonómica Premium,5,8444.55,42222.75,C002,Mobiliario
+2024-01-11,P001,Laptop HP ProBook 450,5,13089.86,65449.3,C012,Electrónica
+2024-01-11,P006,Webcam Logitech C920,2,1866.69,3733.38,C009,Periféricos
+2024-01-11,P010,Hub USB-C 7 puertos,9,859.26,7733.34,C014,Accesorios
+2024-01-11,P005,Auriculares Sony WH-1000XM5,3,6525.6,19576.8,C006,Audio
+2024-01-11,P017,Switch 24 puertos,1,4241.56,4241.56,C015,Redes
+2024-01-12,P001,Laptop HP ProBook 450,6,12973.4,77840.4,C002,Electrónica
+2024-01-12,P010,Hub USB-C 7 puertos,1,827.97,827.97,C004,Accesorios
+2024-01-12,P019,Cargador Universal 65W,2,665.07,1330.14,C002,Accesorios
+2024-01-12,P003,Teclado Logitech MX Keys,9,2155.83,19402.47,C013,Periféricos
+2024-01-12,P005,Auriculares Sony WH-1000XM5,8,6790.45,54323.6,C011,Audio
+2024-01-14,P017,Switch 24 puertos,10,4167.72,41677.2,C014,Redes
+2024-01-15,P018,Tablet Samsung Galaxy Tab,4,7353.32,29413.28,C013,Electrónica
+2024-01-15,P013,Impresora HP LaserJet,6,4472.15,26832.9,C011,Impresión
+2024-01-15,P017,Switch 24 puertos,2,4094.12,8188.24,C008,Redes
+2024-01-16,P011,Silla Ergonómica Premium,10,8545.83,85458.3,C001,Mobiliario
+2024-01-16,P019,Cargador Universal 65W,1,622.11,622.11,C004,Accesorios
+2024-01-17,P008,Memoria RAM 16GB DDR4,1,1450.35,1450.35,C002,Componentes
+2024-01-17,P003,Teclado Logitech MX Keys,4,2053.48,8213.92,C009,Periféricos
+2024-01-18,P007,Disco SSD Samsung 1TB,3,2249.14,6747.42,C009,Almacenamiento
+2024-01-18,P019,Cargador Universal 65W,8,633.29,5066.32,C010,Accesorios
+2024-01-18,P016,Router WiFi 6,7,2713.31,18993.17,C013,Redes
+2024-01-18,P004,Mouse Logitech MX Master,7,1625.96,11381.72,C011,Periféricos
+2024-01-18,P014,Toner HP 26A,1,966.47,966.47,C008,Consumibles
+2024-01-19,P002,Monitor Dell 27 pulgadas,6,5974.34,35846.04,C007,Electrónica
+2024-01-19,P004,Mouse Logitech MX Master,4,1598.88,6395.52,C004,Periféricos
+2024-01-20,P005,Auriculares Sony WH-1000XM5,3,6356.05,19068.15,C007,Audio
+2024-01-22,P015,UPS APC 1500VA,9,3647.21,32824.89,C013,Energía
+2024-01-22,P018,Tablet Samsung Galaxy Tab,1,7537.68,7537.68,C014,Electrónica
+2024-01-23,P006,Webcam Logitech C920,8,1796.64,14373.12,C007,Periféricos
+2024-01-23,P013,Impresora HP LaserJet,1,4349.09,4349.09,C015,Impresión
+2024-01-23,P001,Laptop HP ProBook 450,5,13033.15,65165.75,C007,Electrónica
+2024-01-24,P010,Hub USB-C 7 puertos,9,863.76,7773.84,C007,Accesorios
+2024-01-24,P016,Router WiFi 6,4,2743.08,10972.32,C003,Redes
+2024-01-24,P002,Monitor Dell 27 pulgadas,9,5545.36,49908.24,C010,Electrónica
+2024-01-24,P011,Silla Ergonómica Premium,1,8571.55,8571.55,C001,Mobiliario
+2024-01-24,P017,Switch 24 puertos,9,4056.12,36505.08,C015,Redes
+2024-01-25,P003,Teclado Logitech MX Keys,3,2009.39,6028.17,C014,Periféricos
+2024-01-25,P003,Teclado Logitech MX Keys,4,2079.79,8319.16,C011,Periféricos
+2024-01-25,P019,Cargador Universal 65W,10,656.14,6561.4,C004,Accesorios
+2024-01-25,P020,Mochila para Laptop,7,1218.88,8532.16,C002,Accesorios
+2024-01-25,P019,Cargador Universal 65W,6,678.26,4069.56,C009,Accesorios
+2024-01-25,P007,Disco SSD Samsung 1TB,6,2142.51,12855.06,C011,Almacenamiento
+2024-01-26,P005,Auriculares Sony WH-1000XM5,5,6472.2,32361.0,C011,Audio
+2024-01-26,P003,Teclado Logitech MX Keys,8,2125.44,17003.52,C001,Periféricos
+2024-01-26,P019,Cargador Universal 65W,2,652.45,1304.9,C002,Accesorios
+2024-01-26,P017,Switch 24 puertos,3,4381.97,13145.91,C005,Redes
+2024-01-26,P003,Teclado Logitech MX Keys,4,2072.6,8290.4,C015,Periféricos
+2024-01-28,P018,Tablet Samsung Galaxy Tab,5,7280.41,36402.05,C012,Electrónica
+2024-01-29,P001,Laptop HP ProBook 450,9,12249.22,110242.98,C011,Electrónica
+2024-01-29,P004,Mouse Logitech MX Master,3,1611.14,4833.42,C015,Periféricos
+2024-01-29,P004,Mouse Logitech MX Master,9,1593.15,14338.35,C012,Periféricos
+2024-01-29,P010,Hub USB-C 7 puertos,4,868.5,3474.0,C010,Accesorios
+2024-01-29,P007,Disco SSD Samsung 1TB,5,2201.19,11005.95,C011,Almacenamiento
+2024-01-29,P009,Cable HDMI 2m,1,172.66,172.66,C015,Accesorios
+2024-01-30,P009,Cable HDMI 2m,1,177.0,177.0,C001,Accesorios
+2024-01-30,P005,Auriculares Sony WH-1000XM5,5,6280.03,31400.15,C011,Audio
+2024-01-30,P015,UPS APC 1500VA,7,3823.14,26761.98,C009,Energía
+2024-01-30,P004,Mouse Logitech MX Master,3,1657.52,4972.56,C002,Periféricos
+2024-01-30,P012,Escritorio Ajustable,9,11577.71,104199.39,C010,Mobiliario
+2024-01-31,P002,Monitor Dell 27 pulgadas,6,6031.41,36188.46,C005,Electrónica
+2024-01-31,P002,Monitor Dell 27 pulgadas,6,5631.84,33791.04,C015,Electrónica
+2024-01-31,P008,Memoria RAM 16GB DDR4,2,1379.52,2759.04,C011,Componentes
+2024-02-01,P014,Toner HP 26A,3,990.45,2971.35,C010,Consumibles
+2024-02-01,P008,Memoria RAM 16GB DDR4,3,1466.67,4400.01,C014,Componentes
+2024-02-01,P006,Webcam Logitech C920,7,1714.46,12001.22,C015,Periféricos
+2024-02-01,P011,Silla Ergonómica Premium,7,8756.9,61298.3,C013,Mobiliario
+2024-02-01,P008,Memoria RAM 16GB DDR4,3,1440.23,4320.69,C005,Componentes
+2024-02-01,P004,Mouse Logitech MX Master,1,1709.17,1709.17,C007,Periféricos
+2024-02-02,P007,Disco SSD Samsung 1TB,8,2166.92,17335.36,C014,Almacenamiento
+2024-02-02,P008,Memoria RAM 16GB DDR4,1,1422.4,1422.4,C004,Componentes
+2024-02-02,P013,Impresora HP LaserJet,5,4663.96,23319.8,C006,Impresión
+2024-02-03,P012,Escritorio Ajustable,9,11879.61,106916.49,C011,Mobiliario
+2024-02-04,P011,Silla Ergonómica Premium,2,8820.48,17640.96,C001,Mobiliario
+2024-02-04,P009,Cable HDMI 2m,10,188.33,1883.3,C003,Accesorios
+2024-02-05,P002,Monitor Dell 27 pulgadas,10,5762.05,57620.5,C002,Electrónica
+2024-02-05,P011,Silla Ergonómica Premium,10,8911.6,89116.0,C007,Mobiliario
+2024-02-05,P004,Mouse Logitech MX Master,10,1598.86,15988.6,C007,Periféricos
+2024-02-05,P002,Monitor Dell 27 pulgadas,7,5510.98,38576.86,C012,Electrónica
+2024-02-06,P007,Disco SSD Samsung 1TB,7,2105.39,14737.73,C006,Almacenamiento
+2024-02-06,P011,Silla Ergonómica Premium,6,8638.88,51833.28,C010,Mobiliario
+2024-02-06,P004,Mouse Logitech MX Master,5,1651.18,8255.9,C012,Periféricos
+2024-02-06,P014,Toner HP 26A,7,968.73,6781.11,C006,Consumibles
+2024-02-06,P018,Tablet Samsung Galaxy Tab,4,7142.72,28570.88,C003,Electrónica
+2024-02-06,P013,Impresora HP LaserJet,3,4551.98,13655.94,C011,Impresión
+2024-02-07,P013,Impresora HP LaserJet,1,4411.74,4411.74,C009,Impresión
+2024-02-07,P007,Disco SSD Samsung 1TB,10,2223.47,22234.7,C007,Almacenamiento
+2024-02-07,P011,Silla Ergonómica Premium,8,8450.84,67606.72,C008,Mobiliario
+2024-02-07,P007,Disco SSD Samsung 1TB,8,2264.62,18116.96,C009,Almacenamiento
+2024-02-08,P003,Teclado Logitech MX Keys,9,2134.41,19209.69,C005,Periféricos
+2024-02-08,P020,Mochila para Laptop,2,1238.21,2476.42,C006,Accesorios
+2024-02-08,P008,Memoria RAM 16GB DDR4,5,1361.45,6807.25,C011,Componentes
+2024-02-09,P005,Auriculares Sony WH-1000XM5,1,6334.15,6334.15,C001,Audio
+2024-02-09,P016,Router WiFi 6,2,2787.52,5575.04,C010,Redes
+2024-02-09,P019,Cargador Universal 65W,7,649.63,4547.41,C004,Accesorios
+2024-02-12,P004,Mouse Logitech MX Master,7,1603.61,11225.27,C013,Periféricos
+2024-02-12,P017,Switch 24 puertos,1,4224.11,4224.11,C008,Redes
+2024-02-13,P015,UPS APC 1500VA,8,3863.68,30909.44,C003,Energía
+2024-02-13,P018,Tablet Samsung Galaxy Tab,6,7524.03,45144.18,C010,Electrónica
+2024-02-14,P020,Mochila para Laptop,9,1191.21,10720.89,C014,Accesorios
+2024-02-14,P018,Tablet Samsung Galaxy Tab,3,7375.43,22126.29,C008,Electrónica
+2024-02-14,P016,Router WiFi 6,5,2870.5,14352.5,C008,Redes
+2024-02-14,P009,Cable HDMI 2m,9,179.72,1617.48,C013,Accesorios
+2024-02-14,P008,Memoria RAM 16GB DDR4,8,1340.85,10726.8,C005,Componentes
+2024-02-15,P008,Memoria RAM 16GB DDR4,6,1374.76,8248.56,C005,Componentes
+2024-02-15,P018,Tablet Samsung Galaxy Tab,3,6948.6,20845.8,C002,Electrónica
+2024-02-15,P013,Impresora HP LaserJet,3,4592.89,13778.67,C012,Impresión
+2024-02-15,P003,Teclado Logitech MX Keys,7,2064.49,14451.43,C007,Periféricos
+2024-02-16,P014,Toner HP 26A,4,981.62,3926.48,C001,Consumibles
+2024-02-16,P013,Impresora HP LaserJet,10,4700.73,47007.3,C015,Impresión
+2024-02-16,P001,Laptop HP ProBook 450,10,12350.48,123504.8,C014,Electrónica
+2024-02-16,P001,Laptop HP ProBook 450,5,12816.84,64084.2,C006,Electrónica
+2024-02-16,P014,Toner HP 26A,9,978.49,8806.41,C009,Consumibles
+2024-02-18,P008,Memoria RAM 16GB DDR4,7,1397.99,9785.93,C005,Componentes
+2024-02-19,P011,Silla Ergonómica Premium,7,8690.55,60833.85,C011,Mobiliario
+2024-02-19,P015,UPS APC 1500VA,3,3982.67,11948.01,C015,Energía
+2024-02-19,P018,Tablet Samsung Galaxy Tab,7,7266.16,50863.12,C001,Electrónica
+2024-02-19,P001,Laptop HP ProBook 450,7,12044.62,84312.34,C002,Electrónica
+2024-02-19,P015,UPS APC 1500VA,1,3708.86,3708.86,C003,Energía
+2024-02-20,P007,Disco SSD Samsung 1TB,6,2164.25,12985.5,C008,Almacenamiento
+2024-02-20,P013,Impresora HP LaserJet,7,4388.52,30719.64,C005,Impresión
+2024-02-20,P003,Teclado Logitech MX Keys,1,2152.3,2152.3,C008,Periféricos
+2024-02-20,P002,Monitor Dell 27 pulgadas,4,5887.08,23548.32,C006,Electrónica
+2024-02-21,P001,Laptop HP ProBook 450,4,12924.04,51696.16,C004,Electrónica
+2024-02-21,P020,Mochila para Laptop,4,1155.15,4620.6,C003,Accesorios
+2024-02-22,P019,Cargador Universal 65W,8,662.97,5303.76,C004,Accesorios
+2024-02-22,P012,Escritorio Ajustable,10,12128.7,121287.0,C003,Mobiliario
+2024-02-23,P006,Webcam Logitech C920,2,1814.16,3628.32,C005,Periféricos
+2024-02-23,P010,Hub USB-C 7 puertos,7,841.22,5888.54,C010,Accesorios
+2024-02-24,P007,Disco SSD Samsung 1TB,10,2241.94,22419.4,C002,Almacenamiento
+2024-02-24,P008,Memoria RAM 16GB DDR4,5,1449.04,7245.2,C002,Componentes
+2024-02-25,P004,Mouse Logitech MX Master,10,1696.63,16966.3,C013,Periféricos
+2024-02-25,P012,Escritorio Ajustable,7,12193.83,85356.81,C009,Mobiliario
+2024-02-26,P017,Switch 24 puertos,6,3995.31,23971.86,C011,Redes
+2024-02-26,P014,Toner HP 26A,8,912.53,7300.24,C014,Consumibles
+2024-02-27,P015,UPS APC 1500VA,3,3775.49,11326.47,C012,Energía
+2024-02-27,P017,Switch 24 puertos,5,4248.68,21243.4,C011,Redes
+2024-02-27,P018,Tablet Samsung Galaxy Tab,8,7174.71,57397.68,C013,Electrónica
+2024-02-27,P019,Cargador Universal 65W,6,672.86,4037.16,C005,Accesorios
+2024-02-28,P009,Cable HDMI 2m,8,175.39,1403.12,C015,Accesorios
+2024-02-28,P015,UPS APC 1500VA,10,3863.91,38639.1,C010,Energía
+2024-02-29,P001,Laptop HP ProBook 450,6,12102.3,72613.8,C008,Electrónica
+2024-02-29,P007,Disco SSD Samsung 1TB,5,2164.87,10824.35,C006,Almacenamiento
+2024-02-29,P020,Mochila para Laptop,5,1206.69,6033.45,C012,Accesorios
+2024-02-29,P017,Switch 24 puertos,2,4091.37,8182.74,C004,Redes
+2024-03-01,P016,Router WiFi 6,4,2853.37,11413.48,C009,Redes
+2024-03-01,P016,Router WiFi 6,1,2686.05,2686.05,C008,Redes
+2024-03-01,P008,Memoria RAM 16GB DDR4,4,1372.87,5491.48,C007,Componentes
+2024-03-01,P019,Cargador Universal 65W,8,653.48,5227.84,C006,Accesorios
+2024-03-01,P012,Escritorio Ajustable,9,11796.95,106172.55,C007,Mobiliario
+2024-03-02,P015,UPS APC 1500VA,5,3705.53,18527.65,C005,Energía
+2024-03-02,P004,Mouse Logitech MX Master,4,1619.57,6478.28,C012,Periféricos
+2024-03-03,P018,Tablet Samsung Galaxy Tab,3,6977.91,20933.73,C013,Electrónica
+2024-03-03,P016,Router WiFi 6,10,2933.45,29334.5,C005,Redes
+2024-03-04,P020,Mochila para Laptop,2,1239.92,2479.84,C005,Accesorios
+2024-03-04,P010,Hub USB-C 7 puertos,6,822.75,4936.5,C004,Accesorios
+2024-03-04,P001,Laptop HP ProBook 450,9,12033.23,108299.07,C012,Electrónica
+2024-03-04,P002,Monitor Dell 27 pulgadas,9,5679.44,51114.96,C001,Electrónica
+2024-03-04,P005,Auriculares Sony WH-1000XM5,8,6241.68,49933.44,C011,Audio
+2024-03-04,P001,Laptop HP ProBook 450,5,12461.75,62308.75,C010,Electrónica
+2024-03-05,P011,Silla Ergonómica Premium,1,8289.61,8289.61,C003,Mobiliario
+2024-03-05,P016,Router WiFi 6,2,2772.2,5544.4,C002,Redes
+2024-03-05,P003,Teclado Logitech MX Keys,1,2026.86,2026.86,C010,Periféricos
+2024-03-05,P019,Cargador Universal 65W,2,682.1,1364.2,C005,Accesorios
+2024-03-05,P004,Mouse Logitech MX Master,7,1667.54,11672.78,C009,Periféricos
+2024-03-06,P008,Memoria RAM 16GB DDR4,9,1383.25,12449.25,C013,Componentes
+2024-03-06,P015,UPS APC 1500VA,10,3986.21,39862.1,C005,Energía
+2024-03-06,P010,Hub USB-C 7 puertos,10,812.62,8126.2,C010,Accesorios
+2024-03-06,P004,Mouse Logitech MX Master,4,1670.71,6682.84,C013,Periféricos
+2024-03-06,P009,Cable HDMI 2m,2,173.83,347.66,C011,Accesorios
+2024-03-06,P006,Webcam Logitech C920,2,1738.18,3476.36,C009,Periféricos
+2024-03-07,P015,UPS APC 1500VA,10,3788.57,37885.7,C012,Energía
+2024-03-07,P002,Monitor Dell 27 pulgadas,5,5920.03,29600.15,C004,Electrónica
+2024-03-07,P015,UPS APC 1500VA,4,3961.09,15844.36,C002,Energía
+2024-03-07,P019,Cargador Universal 65W,4,645.13,2580.52,C011,Accesorios
+2024-03-07,P018,Tablet Samsung Galaxy Tab,3,7494.06,22482.18,C004,Electrónica
+2024-03-08,P003,Teclado Logitech MX Keys,3,2161.45,6484.35,C001,Periféricos
+2024-03-08,P020,Mochila para Laptop,10,1250.54,12505.4,C012,Accesorios
+2024-03-08,P015,UPS APC 1500VA,8,3871.7,30973.6,C002,Energía
+2024-03-09,P013,Impresora HP LaserJet,9,4517.99,40661.91,C005,Impresión
+2024-03-09,P015,UPS APC 1500VA,10,3625.15,36251.5,C002,Energía
+2024-03-10,P011,Silla Ergonómica Premium,5,8096.99,40484.95,C010,Mobiliario
+2024-03-11,P019,Cargador Universal 65W,1,682.47,682.47,C010,Accesorios
+2024-03-11,P009,Cable HDMI 2m,1,184.74,184.74,C010,Accesorios
+2024-03-11,P006,Webcam Logitech C920,9,1827.27,16445.43,C008,Periféricos
+2024-03-12,P006,Webcam Logitech C920,7,1824.26,12769.82,C010,Periféricos
+2024-03-12,P016,Router WiFi 6,8,2757.43,22059.44,C002,Redes
+2024-03-12,P011,Silla Ergonómica Premium,2,8804.07,17608.14,C006,Mobiliario
+2024-03-12,P011,Silla Ergonómica Premium,8,8319.99,66559.92,C007,Mobiliario
+2024-03-13,P018,Tablet Samsung Galaxy Tab,8,6903.4,55227.2,C001,Electrónica
+2024-03-13,P009,Cable HDMI 2m,2,188.46,376.92,C006,Accesorios
+2024-03-13,P013,Impresora HP LaserJet,9,4646.22,41815.98,C014,Impresión
+2024-03-13,P001,Laptop HP ProBook 450,9,12452.47,112072.23,C011,Electrónica
+2024-03-13,P002,Monitor Dell 27 pulgadas,9,5719.83,51478.47,C004,Electrónica
+2024-03-14,P015,UPS APC 1500VA,1,3687.35,3687.35,C013,Energía
+2024-03-14,P018,Tablet Samsung Galaxy Tab,5,7155.44,35777.2,C003,Electrónica
+2024-03-14,P016,Router WiFi 6,1,2932.48,2932.48,C002,Redes
+2024-03-14,P020,Mochila para Laptop,4,1225.17,4900.68,C013,Accesorios
+2024-03-14,P010,Hub USB-C 7 puertos,1,854.44,854.44,C009,Accesorios
+2024-03-15,P008,Memoria RAM 16GB DDR4,2,1394.6,2789.2,C014,Componentes
+2024-03-15,P004,Mouse Logitech MX Master,3,1649.73,4949.19,C011,Periféricos
+2024-03-16,P010,Hub USB-C 7 puertos,5,842.82,4214.1,C009,Accesorios
+2024-03-16,P016,Router WiFi 6,4,2787.9,11151.6,C008,Redes
+2024-03-18,P007,Disco SSD Samsung 1TB,10,2201.81,22018.1,C015,Almacenamiento
+2024-03-18,P005,Auriculares Sony WH-1000XM5,2,6354.56,12709.12,C014,Audio
+2024-03-18,P014,Toner HP 26A,9,927.88,8350.92,C006,Consumibles
+2024-03-18,P001,Laptop HP ProBook 450,5,12921.84,64609.2,C005,Electrónica
+2024-03-18,P019,Cargador Universal 65W,8,673.74,5389.92,C011,Accesorios
+2024-03-19,P018,Tablet Samsung Galaxy Tab,6,7079.36,42476.16,C008,Electrónica
+2024-03-19,P018,Tablet Samsung Galaxy Tab,8,7511.65,60093.2,C007,Electrónica
+2024-03-19,P007,Disco SSD Samsung 1TB,4,2215.8,8863.2,C012,Almacenamiento
+2024-03-19,P008,Memoria RAM 16GB DDR4,7,1336.11,9352.77,C014,Componentes
+2024-03-19,P016,Router WiFi 6,7,2768.1,19376.7,C012,Redes
+2024-03-20,P016,Router WiFi 6,3,2800.64,8401.92,C001,Redes
+2024-03-20,P019,Cargador Universal 65W,2,674.32,1348.64,C006,Accesorios
+2024-03-20,P015,UPS APC 1500VA,9,3955.97,35603.73,C002,Energía
+2024-03-21,P005,Auriculares Sony WH-1000XM5,3,6223.64,18670.92,C007,Audio
+2024-03-21,P009,Cable HDMI 2m,10,183.47,1834.7,C006,Accesorios
+2024-03-22,P011,Silla Ergonómica Premium,9,8398.01,75582.09,C014,Mobiliario
+2024-03-22,P011,Silla Ergonómica Premium,8,8816.53,70532.24,C011,Mobiliario
+2024-03-24,P003,Teclado Logitech MX Keys,5,2204.46,11022.3,C004,Periféricos
+2024-03-24,P003,Teclado Logitech MX Keys,2,2154.68,4309.36,C007,Periféricos
+2024-03-25,P015,UPS APC 1500VA,5,3953.3,19766.5,C003,Energía
+2024-03-25,P002,Monitor Dell 27 pulgadas,1,5680.15,5680.15,C006,Electrónica
+2024-03-26,P014,Toner HP 26A,4,952.96,3811.84,C003,Consumibles
+2024-03-26,P019,Cargador Universal 65W,3,628.55,1885.65,C011,Accesorios
+2024-03-26,P003,Teclado Logitech MX Keys,7,2125.14,14875.98,C010,Periféricos
+2024-03-26,P008,Memoria RAM 16GB DDR4,10,1350.04,13500.4,C008,Componentes
+2024-03-27,P009,Cable HDMI 2m,5,183.0,915.0,C008,Accesorios
+2024-03-27,P015,UPS APC 1500VA,5,3867.49,19337.45,C015,Energía
+2024-03-27,P006,Webcam Logitech C920,8,1880.14,15041.12,C002,Periféricos
+2024-03-27,P019,Cargador Universal 65W,7,662.37,4636.59,C005,Accesorios
+2024-03-27,P015,UPS APC 1500VA,5,3685.7,18428.5,C014,Energía
+2024-03-28,P016,Router WiFi 6,4,2766.78,11067.12,C002,Redes
+2024-03-28,P012,Escritorio Ajustable,5,12591.23,62956.15,C010,Mobiliario
+2024-03-28,P010,Hub USB-C 7 puertos,7,830.83,5815.81,C001,Accesorios
+2024-03-28,P019,Cargador Universal 65W,1,676.69,676.69,C014,Accesorios
+2024-03-28,P016,Router WiFi 6,5,2877.21,14386.05,C014,Redes
+2024-03-29,P020,Mochila para Laptop,6,1166.28,6997.68,C013,Accesorios
+2024-03-29,P007,Disco SSD Samsung 1TB,5,2239.11,11195.55,C010,Almacenamiento
+2024-03-29,P005,Auriculares Sony WH-1000XM5,2,6762.21,13524.42,C011,Audio
+2024-03-30,P002,Monitor Dell 27 pulgadas,8,5529.35,44234.8,C005,Electrónica
+2024-03-30,P012,Escritorio Ajustable,3,11508.16,34524.48,C012,Mobiliario
+2024-03-31,P011,Silla Ergonómica Premium,7,8224.29,57570.03,C012,Mobiliario
+2024-04-01,P018,Tablet Samsung Galaxy Tab,6,7222.21,43333.26,C015,Electrónica
+2024-04-01,P009,Cable HDMI 2m,3,175.63,526.89,C014,Accesorios
+2024-04-01,P016,Router WiFi 6,5,2869.04,14345.2,C013,Redes
+2024-04-02,P004,Mouse Logitech MX Master,2,1590.72,3181.44,C008,Periféricos
+2024-04-02,P008,Memoria RAM 16GB DDR4,7,1465.42,10257.94,C014,Componentes
+2024-04-02,P018,Tablet Samsung Galaxy Tab,2,7409.29,14818.58,C006,Electrónica
+2024-04-02,P001,Laptop HP ProBook 450,9,12029.49,108265.41,C005,Electrónica
+2024-04-03,P009,Cable HDMI 2m,7,185.8,1300.6,C010,Accesorios
+2024-04-03,P012,Escritorio Ajustable,4,11965.77,47863.08,C002,Mobiliario
+2024-04-03,P020,Mochila para Laptop,9,1179.36,10614.24,C015,Accesorios
+2024-04-03,P020,Mochila para Laptop,2,1216.25,2432.5,C004,Accesorios
+2024-04-04,P010,Hub USB-C 7 puertos,7,817.42,5721.94,C011,Accesorios
+2024-04-04,P002,Monitor Dell 27 pulgadas,5,6087.64,30438.2,C001,Electrónica
+2024-04-04,P004,Mouse Logitech MX Master,4,1713.9,6855.6,C002,Periféricos
+2024-04-04,P005,Auriculares Sony WH-1000XM5,8,6416.16,51329.28,C007,Audio
+2024-04-04,P018,Tablet Samsung Galaxy Tab,10,7374.43,73744.3,C007,Electrónica
+2024-04-05,P014,Toner HP 26A,2,981.7,1963.4,C011,Consumibles
+2024-04-05,P020,Mochila para Laptop,5,1143.93,5719.65,C007,Accesorios
+2024-04-05,P012,Escritorio Ajustable,8,11933.64,95469.12,C004,Mobiliario
+2024-04-07,P004,Mouse Logitech MX Master,6,1657.34,9944.04,C011,Periféricos
+2024-04-08,P002,Monitor Dell 27 pulgadas,5,5620.09,28100.45,C007,Electrónica
+2024-04-08,P004,Mouse Logitech MX Master,8,1582.63,12661.04,C014,Periféricos
+2024-04-08,P007,Disco SSD Samsung 1TB,10,2303.64,23036.4,C011,Almacenamiento
+2024-04-08,P002,Monitor Dell 27 pulgadas,6,5651.27,33907.62,C013,Electrónica
+2024-04-09,P019,Cargador Universal 65W,2,671.44,1342.88,C004,Accesorios
+2024-04-09,P018,Tablet Samsung Galaxy Tab,10,6995.48,69954.8,C004,Electrónica
+2024-04-09,P008,Memoria RAM 16GB DDR4,3,1440.41,4321.23,C006,Componentes
+2024-04-10,P001,Laptop HP ProBook 450,3,13109.41,39328.23,C005,Electrónica
+2024-04-10,P018,Tablet Samsung Galaxy Tab,3,6919.15,20757.45,C005,Electrónica
+2024-04-10,P001,Laptop HP ProBook 450,1,12322.8,12322.8,C003,Electrónica
+2024-04-10,P008,Memoria RAM 16GB DDR4,6,1332.21,7993.26,C010,Componentes
+2024-04-10,P009,Cable HDMI 2m,3,184.35,553.05,C001,Accesorios
+2024-04-10,P017,Switch 24 puertos,2,4190.02,8380.04,C002,Redes
+2024-04-11,P017,Switch 24 puertos,2,4179.84,8359.68,C010,Redes
+2024-04-11,P008,Memoria RAM 16GB DDR4,1,1431.81,1431.81,C010,Componentes
+2024-04-11,P017,Switch 24 puertos,8,4260.2,34081.6,C005,Redes
+2024-04-11,P001,Laptop HP ProBook 450,8,12934.12,103472.96,C001,Electrónica
+2024-04-12,P004,Mouse Logitech MX Master,8,1579.63,12637.04,C008,Periféricos
+2024-04-12,P003,Teclado Logitech MX Keys,10,2026.15,20261.5,C006,Periféricos
+2024-04-12,P005,Auriculares Sony WH-1000XM5,10,6586.5,65865.0,C005,Audio
+2024-04-12,P018,Tablet Samsung Galaxy Tab,6,7114.25,42685.5,C012,Electrónica
+2024-04-12,P020,Mochila para Laptop,5,1194.45,5972.25,C009,Accesorios
+2024-04-13,P014,Toner HP 26A,2,983.52,1967.04,C002,Consumibles
+2024-04-13,P018,Tablet Samsung Galaxy Tab,4,7149.65,28598.6,C012,Electrónica
+2024-04-15,P011,Silla Ergonómica Premium,8,8413.92,67311.36,C014,Mobiliario
+2024-04-15,P004,Mouse Logitech MX Master,7,1619.07,11333.49,C006,Periféricos
+2024-04-15,P009,Cable HDMI 2m,3,183.36,550.08,C006,Accesorios
+2024-04-15,P016,Router WiFi 6,2,2892.9,5785.8,C002,Redes
+2024-04-15,P003,Teclado Logitech MX Keys,2,2151.36,4302.72,C007,Periféricos
+2024-04-16,P005,Auriculares Sony WH-1000XM5,1,6556.2,6556.2,C009,Audio
+2024-04-16,P018,Tablet Samsung Galaxy Tab,6,7322.41,43934.46,C009,Electrónica
+2024-04-16,P014,Toner HP 26A,7,984.97,6894.79,C006,Consumibles
+2024-04-16,P002,Monitor Dell 27 pulgadas,10,5691.22,56912.2,C005,Electrónica
+2024-04-17,P019,Cargador Universal 65W,4,627.56,2510.24,C009,Accesorios
+2024-04-17,P016,Router WiFi 6,2,2758.03,5516.06,C004,Redes
+2024-04-18,P012,Escritorio Ajustable,5,12088.92,60444.6,C002,Mobiliario
+2024-04-18,P014,Toner HP 26A,9,995.08,8955.72,C014,Consumibles
+2024-04-18,P020,Mochila para Laptop,9,1143.15,10288.35,C010,Accesorios
+2024-04-18,P009,Cable HDMI 2m,3,175.92,527.76,C001,Accesorios
+2024-04-18,P010,Hub USB-C 7 puertos,6,837.34,5024.04,C015,Accesorios
+2024-04-18,P006,Webcam Logitech C920,3,1811.94,5435.82,C014,Periféricos
+2024-04-19,P003,Teclado Logitech MX Keys,1,2014.27,2014.27,C003,Periféricos
+2024-04-19,P017,Switch 24 puertos,7,4166.33,29164.31,C004,Redes
+2024-04-19,P011,Silla Ergonómica Premium,6,8339.89,50039.34,C003,Mobiliario
+2024-04-19,P011,Silla Ergonómica Premium,10,8581.79,85817.9,C013,Mobiliario
+2024-04-19,P002,Monitor Dell 27 pulgadas,3,5947.57,17842.71,C003,Electrónica
+2024-04-21,P003,Teclado Logitech MX Keys,8,2134.01,17072.08,C005,Periféricos
+2024-04-21,P016,Router WiFi 6,8,2775.97,22207.76,C010,Redes
+2024-04-22,P017,Switch 24 puertos,6,4170.56,25023.36,C002,Redes
+2024-04-22,P010,Hub USB-C 7 puertos,10,848.86,8488.6,C011,Accesorios
+2024-04-22,P010,Hub USB-C 7 puertos,4,841.1,3364.4,C001,Accesorios
+2024-04-23,P002,Monitor Dell 27 pulgadas,4,5684.82,22739.28,C001,Electrónica
+2024-04-23,P007,Disco SSD Samsung 1TB,3,2258.12,6774.36,C013,Almacenamiento
+2024-04-23,P010,Hub USB-C 7 puertos,2,808.16,1616.32,C006,Accesorios
+2024-04-23,P014,Toner HP 26A,3,938.62,2815.86,C003,Consumibles
+2024-04-23,P008,Memoria RAM 16GB DDR4,9,1446.67,13020.03,C009,Componentes
+2024-04-23,P012,Escritorio Ajustable,7,12434.12,87038.84,C002,Mobiliario
+2024-04-24,P014,Toner HP 26A,8,990.01,7920.08,C001,Consumibles
+2024-04-24,P011,Silla Ergonómica Premium,7,8562.39,59936.73,C010,Mobiliario
+2024-04-25,P010,Hub USB-C 7 puertos,7,809.27,5664.89,C002,Accesorios
+2024-04-25,P011,Silla Ergonómica Premium,10,8466.08,84660.8,C003,Mobiliario
+2024-04-25,P012,Escritorio Ajustable,7,12413.38,86893.66,C002,Mobiliario
+2024-04-25,P008,Memoria RAM 16GB DDR4,10,1386.06,13860.6,C007,Componentes
+2024-04-25,P003,Teclado Logitech MX Keys,5,2151.62,10758.1,C007,Periféricos
+2024-04-26,P011,Silla Ergonómica Premium,3,8139.92,24419.76,C013,Mobiliario
+2024-04-26,P004,Mouse Logitech MX Master,9,1599.49,14395.41,C009,Periféricos
+2024-04-26,P012,Escritorio Ajustable,3,11683.52,35050.56,C006,Mobiliario
+2024-04-28,P007,Disco SSD Samsung 1TB,10,2123.63,21236.3,C003,Almacenamiento
+2024-04-29,P006,Webcam Logitech C920,8,1793.51,14348.08,C013,Periféricos
+2024-04-29,P019,Cargador Universal 65W,10,646.68,6466.8,C013,Accesorios
+2024-04-30,P020,Mochila para Laptop,6,1158.11,6948.66,C006,Accesorios
+2024-04-30,P003,Teclado Logitech MX Keys,8,2127.59,17020.72,C008,Periféricos
+2024-04-30,P009,Cable HDMI 2m,1,177.33,177.33,C010,Accesorios
+2024-04-30,P003,Teclado Logitech MX Keys,8,2089.9,16719.2,C005,Periféricos
+2024-04-30,P002,Monitor Dell 27 pulgadas,5,5554.5,27772.5,C006,Electrónica
+2024-04-30,P003,Teclado Logitech MX Keys,10,2101.48,21014.8,C010,Periféricos
+2024-05-01,P019,Cargador Universal 65W,1,646.73,646.73,C009,Accesorios
+2024-05-01,P019,Cargador Universal 65W,4,638.4,2553.6,C011,Accesorios
+2024-05-01,P016,Router WiFi 6,3,2928.16,8784.48,C009,Redes
+2024-05-01,P015,UPS APC 1500VA,6,3983.31,23899.86,C002,Energía
+2024-05-01,P003,Teclado Logitech MX Keys,3,2003.22,6009.66,C009,Periféricos
+2024-05-02,P015,UPS APC 1500VA,9,3841.73,34575.57,C009,Energía
+2024-05-02,P012,Escritorio Ajustable,5,11864.9,59324.5,C006,Mobiliario
+2024-05-02,P011,Silla Ergonómica Premium,10,8119.51,81195.1,C011,Mobiliario
+2024-05-02,P011,Silla Ergonómica Premium,6,8155.33,48931.98,C002,Mobiliario
+2024-05-02,P013,Impresora HP LaserJet,5,4600.68,23003.4,C005,Impresión
+2024-05-03,P005,Auriculares Sony WH-1000XM5,2,6553.78,13107.56,C006,Audio
+2024-05-03,P005,Auriculares Sony WH-1000XM5,6,6376.65,38259.9,C015,Audio
+2024-05-03,P013,Impresora HP LaserJet,10,4593.98,45939.8,C003,Impresión
+2024-05-03,P003,Teclado Logitech MX Keys,9,2074.1,18666.9,C005,Periféricos
+2024-05-03,P011,Silla Ergonómica Premium,3,8644.6,25933.8,C014,Mobiliario
+2024-05-03,P017,Switch 24 puertos,7,4203.57,29424.99,C002,Redes
+2024-05-05,P010,Hub USB-C 7 puertos,4,836.55,3346.2,C003,Accesorios
+2024-05-06,P007,Disco SSD Samsung 1TB,3,2124.09,6372.27,C004,Almacenamiento
+2024-05-06,P010,Hub USB-C 7 puertos,2,850.65,1701.3,C014,Accesorios
+2024-05-06,P018,Tablet Samsung Galaxy Tab,9,6867.18,61804.62,C014,Electrónica
+2024-05-06,P011,Silla Ergonómica Premium,10,8186.39,81863.9,C015,Mobiliario
+2024-05-06,P013,Impresora HP LaserJet,3,4356.38,13069.14,C003,Impresión
+2024-05-07,P006,Webcam Logitech C920,8,1717.86,13742.88,C012,Periféricos
+2024-05-07,P012,Escritorio Ajustable,4,12563.51,50254.04,C011,Mobiliario
+2024-05-07,P020,Mochila para Laptop,8,1168.08,9344.64,C005,Accesorios
+2024-05-07,P008,Memoria RAM 16GB DDR4,8,1456.56,11652.48,C005,Componentes
+2024-05-07,P007,Disco SSD Samsung 1TB,10,2306.58,23065.8,C006,Almacenamiento
+2024-05-07,P015,UPS APC 1500VA,5,3905.69,19528.45,C013,Energía
+2024-05-08,P017,Switch 24 puertos,3,4333.09,12999.27,C007,Redes
+2024-05-08,P020,Mochila para Laptop,5,1146.26,5731.3,C003,Accesorios
+2024-05-08,P016,Router WiFi 6,6,2815.27,16891.62,C014,Redes
+2024-05-08,P004,Mouse Logitech MX Master,9,1707.94,15371.46,C012,Periféricos
+2024-05-08,P010,Hub USB-C 7 puertos,3,830.69,2492.07,C002,Accesorios
+2024-05-08,P017,Switch 24 puertos,7,4028.52,28199.64,C003,Redes
+2024-05-09,P015,UPS APC 1500VA,6,3963.58,23781.48,C015,Energía
+2024-05-09,P014,Toner HP 26A,7,950.19,6651.33,C001,Consumibles
+2024-05-09,P008,Memoria RAM 16GB DDR4,2,1382.49,2764.98,C007,Componentes
+2024-05-10,P011,Silla Ergonómica Premium,2,8788.3,17576.6,C015,Mobiliario
+2024-05-10,P011,Silla Ergonómica Premium,3,8191.96,24575.88,C013,Mobiliario
+2024-05-11,P016,Router WiFi 6,3,2872.48,8617.44,C012,Redes
+2024-05-12,P015,UPS APC 1500VA,1,3954.23,3954.23,C010,Energía
+2024-05-13,P009,Cable HDMI 2m,3,180.88,542.64,C004,Accesorios
+2024-05-13,P020,Mochila para Laptop,7,1153.34,8073.38,C009,Accesorios
+2024-05-14,P008,Memoria RAM 16GB DDR4,2,1336.68,2673.36,C005,Componentes
+2024-05-14,P014,Toner HP 26A,10,945.93,9459.3,C011,Consumibles
+2024-05-14,P004,Mouse Logitech MX Master,8,1665.96,13327.68,C014,Periféricos
+2024-05-14,P001,Laptop HP ProBook 450,9,12593.81,113344.29,C011,Electrónica
+2024-05-15,P010,Hub USB-C 7 puertos,1,859.76,859.76,C007,Accesorios
+2024-05-15,P008,Memoria RAM 16GB DDR4,7,1356.22,9493.54,C010,Componentes
+2024-05-15,P003,Teclado Logitech MX Keys,6,2009.21,12055.26,C009,Periféricos
+2024-05-16,P018,Tablet Samsung Galaxy Tab,9,7238.99,65150.91,C009,Electrónica
+2024-05-16,P013,Impresora HP LaserJet,8,4294.59,34356.72,C014,Impresión
+2024-05-16,P013,Impresora HP LaserJet,5,4611.29,23056.45,C006,Impresión
+2024-05-16,P012,Escritorio Ajustable,2,11813.76,23627.52,C013,Mobiliario
+2024-05-16,P004,Mouse Logitech MX Master,10,1688.81,16888.1,C013,Periféricos
+2024-05-16,P011,Silla Ergonómica Premium,1,8374.45,8374.45,C003,Mobiliario
+2024-05-17,P006,Webcam Logitech C920,8,1886.55,15092.4,C014,Periféricos
+2024-05-17,P016,Router WiFi 6,3,2887.22,8661.66,C011,Redes
+2024-05-17,P003,Teclado Logitech MX Keys,8,2002.77,16022.16,C012,Periféricos
+2024-05-17,P007,Disco SSD Samsung 1TB,4,2284.87,9139.48,C001,Almacenamiento
+2024-05-18,P010,Hub USB-C 7 puertos,7,891.58,6241.06,C009,Accesorios
+2024-05-19,P016,Router WiFi 6,1,2870.92,2870.92,C005,Redes
+2024-05-19,P007,Disco SSD Samsung 1TB,6,2279.67,13678.02,C005,Almacenamiento
+2024-05-20,P011,Silla Ergonómica Premium,2,8754.44,17508.88,C005,Mobiliario
+2024-05-20,P014,Toner HP 26A,7,973.11,6811.77,C015,Consumibles
+2024-05-21,P011,Silla Ergonómica Premium,8,8663.26,69306.08,C003,Mobiliario
+2024-05-21,P012,Escritorio Ajustable,9,11720.06,105480.54,C015,Mobiliario
+2024-05-21,P003,Teclado Logitech MX Keys,7,2011.57,14080.99,C012,Periféricos
+2024-05-21,P020,Mochila para Laptop,3,1205.46,3616.38,C014,Accesorios
+2024-05-21,P011,Silla Ergonómica Premium,2,8353.73,16707.46,C002,Mobiliario
+2024-05-22,P010,Hub USB-C 7 puertos,10,868.5,8685.0,C008,Accesorios
+2024-05-22,P006,Webcam Logitech C920,8,1773.28,14186.24,C012,Periféricos
+2024-05-22,P002,Monitor Dell 27 pulgadas,6,5866.61,35199.66,C012,Electrónica
+2024-05-22,P014,Toner HP 26A,1,909.63,909.63,C005,Consumibles
+2024-05-23,P012,Escritorio Ajustable,3,12543.35,37630.05,C009,Mobiliario
+2024-05-23,P005,Auriculares Sony WH-1000XM5,10,6615.76,66157.6,C014,Audio
+2024-05-23,P015,UPS APC 1500VA,3,3635.55,10906.65,C001,Energía
+2024-05-23,P012,Escritorio Ajustable,7,12539.36,87775.52,C006,Mobiliario
+2024-05-23,P002,Monitor Dell 27 pulgadas,3,5903.86,17711.58,C010,Electrónica
+2024-05-24,P012,Escritorio Ajustable,2,12088.71,24177.42,C008,Mobiliario
+2024-05-24,P017,Switch 24 puertos,7,4122.04,28854.28,C006,Redes
+2024-05-24,P009,Cable HDMI 2m,2,171.47,342.94,C004,Accesorios
+2024-05-24,P006,Webcam Logitech C920,9,1779.66,16016.94,C008,Periféricos
+2024-05-25,P004,Mouse Logitech MX Master,5,1683.67,8418.35,C005,Periféricos
+2024-05-25,P007,Disco SSD Samsung 1TB,5,2242.68,11213.4,C010,Almacenamiento
+2024-05-26,P007,Disco SSD Samsung 1TB,3,2277.62,6832.86,C002,Almacenamiento
+2024-05-27,P006,Webcam Logitech C920,8,1889.51,15116.08,C015,Periféricos
+2024-05-27,P011,Silla Ergonómica Premium,6,8678.11,52068.66,C011,Mobiliario
+2024-05-27,P018,Tablet Samsung Galaxy Tab,5,7481.76,37408.8,C009,Electrónica
+2024-05-27,P006,Webcam Logitech C920,3,1852.87,5558.61,C012,Periféricos
+2024-05-27,P017,Switch 24 puertos,2,4403.76,8807.52,C004,Redes
+2024-05-28,P008,Memoria RAM 16GB DDR4,8,1333.68,10669.44,C013,Componentes
+2024-05-28,P018,Tablet Samsung Galaxy Tab,6,7176.53,43059.18,C010,Electrónica
+2024-05-28,P018,Tablet Samsung Galaxy Tab,10,7476.66,74766.6,C003,Electrónica
+2024-05-29,P010,Hub USB-C 7 puertos,8,852.18,6817.44,C007,Accesorios
+2024-05-29,P014,Toner HP 26A,10,909.51,9095.1,C014,Consumibles
+2024-05-30,P003,Teclado Logitech MX Keys,8,2137.82,17102.56,C008,Periféricos
+2024-05-30,P012,Escritorio Ajustable,9,12167.75,109509.75,C003,Mobiliario
+2024-05-30,P006,Webcam Logitech C920,3,1787.87,5363.61,C013,Periféricos
+2024-05-30,P002,Monitor Dell 27 pulgadas,2,5810.5,11621.0,C014,Electrónica
+2024-05-31,P006,Webcam Logitech C920,6,1878.25,11269.5,C003,Periféricos
+2024-05-31,P008,Memoria RAM 16GB DDR4,9,1455.29,13097.61,C006,Componentes
+2024-05-31,P003,Teclado Logitech MX Keys,4,2128.36,8513.44,C005,Periféricos
+2024-05-31,P018,Tablet Samsung Galaxy Tab,3,7290.02,21870.06,C005,Electrónica
+2024-06-01,P018,Tablet Samsung Galaxy Tab,9,7301.51,65713.59,C002,Electrónica
+2024-06-01,P019,Cargador Universal 65W,3,628.63,1885.89,C010,Accesorios
+2024-06-02,P020,Mochila para Laptop,10,1144.94,11449.4,C006,Accesorios
+2024-06-02,P001,Laptop HP ProBook 450,1,13060.68,13060.68,C002,Electrónica
+2024-06-03,P009,Cable HDMI 2m,4,184.81,739.24,C011,Accesorios
+2024-06-03,P014,Toner HP 26A,1,949.81,949.81,C010,Consumibles
+2024-06-03,P018,Tablet Samsung Galaxy Tab,5,7187.72,35938.6,C005,Electrónica
+2024-06-03,P013,Impresora HP LaserJet,8,4307.84,34462.72,C005,Impresión
+2024-06-03,P002,Monitor Dell 27 pulgadas,8,5751.06,46008.48,C003,Electrónica
+2024-06-03,P015,UPS APC 1500VA,6,3840.53,23043.18,C004,Energía
+2024-06-04,P011,Silla Ergonómica Premium,6,8904.07,53424.42,C012,Mobiliario
+2024-06-04,P005,Auriculares Sony WH-1000XM5,6,6509.74,39058.44,C013,Audio
+2024-06-04,P004,Mouse Logitech MX Master,4,1644.47,6577.88,C006,Periféricos
+2024-06-04,P009,Cable HDMI 2m,4,173.54,694.16,C008,Accesorios
+2024-06-05,P010,Hub USB-C 7 puertos,10,843.04,8430.4,C007,Accesorios
+2024-06-05,P006,Webcam Logitech C920,6,1878.08,11268.48,C014,Periféricos
+2024-06-06,P007,Disco SSD Samsung 1TB,3,2199.62,6598.86,C013,Almacenamiento
+2024-06-06,P017,Switch 24 puertos,8,4359.21,34873.68,C008,Redes
+2024-06-06,P016,Router WiFi 6,2,2924.67,5849.34,C001,Redes
+2024-06-06,P017,Switch 24 puertos,4,4080.36,16321.44,C008,Redes
+2024-06-07,P002,Monitor Dell 27 pulgadas,5,5797.04,28985.2,C001,Electrónica
+2024-06-07,P016,Router WiFi 6,9,2662.29,23960.61,C005,Redes
+2024-06-07,P004,Mouse Logitech MX Master,3,1713.11,5139.33,C007,Periféricos
+2024-06-07,P012,Escritorio Ajustable,7,11839.12,82873.84,C013,Mobiliario
+2024-06-08,P002,Monitor Dell 27 pulgadas,9,5622.9,50606.1,C010,Electrónica
+2024-06-09,P010,Hub USB-C 7 puertos,7,850.36,5952.52,C002,Accesorios
+2024-06-09,P018,Tablet Samsung Galaxy Tab,10,7329.89,73298.9,C005,Electrónica
+2024-06-10,P005,Auriculares Sony WH-1000XM5,7,6417.58,44923.06,C002,Audio
+2024-06-10,P011,Silla Ergonómica Premium,6,8716.72,52300.32,C009,Mobiliario
+2024-06-11,P020,Mochila para Laptop,7,1200.01,8400.07,C009,Accesorios
+2024-06-11,P002,Monitor Dell 27 pulgadas,3,5923.88,17771.64,C001,Electrónica
+2024-06-11,P016,Router WiFi 6,8,2701.7,21613.6,C009,Redes
+2024-06-12,P005,Auriculares Sony WH-1000XM5,10,6382.04,63820.4,C006,Audio
+2024-06-12,P013,Impresora HP LaserJet,5,4542.18,22710.9,C010,Impresión
+2024-06-12,P017,Switch 24 puertos,9,4213.58,37922.22,C014,Redes
+2024-06-12,P019,Cargador Universal 65W,8,670.52,5364.16,C005,Accesorios
+2024-06-12,P012,Escritorio Ajustable,2,12575.88,25151.76,C006,Mobiliario
+2024-06-12,P019,Cargador Universal 65W,1,656.3,656.3,C005,Accesorios
+2024-06-13,P019,Cargador Universal 65W,4,664.39,2657.56,C010,Accesorios
+2024-06-13,P019,Cargador Universal 65W,3,651.58,1954.74,C008,Accesorios
+2024-06-13,P020,Mochila para Laptop,7,1157.73,8104.11,C013,Accesorios
+2024-06-13,P008,Memoria RAM 16GB DDR4,10,1462.75,14627.5,C001,Componentes
+2024-06-14,P007,Disco SSD Samsung 1TB,8,2159.01,17272.08,C001,Almacenamiento
+2024-06-14,P005,Auriculares Sony WH-1000XM5,4,6441.75,25767.0,C007,Audio
+2024-06-15,P016,Router WiFi 6,1,2857.62,2857.62,C014,Redes
+2024-06-15,P017,Switch 24 puertos,9,4126.52,37138.68,C004,Redes
+2024-06-16,P016,Router WiFi 6,7,2747.85,19234.95,C009,Redes
+2024-06-16,P006,Webcam Logitech C920,9,1771.62,15944.58,C008,Periféricos
+2024-06-17,P009,Cable HDMI 2m,8,174.46,1395.68,C010,Accesorios
+2024-06-17,P008,Memoria RAM 16GB DDR4,9,1371.79,12346.11,C005,Componentes
+2024-06-17,P010,Hub USB-C 7 puertos,5,867.42,4337.1,C013,Accesorios
+2024-06-17,P016,Router WiFi 6,8,2757.66,22061.28,C006,Redes
+2024-06-18,P010,Hub USB-C 7 puertos,10,865.01,8650.1,C002,Accesorios
+2024-06-18,P013,Impresora HP LaserJet,7,4643.27,32502.89,C015,Impresión
+2024-06-18,P005,Auriculares Sony WH-1000XM5,1,6361.96,6361.96,C005,Audio
+2024-06-18,P003,Teclado Logitech MX Keys,8,2132.75,17062.0,C006,Periféricos
+2024-06-19,P007,Disco SSD Samsung 1TB,9,2149.65,19346.85,C004,Almacenamiento
+2024-06-19,P018,Tablet Samsung Galaxy Tab,5,6938.84,34694.2,C012,Electrónica
+2024-06-19,P020,Mochila para Laptop,10,1168.71,11687.1,C012,Accesorios
+2024-06-19,P002,Monitor Dell 27 pulgadas,9,5640.89,50768.01,C011,Electrónica
+2024-06-19,P008,Memoria RAM 16GB DDR4,2,1387.86,2775.72,C001,Componentes
+2024-06-20,P004,Mouse Logitech MX Master,3,1568.35,4705.05,C011,Periféricos
+2024-06-20,P018,Tablet Samsung Galaxy Tab,3,7132.97,21398.91,C015,Electrónica
+2024-06-20,P016,Router WiFi 6,4,2871.66,11486.64,C008,Redes
+2024-06-20,P010,Hub USB-C 7 puertos,5,862.4,4312.0,C006,Accesorios
+2024-06-20,P003,Teclado Logitech MX Keys,10,2043.77,20437.7,C011,Periféricos
+2024-06-21,P006,Webcam Logitech C920,3,1878.11,5634.33,C007,Periféricos
+2024-06-21,P002,Monitor Dell 27 pulgadas,7,5967.02,41769.14,C014,Electrónica
+2024-06-23,P010,Hub USB-C 7 puertos,1,808.29,808.29,C015,Accesorios
+2024-06-23,P019,Cargador Universal 65W,2,677.85,1355.7,C010,Accesorios
+2024-06-24,P010,Hub USB-C 7 puertos,9,852.07,7668.63,C008,Accesorios
+2024-06-24,P005,Auriculares Sony WH-1000XM5,9,6479.21,58312.89,C014,Audio
+2024-06-24,P007,Disco SSD Samsung 1TB,2,2162.75,4325.5,C013,Almacenamiento
+2024-06-24,P015,UPS APC 1500VA,5,3883.07,19415.35,C011,Energía
+2024-06-25,P011,Silla Ergonómica Premium,5,8557.61,42788.05,C013,Mobiliario
+2024-06-25,P007,Disco SSD Samsung 1TB,10,2278.35,22783.5,C003,Almacenamiento
+2024-06-26,P014,Toner HP 26A,6,910.74,5464.44,C009,Consumibles
+2024-06-26,P004,Mouse Logitech MX Master,3,1646.28,4938.84,C003,Periféricos
+2024-06-26,P008,Memoria RAM 16GB DDR4,5,1383.7,6918.5,C001,Componentes
+2024-06-26,P015,UPS APC 1500VA,5,3972.53,19862.65,C013,Energía
+2024-06-26,P010,Hub USB-C 7 puertos,10,808.47,8084.7,C010,Accesorios
+2024-06-27,P008,Memoria RAM 16GB DDR4,2,1395.16,2790.32,C001,Componentes
+2024-06-27,P006,Webcam Logitech C920,9,1876.16,16885.44,C007,Periféricos
+2024-06-27,P010,Hub USB-C 7 puertos,2,861.79,1723.58,C012,Accesorios
+2024-06-27,P010,Hub USB-C 7 puertos,10,826.27,8262.7,C006,Accesorios
+2024-06-28,P016,Router WiFi 6,8,2869.37,22954.96,C003,Redes
+2024-06-28,P020,Mochila para Laptop,7,1224.23,8569.61,C006,Accesorios
+2024-06-28,P016,Router WiFi 6,9,2884.56,25961.04,C013,Redes
+2024-07-01,P003,Teclado Logitech MX Keys,8,2105.92,16847.36,C009,Periféricos
+2024-07-01,P012,Escritorio Ajustable,10,11534.65,115346.5,C002,Mobiliario
+2024-07-01,P018,Tablet Samsung Galaxy Tab,9,6985.55,62869.95,C015,Electrónica
+2024-07-01,P018,Tablet Samsung Galaxy Tab,3,7076.24,21228.72,C003,Electrónica
+2024-07-01,P017,Switch 24 puertos,2,4275.72,8551.44,C008,Redes
+2024-07-01,P019,Cargador Universal 65W,2,675.93,1351.86,C008,Accesorios
+2024-07-02,P002,Monitor Dell 27 pulgadas,3,5807.68,17423.04,C008,Electrónica
+2024-07-02,P015,UPS APC 1500VA,1,3822.34,3822.34,C010,Energía
+2024-07-02,P010,Hub USB-C 7 puertos,1,841.16,841.16,C012,Accesorios
+2024-07-02,P001,Laptop HP ProBook 450,4,12597.89,50391.56,C012,Electrónica
+2024-07-02,P002,Monitor Dell 27 pulgadas,6,5916.22,35497.32,C007,Electrónica
+2024-07-03,P002,Monitor Dell 27 pulgadas,2,6081.96,12163.92,C015,Electrónica
+2024-07-03,P016,Router WiFi 6,5,2774.48,13872.4,C001,Redes
+2024-07-03,P005,Auriculares Sony WH-1000XM5,7,6418.4,44928.8,C013,Audio
+2024-07-03,P013,Impresora HP LaserJet,7,4444.04,31108.28,C008,Impresión
+2024-07-03,P018,Tablet Samsung Galaxy Tab,6,6925.42,41552.52,C003,Electrónica
+2024-07-03,P018,Tablet Samsung Galaxy Tab,9,6931.69,62385.21,C007,Electrónica
+2024-07-04,P001,Laptop HP ProBook 450,1,13098.11,13098.11,C013,Electrónica
+2024-07-04,P015,UPS APC 1500VA,9,3771.17,33940.53,C011,Energía
+2024-07-04,P013,Impresora HP LaserJet,4,4386.38,17545.52,C014,Impresión
+2024-07-05,P005,Auriculares Sony WH-1000XM5,4,6784.32,27137.28,C005,Audio
+2024-07-05,P004,Mouse Logitech MX Master,7,1668.96,11682.72,C001,Periféricos
+2024-07-05,P001,Laptop HP ProBook 450,4,11959.11,47836.44,C004,Electrónica
+2024-07-05,P020,Mochila para Laptop,8,1211.73,9693.84,C001,Accesorios
+2024-07-06,P002,Monitor Dell 27 pulgadas,1,5743.31,5743.31,C004,Electrónica
+2024-07-06,P008,Memoria RAM 16GB DDR4,4,1435.61,5742.44,C009,Componentes
+2024-07-08,P017,Switch 24 puertos,4,4332.63,17330.52,C005,Redes
+2024-07-08,P019,Cargador Universal 65W,10,656.36,6563.6,C006,Accesorios
+2024-07-08,P011,Silla Ergonómica Premium,5,8819.82,44099.1,C004,Mobiliario
+2024-07-09,P008,Memoria RAM 16GB DDR4,5,1368.52,6842.6,C007,Componentes
+2024-07-09,P018,Tablet Samsung Galaxy Tab,3,7290.72,21872.16,C010,Electrónica
+2024-07-09,P014,Toner HP 26A,8,906.95,7255.6,C009,Consumibles
+2024-07-09,P012,Escritorio Ajustable,7,12342.97,86400.79,C011,Mobiliario
+2024-07-09,P011,Silla Ergonómica Premium,7,8422.02,58954.14,C012,Mobiliario
+2024-07-09,P010,Hub USB-C 7 puertos,3,871.63,2614.89,C007,Accesorios
+2024-07-10,P008,Memoria RAM 16GB DDR4,4,1372.1,5488.4,C014,Componentes
+2024-07-10,P005,Auriculares Sony WH-1000XM5,8,6769.58,54156.64,C013,Audio
+2024-07-10,P018,Tablet Samsung Galaxy Tab,7,7241.25,50688.75,C007,Electrónica
+2024-07-10,P005,Auriculares Sony WH-1000XM5,4,6340.75,25363.0,C007,Audio
+2024-07-10,P011,Silla Ergonómica Premium,2,8858.89,17717.78,C011,Mobiliario
+2024-07-11,P003,Teclado Logitech MX Keys,4,2005.82,8023.28,C009,Periféricos
+2024-07-11,P013,Impresora HP LaserJet,10,4546.31,45463.1,C011,Impresión
+2024-07-11,P003,Teclado Logitech MX Keys,10,2147.1,21471.0,C004,Periféricos
+2024-07-11,P018,Tablet Samsung Galaxy Tab,8,6990.4,55923.2,C004,Electrónica
+2024-07-12,P010,Hub USB-C 7 puertos,1,825.5,825.5,C015,Accesorios
+2024-07-12,P007,Disco SSD Samsung 1TB,2,2254.31,4508.62,C012,Almacenamiento
+2024-07-12,P016,Router WiFi 6,4,2854.78,11419.12,C015,Redes
+2024-07-12,P007,Disco SSD Samsung 1TB,4,2211.46,8845.84,C007,Almacenamiento
+2024-07-13,P013,Impresora HP LaserJet,9,4566.92,41102.28,C008,Impresión
+2024-07-14,P009,Cable HDMI 2m,9,186.89,1682.01,C006,Accesorios
+2024-07-15,P004,Mouse Logitech MX Master,8,1693.17,13545.36,C013,Periféricos
+2024-07-15,P011,Silla Ergonómica Premium,4,8390.1,33560.4,C015,Mobiliario
+2024-07-15,P014,Toner HP 26A,10,984.59,9845.9,C001,Consumibles
+2024-07-15,P005,Auriculares Sony WH-1000XM5,5,6534.65,32673.25,C001,Audio
+2024-07-15,P019,Cargador Universal 65W,7,636.69,4456.83,C010,Accesorios
+2024-07-16,P011,Silla Ergonómica Premium,7,8559.32,59915.24,C004,Mobiliario
+2024-07-16,P008,Memoria RAM 16GB DDR4,9,1421.65,12794.85,C008,Componentes
+2024-07-16,P011,Silla Ergonómica Premium,8,8896.53,71172.24,C005,Mobiliario
+2024-07-17,P015,UPS APC 1500VA,6,3674.32,22045.92,C003,Energía
+2024-07-17,P018,Tablet Samsung Galaxy Tab,3,7500.17,22500.51,C008,Electrónica
+2024-07-17,P018,Tablet Samsung Galaxy Tab,1,7217.24,7217.24,C011,Electrónica
+2024-07-17,P003,Teclado Logitech MX Keys,1,2155.51,2155.51,C014,Periféricos
+2024-07-17,P014,Toner HP 26A,4,908.96,3635.84,C003,Consumibles
+2024-07-18,P001,Laptop HP ProBook 450,9,12445.01,112005.09,C004,Electrónica
+2024-07-18,P002,Monitor Dell 27 pulgadas,10,6039.4,60394.0,C010,Electrónica
+2024-07-18,P016,Router WiFi 6,1,2809.02,2809.02,C001,Redes
+2024-07-19,P001,Laptop HP ProBook 450,9,12777.74,114999.66,C001,Electrónica
+2024-07-19,P018,Tablet Samsung Galaxy Tab,1,7201.6,7201.6,C005,Electrónica
+2024-07-19,P014,Toner HP 26A,3,912.67,2738.01,C013,Consumibles
+2024-07-19,P004,Mouse Logitech MX Master,3,1607.26,4821.78,C009,Periféricos
+2024-07-19,P020,Mochila para Laptop,5,1237.83,6189.15,C009,Accesorios
+2024-07-20,P013,Impresora HP LaserJet,6,4706.68,28240.08,C002,Impresión
+2024-07-21,P019,Cargador Universal 65W,4,637.0,2548.0,C004,Accesorios
+2024-07-22,P002,Monitor Dell 27 pulgadas,7,5729.97,40109.79,C002,Electrónica
+2024-07-22,P018,Tablet Samsung Galaxy Tab,1,7298.46,7298.46,C008,Electrónica
+2024-07-23,P003,Teclado Logitech MX Keys,7,2130.43,14913.01,C008,Periféricos
+2024-07-23,P011,Silla Ergonómica Premium,2,8835.57,17671.14,C010,Mobiliario
+2024-07-23,P002,Monitor Dell 27 pulgadas,4,6032.74,24130.96,C004,Electrónica
+2024-07-24,P016,Router WiFi 6,1,2918.76,2918.76,C005,Redes
+2024-07-24,P009,Cable HDMI 2m,9,181.14,1630.26,C015,Accesorios
+2024-07-24,P002,Monitor Dell 27 pulgadas,6,5519.08,33114.48,C003,Electrónica
+2024-07-24,P007,Disco SSD Samsung 1TB,3,2255.5,6766.5,C010,Almacenamiento
+2024-07-24,P013,Impresora HP LaserJet,2,4409.67,8819.34,C015,Impresión
+2024-07-24,P019,Cargador Universal 65W,10,671.75,6717.5,C004,Accesorios
+2024-07-25,P018,Tablet Samsung Galaxy Tab,7,7384.04,51688.28,C006,Electrónica
+2024-07-25,P005,Auriculares Sony WH-1000XM5,2,6500.52,13001.04,C013,Audio
+2024-07-25,P012,Escritorio Ajustable,2,11924.51,23849.02,C001,Mobiliario
+2024-07-25,P003,Teclado Logitech MX Keys,10,2156.49,21564.9,C006,Periféricos
+2024-07-25,P020,Mochila para Laptop,6,1143.56,6861.36,C007,Accesorios
+2024-07-26,P015,UPS APC 1500VA,4,3745.21,14980.84,C008,Energía
+2024-07-26,P013,Impresora HP LaserJet,3,4580.86,13742.58,C007,Impresión
+2024-07-26,P013,Impresora HP LaserJet,10,4407.92,44079.2,C002,Impresión
+2024-07-26,P008,Memoria RAM 16GB DDR4,2,1341.49,2682.98,C012,Componentes
+2024-07-28,P005,Auriculares Sony WH-1000XM5,7,6380.84,44665.88,C012,Audio
+2024-07-29,P003,Teclado Logitech MX Keys,5,2088.39,10441.95,C001,Periféricos
+2024-07-29,P009,Cable HDMI 2m,3,172.57,517.71,C002,Accesorios
+2024-07-30,P015,UPS APC 1500VA,9,3804.73,34242.57,C009,Energía
+2024-07-30,P004,Mouse Logitech MX Master,2,1625.9,3251.8,C001,Periféricos
+2024-07-30,P003,Teclado Logitech MX Keys,10,2159.73,21597.3,C010,Periféricos
+2024-07-30,P013,Impresora HP LaserJet,5,4461.21,22306.05,C001,Impresión
+2024-07-30,P003,Teclado Logitech MX Keys,9,2185.09,19665.81,C012,Periféricos
+2024-07-31,P019,Cargador Universal 65W,3,662.05,1986.15,C009,Accesorios
+2024-07-31,P006,Webcam Logitech C920,5,1764.2,8821.0,C003,Periféricos
+2024-07-31,P016,Router WiFi 6,2,2706.82,5413.64,C003,Redes
+2024-08-01,P014,Toner HP 26A,8,976.85,7814.8,C005,Consumibles
+2024-08-01,P012,Escritorio Ajustable,4,12265.08,49060.32,C005,Mobiliario
+2024-08-01,P016,Router WiFi 6,10,2714.75,27147.5,C010,Redes
+2024-08-01,P004,Mouse Logitech MX Master,5,1568.62,7843.1,C003,Periféricos
+2024-08-02,P011,Silla Ergonómica Premium,10,8397.91,83979.1,C014,Mobiliario
+2024-08-02,P011,Silla Ergonómica Premium,6,8441.02,50646.12,C008,Mobiliario
+2024-08-02,P020,Mochila para Laptop,5,1178.48,5892.4,C003,Accesorios
+2024-08-02,P007,Disco SSD Samsung 1TB,6,2129.08,12774.48,C008,Almacenamiento
+2024-08-02,P013,Impresora HP LaserJet,5,4605.69,23028.45,C006,Impresión
+2024-08-03,P016,Router WiFi 6,4,2751.25,11005.0,C010,Redes
+2024-08-03,P009,Cable HDMI 2m,7,177.57,1242.99,C014,Accesorios
+2024-08-04,P007,Disco SSD Samsung 1TB,9,2129.58,19166.22,C010,Almacenamiento
+2024-08-04,P018,Tablet Samsung Galaxy Tab,8,7518.94,60151.52,C001,Electrónica
+2024-08-05,P015,UPS APC 1500VA,5,3925.89,19629.45,C013,Energía
+2024-08-05,P003,Teclado Logitech MX Keys,7,2136.33,14954.31,C014,Periféricos
+2024-08-05,P005,Auriculares Sony WH-1000XM5,5,6332.31,31661.55,C011,Audio
+2024-08-06,P014,Toner HP 26A,7,909.53,6366.71,C013,Consumibles
+2024-08-06,P020,Mochila para Laptop,10,1188.1,11881.0,C008,Accesorios
+2024-08-06,P017,Switch 24 puertos,7,4218.33,29528.31,C015,Redes
+2024-08-07,P018,Tablet Samsung Galaxy Tab,2,6918.75,13837.5,C010,Electrónica
+2024-08-07,P008,Memoria RAM 16GB DDR4,6,1353.29,8119.74,C011,Componentes
+2024-08-07,P020,Mochila para Laptop,10,1258.03,12580.3,C001,Accesorios
+2024-08-07,P013,Impresora HP LaserJet,6,4709.57,28257.42,C013,Impresión
+2024-08-08,P004,Mouse Logitech MX Master,2,1610.19,3220.38,C001,Periféricos
+2024-08-08,P017,Switch 24 puertos,9,4224.36,38019.24,C012,Redes
+2024-08-08,P019,Cargador Universal 65W,8,641.82,5134.56,C004,Accesorios
+2024-08-08,P015,UPS APC 1500VA,10,3872.37,38723.7,C013,Energía
+2024-08-08,P005,Auriculares Sony WH-1000XM5,1,6488.8,6488.8,C006,Audio
+2024-08-09,P014,Toner HP 26A,2,913.53,1827.06,C015,Consumibles
+2024-08-09,P005,Auriculares Sony WH-1000XM5,5,6397.99,31989.95,C006,Audio
+2024-08-09,P007,Disco SSD Samsung 1TB,8,2166.63,17333.04,C009,Almacenamiento
+2024-08-09,P004,Mouse Logitech MX Master,8,1620.12,12960.96,C008,Periféricos
+2024-08-10,P002,Monitor Dell 27 pulgadas,2,5523.1,11046.2,C013,Electrónica
+2024-08-11,P004,Mouse Logitech MX Master,3,1720.94,5162.82,C011,Periféricos
+2024-08-12,P017,Switch 24 puertos,9,4057.26,36515.34,C003,Redes
+2024-08-12,P018,Tablet Samsung Galaxy Tab,8,7006.94,56055.52,C007,Electrónica
+2024-08-12,P013,Impresora HP LaserJet,3,4358.87,13076.61,C011,Impresión
+2024-08-13,P013,Impresora HP LaserJet,10,4672.39,46723.9,C001,Impresión
+2024-08-13,P015,UPS APC 1500VA,7,3757.76,26304.32,C010,Energía
+2024-08-13,P007,Disco SSD Samsung 1TB,5,2255.51,11277.55,C004,Almacenamiento
+2024-08-13,P003,Teclado Logitech MX Keys,2,2162.9,4325.8,C010,Periféricos
+2024-08-13,P018,Tablet Samsung Galaxy Tab,6,7074.71,42448.26,C003,Electrónica
+2024-08-14,P004,Mouse Logitech MX Master,8,1654.57,13236.56,C005,Periféricos
+2024-08-14,P011,Silla Ergonómica Premium,7,8594.61,60162.27,C010,Mobiliario
+2024-08-14,P019,Cargador Universal 65W,6,640.38,3842.28,C002,Accesorios
+2024-08-14,P015,UPS APC 1500VA,3,3919.22,11757.66,C010,Energía
+2024-08-14,P010,Hub USB-C 7 puertos,10,857.66,8576.6,C015,Accesorios
+2024-08-15,P011,Silla Ergonómica Premium,4,8334.57,33338.28,C002,Mobiliario
+2024-08-15,P006,Webcam Logitech C920,3,1801.95,5405.85,C006,Periféricos
+2024-08-15,P014,Toner HP 26A,3,957.11,2871.33,C010,Consumibles
+2024-08-16,P006,Webcam Logitech C920,9,1834.82,16513.38,C008,Periféricos
+2024-08-16,P006,Webcam Logitech C920,3,1798.14,5394.42,C009,Periféricos
+2024-08-16,P005,Auriculares Sony WH-1000XM5,6,6722.29,40333.74,C003,Audio
+2024-08-16,P020,Mochila para Laptop,6,1254.22,7525.32,C001,Accesorios
+2024-08-16,P016,Router WiFi 6,4,2888.26,11553.04,C003,Redes
+2024-08-17,P017,Switch 24 puertos,8,4161.84,33294.72,C011,Redes
+2024-08-17,P016,Router WiFi 6,8,2796.84,22374.72,C007,Redes
+2024-08-19,P001,Laptop HP ProBook 450,4,12240.11,48960.44,C013,Electrónica
+2024-08-19,P009,Cable HDMI 2m,9,176.2,1585.8,C004,Accesorios
+2024-08-19,P015,UPS APC 1500VA,8,3818.9,30551.2,C010,Energía
+2024-08-19,P004,Mouse Logitech MX Master,2,1611.7,3223.4,C010,Periféricos
+2024-08-19,P018,Tablet Samsung Galaxy Tab,6,7230.27,43381.62,C014,Electrónica
+2024-08-19,P002,Monitor Dell 27 pulgadas,8,5826.88,46615.04,C013,Electrónica
+2024-08-20,P004,Mouse Logitech MX Master,4,1616.62,6466.48,C012,Periféricos
+2024-08-20,P002,Monitor Dell 27 pulgadas,5,5712.17,28560.85,C008,Electrónica
+2024-08-20,P003,Teclado Logitech MX Keys,2,2157.88,4315.76,C008,Periféricos
+2024-08-20,P008,Memoria RAM 16GB DDR4,10,1426.48,14264.8,C004,Componentes
+2024-08-20,P020,Mochila para Laptop,7,1159.92,8119.44,C011,Accesorios
+2024-08-21,P007,Disco SSD Samsung 1TB,4,2267.2,9068.8,C014,Almacenamiento
+2024-08-21,P019,Cargador Universal 65W,9,635.77,5721.93,C006,Accesorios
+2024-08-21,P018,Tablet Samsung Galaxy Tab,6,7544.88,45269.28,C003,Electrónica
+2024-08-22,P010,Hub USB-C 7 puertos,5,888.45,4442.25,C010,Accesorios
+2024-08-22,P017,Switch 24 puertos,2,4046.95,8093.9,C015,Redes
+2024-08-22,P014,Toner HP 26A,1,996.79,996.79,C015,Consumibles
+2024-08-22,P005,Auriculares Sony WH-1000XM5,3,6337.29,19011.87,C012,Audio
+2024-08-23,P008,Memoria RAM 16GB DDR4,7,1398.52,9789.64,C013,Componentes
+2024-08-23,P019,Cargador Universal 65W,5,658.31,3291.55,C011,Accesorios
+2024-08-23,P013,Impresora HP LaserJet,2,4560.13,9120.26,C008,Impresión
+2024-08-23,P003,Teclado Logitech MX Keys,9,2152.46,19372.14,C007,Periféricos
+2024-08-24,P012,Escritorio Ajustable,8,11792.75,94342.0,C008,Mobiliario
+2024-08-24,P001,Laptop HP ProBook 450,2,12788.66,25577.32,C014,Electrónica
+2024-08-25,P012,Escritorio Ajustable,2,12354.81,24709.62,C014,Mobiliario
+2024-08-26,P007,Disco SSD Samsung 1TB,4,2198.84,8795.36,C007,Almacenamiento
+2024-08-26,P011,Silla Ergonómica Premium,5,8362.09,41810.45,C014,Mobiliario
+2024-08-26,P019,Cargador Universal 65W,10,672.91,6729.1,C003,Accesorios
+2024-08-26,P011,Silla Ergonómica Premium,1,8114.05,8114.05,C015,Mobiliario
+2024-08-26,P015,UPS APC 1500VA,2,3963.18,7926.36,C001,Energía
+2024-08-27,P015,UPS APC 1500VA,1,3986.9,3986.9,C008,Energía
+2024-08-27,P014,Toner HP 26A,3,986.3,2958.9,C004,Consumibles
+2024-08-27,P010,Hub USB-C 7 puertos,5,815.43,4077.15,C003,Accesorios
+2024-08-28,P009,Cable HDMI 2m,6,182.96,1097.76,C002,Accesorios
+2024-08-28,P006,Webcam Logitech C920,7,1822.61,12758.27,C001,Periféricos
+2024-08-28,P008,Memoria RAM 16GB DDR4,2,1428.52,2857.04,C007,Componentes
+2024-08-28,P001,Laptop HP ProBook 450,8,11972.42,95779.36,C004,Electrónica
+2024-08-29,P008,Memoria RAM 16GB DDR4,8,1331.3,10650.4,C009,Componentes
+2024-08-29,P011,Silla Ergonómica Premium,2,8914.93,17829.86,C014,Mobiliario
+2024-08-29,P014,Toner HP 26A,3,947.88,2843.64,C012,Consumibles
+2024-08-29,P008,Memoria RAM 16GB DDR4,2,1432.31,2864.62,C007,Componentes
+2024-08-29,P004,Mouse Logitech MX Master,6,1628.15,9768.9,C002,Periféricos
+2024-08-29,P010,Hub USB-C 7 puertos,7,873.24,6112.68,C003,Accesorios
+2024-08-30,P005,Auriculares Sony WH-1000XM5,9,6541.14,58870.26,C002,Audio
+2024-08-30,P020,Mochila para Laptop,3,1192.81,3578.43,C011,Accesorios
+2024-08-30,P007,Disco SSD Samsung 1TB,3,2292.38,6877.14,C011,Almacenamiento
+2024-08-31,P015,UPS APC 1500VA,4,3642.94,14571.76,C014,Energía
+2024-08-31,P004,Mouse Logitech MX Master,2,1664.78,3329.56,C003,Periféricos
+2024-09-01,P012,Escritorio Ajustable,6,12349.29,74095.74,C007,Mobiliario
+2024-09-02,P009,Cable HDMI 2m,2,175.47,350.94,C011,Accesorios
+2024-09-02,P020,Mochila para Laptop,10,1174.19,11741.9,C010,Accesorios
+2024-09-02,P001,Laptop HP ProBook 450,5,12131.81,60659.05,C014,Electrónica
+2024-09-03,P017,Switch 24 puertos,7,4114.13,28798.91,C004,Redes
+2024-09-03,P002,Monitor Dell 27 pulgadas,4,5797.03,23188.12,C013,Electrónica
+2024-09-03,P004,Mouse Logitech MX Master,8,1672.78,13382.24,C004,Periféricos
+2024-09-03,P003,Teclado Logitech MX Keys,1,2202.25,2202.25,C009,Periféricos
+2024-09-03,P011,Silla Ergonómica Premium,7,8806.69,61646.83,C003,Mobiliario
+2024-09-03,P019,Cargador Universal 65W,6,653.01,3918.06,C007,Accesorios
+2024-09-04,P016,Router WiFi 6,2,2664.67,5329.34,C013,Redes
+2024-09-04,P003,Teclado Logitech MX Keys,5,2040.31,10201.55,C001,Periféricos
+2024-09-04,P002,Monitor Dell 27 pulgadas,7,5803.83,40626.81,C013,Electrónica
+2024-09-05,P014,Toner HP 26A,7,910.33,6372.31,C007,Consumibles
+2024-09-05,P018,Tablet Samsung Galaxy Tab,10,6949.93,69499.3,C009,Electrónica
+2024-09-05,P003,Teclado Logitech MX Keys,2,2102.37,4204.74,C005,Periféricos
+2024-09-05,P007,Disco SSD Samsung 1TB,3,2208.01,6624.03,C013,Almacenamiento
+2024-09-05,P013,Impresora HP LaserJet,2,4414.58,8829.16,C010,Impresión
+2024-09-05,P014,Toner HP 26A,4,908.0,3632.0,C012,Consumibles
+2024-09-06,P014,Toner HP 26A,8,960.67,7685.36,C002,Consumibles
+2024-09-06,P002,Monitor Dell 27 pulgadas,3,5579.28,16737.84,C005,Electrónica
+2024-09-07,P005,Auriculares Sony WH-1000XM5,1,6281.49,6281.49,C012,Audio
+2024-09-07,P012,Escritorio Ajustable,9,12339.58,111056.22,C009,Mobiliario
+2024-09-08,P009,Cable HDMI 2m,6,173.28,1039.68,C003,Accesorios
+2024-09-08,P009,Cable HDMI 2m,2,184.89,369.78,C012,Accesorios
+2024-09-09,P011,Silla Ergonómica Premium,7,8306.18,58143.26,C013,Mobiliario
+2024-09-09,P003,Teclado Logitech MX Keys,10,2126.78,21267.8,C005,Periféricos
+2024-09-10,P015,UPS APC 1500VA,6,3631.07,21786.42,C009,Energía
+2024-09-10,P019,Cargador Universal 65W,6,627.73,3766.38,C003,Accesorios
+2024-09-10,P004,Mouse Logitech MX Master,10,1678.73,16787.3,C015,Periféricos
+2024-09-10,P004,Mouse Logitech MX Master,9,1567.92,14111.28,C004,Periféricos
+2024-09-10,P001,Laptop HP ProBook 450,1,12464.71,12464.71,C004,Electrónica
+2024-09-11,P005,Auriculares Sony WH-1000XM5,1,6534.36,6534.36,C003,Audio
+2024-09-11,P014,Toner HP 26A,6,926.09,5556.54,C004,Consumibles
+2024-09-11,P011,Silla Ergonómica Premium,2,8560.81,17121.62,C005,Mobiliario
+2024-09-11,P004,Mouse Logitech MX Master,1,1597.09,1597.09,C009,Periféricos
+2024-09-11,P017,Switch 24 puertos,7,4018.95,28132.65,C001,Redes
+2024-09-12,P010,Hub USB-C 7 puertos,5,835.32,4176.6,C013,Accesorios
+2024-09-12,P018,Tablet Samsung Galaxy Tab,1,7105.62,7105.62,C008,Electrónica
+2024-09-12,P010,Hub USB-C 7 puertos,5,870.36,4351.8,C010,Accesorios
+2024-09-12,P008,Memoria RAM 16GB DDR4,6,1412.84,8477.04,C008,Componentes
+2024-09-12,P016,Router WiFi 6,4,2865.09,11460.36,C013,Redes
+2024-09-13,P008,Memoria RAM 16GB DDR4,1,1460.54,1460.54,C003,Componentes
+2024-09-13,P001,Laptop HP ProBook 450,9,12308.03,110772.27,C004,Electrónica
+2024-09-13,P001,Laptop HP ProBook 450,1,12823.66,12823.66,C006,Electrónica
+2024-09-13,P013,Impresora HP LaserJet,5,4321.78,21608.9,C014,Impresión
+2024-09-13,P017,Switch 24 puertos,7,4196.65,29376.55,C004,Redes
+2024-09-13,P002,Monitor Dell 27 pulgadas,5,5563.96,27819.8,C003,Electrónica
+2024-09-15,P014,Toner HP 26A,6,946.05,5676.3,C012,Consumibles
+2024-09-15,P003,Teclado Logitech MX Keys,2,2101.14,4202.28,C010,Periféricos
+2024-09-16,P003,Teclado Logitech MX Keys,10,2008.08,20080.8,C010,Periféricos
+2024-09-16,P005,Auriculares Sony WH-1000XM5,5,6344.64,31723.2,C004,Audio
+2024-09-16,P011,Silla Ergonómica Premium,7,8670.62,60694.34,C015,Mobiliario
+2024-09-16,P011,Silla Ergonómica Premium,8,8306.16,66449.28,C006,Mobiliario
+2024-09-16,P003,Teclado Logitech MX Keys,3,2158.79,6476.37,C004,Periféricos
+2024-09-17,P004,Mouse Logitech MX Master,2,1594.62,3189.24,C003,Periféricos
+2024-09-17,P015,UPS APC 1500VA,7,3655.88,25591.16,C006,Energía
+2024-09-17,P012,Escritorio Ajustable,4,11942.3,47769.2,C013,Mobiliario
+2024-09-17,P015,UPS APC 1500VA,2,3644.36,7288.72,C005,Energía
+2024-09-17,P010,Hub USB-C 7 puertos,10,810.93,8109.3,C014,Accesorios
+2024-09-17,P011,Silla Ergonómica Premium,2,8679.48,17358.96,C003,Mobiliario
+2024-09-18,P013,Impresora HP LaserJet,1,4579.73,4579.73,C009,Impresión
+2024-09-18,P009,Cable HDMI 2m,3,171.56,514.68,C014,Accesorios
+2024-09-18,P013,Impresora HP LaserJet,8,4525.18,36201.44,C014,Impresión
+2024-09-18,P018,Tablet Samsung Galaxy Tab,2,7172.67,14345.34,C004,Electrónica
+2024-09-19,P004,Mouse Logitech MX Master,1,1704.51,1704.51,C001,Periféricos
+2024-09-19,P008,Memoria RAM 16GB DDR4,4,1445.31,5781.24,C003,Componentes
+2024-09-19,P012,Escritorio Ajustable,2,12098.79,24197.58,C011,Mobiliario
+2024-09-20,P003,Teclado Logitech MX Keys,2,2036.53,4073.06,C001,Periféricos
+2024-09-20,P015,UPS APC 1500VA,3,3644.95,10934.85,C013,Energía
+2024-09-20,P011,Silla Ergonómica Premium,1,8875.94,8875.94,C002,Mobiliario
+2024-09-20,P002,Monitor Dell 27 pulgadas,10,5761.23,57612.3,C003,Electrónica
+2024-09-21,P013,Impresora HP LaserJet,1,4447.23,4447.23,C008,Impresión
+2024-09-21,P014,Toner HP 26A,6,922.9,5537.4,C003,Consumibles
+2024-09-23,P009,Cable HDMI 2m,3,171.62,514.86,C008,Accesorios
+2024-09-23,P020,Mochila para Laptop,4,1217.67,4870.68,C010,Accesorios
+2024-09-23,P016,Router WiFi 6,9,2794.13,25147.17,C007,Redes
+2024-09-23,P003,Teclado Logitech MX Keys,7,2023.82,14166.74,C005,Periféricos
+2024-09-24,P017,Switch 24 puertos,9,4323.84,38914.56,C004,Redes
+2024-09-24,P013,Impresora HP LaserJet,6,4490.86,26945.16,C013,Impresión
+2024-09-24,P016,Router WiFi 6,10,2800.67,28006.7,C006,Redes
+2024-09-25,P009,Cable HDMI 2m,1,176.74,176.74,C003,Accesorios
+2024-09-25,P008,Memoria RAM 16GB DDR4,5,1338.2,6691.0,C001,Componentes
+2024-09-25,P016,Router WiFi 6,6,2874.72,17248.32,C009,Redes
+2024-09-25,P008,Memoria RAM 16GB DDR4,2,1364.7,2729.4,C003,Componentes
+2024-09-25,P008,Memoria RAM 16GB DDR4,9,1444.28,12998.52,C005,Componentes
+2024-09-26,P008,Memoria RAM 16GB DDR4,7,1379.67,9657.69,C010,Componentes
+2024-09-26,P006,Webcam Logitech C920,4,1816.65,7266.6,C003,Periféricos
+2024-09-27,P019,Cargador Universal 65W,6,679.09,4074.54,C001,Accesorios
+2024-09-27,P019,Cargador Universal 65W,10,679.14,6791.4,C003,Accesorios
+2024-09-27,P016,Router WiFi 6,5,2709.16,13545.8,C009,Redes
+2024-09-27,P002,Monitor Dell 27 pulgadas,1,5644.92,5644.92,C002,Electrónica
+2024-09-30,P016,Router WiFi 6,6,2917.01,17502.06,C001,Redes
+2024-09-30,P007,Disco SSD Samsung 1TB,3,2164.97,6494.91,C013,Almacenamiento
+2024-09-30,P006,Webcam Logitech C920,6,1720.72,10324.32,C015,Periféricos
+2024-09-30,P005,Auriculares Sony WH-1000XM5,3,6678.34,20035.02,C010,Audio
+2024-09-30,P017,Switch 24 puertos,6,4393.43,26360.58,C014,Redes
+2024-09-30,P012,Escritorio Ajustable,7,12103.22,84722.54,C012,Mobiliario
+2024-10-01,P010,Hub USB-C 7 puertos,3,890.45,2671.35,C006,Accesorios
+2024-10-01,P014,Toner HP 26A,8,964.17,7713.36,C013,Consumibles
+2024-10-01,P006,Webcam Logitech C920,9,1834.84,16513.56,C012,Periféricos
+2024-10-01,P020,Mochila para Laptop,6,1166.79,7000.74,C013,Accesorios
+2024-10-02,P006,Webcam Logitech C920,5,1842.12,9210.6,C007,Periféricos
+2024-10-02,P010,Hub USB-C 7 puertos,3,869.45,2608.35,C003,Accesorios
+2024-10-02,P019,Cargador Universal 65W,10,619.6,6196.0,C007,Accesorios
+2024-10-02,P020,Mochila para Laptop,10,1166.51,11665.1,C006,Accesorios
+2024-10-02,P019,Cargador Universal 65W,8,626.64,5013.12,C002,Accesorios
+2024-10-02,P003,Teclado Logitech MX Keys,6,2201.3,13207.8,C004,Periféricos
+2024-10-03,P003,Teclado Logitech MX Keys,6,2088.79,12532.74,C014,Periféricos
+2024-10-03,P009,Cable HDMI 2m,4,183.48,733.92,C004,Accesorios
+2024-10-03,P012,Escritorio Ajustable,2,12264.5,24529.0,C005,Mobiliario
+2024-10-04,P013,Impresora HP LaserJet,7,4711.1,32977.7,C008,Impresión
+2024-10-04,P014,Toner HP 26A,7,935.87,6551.09,C008,Consumibles
+2024-10-05,P004,Mouse Logitech MX Master,8,1697.64,13581.12,C014,Periféricos
+2024-10-06,P008,Memoria RAM 16GB DDR4,8,1340.32,10722.56,C003,Componentes
+2024-10-06,P002,Monitor Dell 27 pulgadas,1,5694.86,5694.86,C005,Electrónica
+2024-10-07,P003,Teclado Logitech MX Keys,3,2181.47,6544.41,C006,Periféricos
+2024-10-07,P006,Webcam Logitech C920,2,1808.47,3616.94,C012,Periféricos
+2024-10-08,P011,Silla Ergonómica Premium,10,8834.24,88342.4,C010,Mobiliario
+2024-10-08,P001,Laptop HP ProBook 450,3,12634.15,37902.45,C007,Electrónica
+2024-10-09,P006,Webcam Logitech C920,2,1769.6,3539.2,C001,Periféricos
+2024-10-09,P007,Disco SSD Samsung 1TB,9,2248.85,20239.65,C007,Almacenamiento
+2024-10-09,P018,Tablet Samsung Galaxy Tab,5,7054.13,35270.65,C005,Electrónica
+2024-10-09,P004,Mouse Logitech MX Master,7,1661.84,11632.88,C001,Periféricos
+2024-10-09,P016,Router WiFi 6,1,2761.03,2761.03,C003,Redes
+2024-10-10,P003,Teclado Logitech MX Keys,10,2095.87,20958.7,C005,Periféricos
+2024-10-10,P004,Mouse Logitech MX Master,4,1595.69,6382.76,C001,Periféricos
+2024-10-10,P010,Hub USB-C 7 puertos,8,879.22,7033.76,C002,Accesorios
+2024-10-10,P010,Hub USB-C 7 puertos,7,847.53,5932.71,C013,Accesorios
+2024-10-10,P009,Cable HDMI 2m,9,177.98,1601.82,C002,Accesorios
+2024-10-11,P013,Impresora HP LaserJet,3,4475.6,13426.8,C006,Impresión
+2024-10-11,P009,Cable HDMI 2m,8,175.74,1405.92,C008,Accesorios
+2024-10-11,P009,Cable HDMI 2m,1,173.72,173.72,C010,Accesorios
+2024-10-11,P004,Mouse Logitech MX Master,6,1700.85,10205.1,C002,Periféricos
+2024-10-12,P019,Cargador Universal 65W,9,621.46,5593.14,C004,Accesorios
+2024-10-13,P017,Switch 24 puertos,9,4278.57,38507.13,C007,Redes
+2024-10-14,P019,Cargador Universal 65W,4,648.46,2593.84,C015,Accesorios
+2024-10-14,P003,Teclado Logitech MX Keys,1,2100.44,2100.44,C007,Periféricos
+2024-10-14,P017,Switch 24 puertos,10,4274.56,42745.6,C013,Redes
+2024-10-14,P020,Mochila para Laptop,2,1253.91,2507.82,C003,Accesorios
+2024-10-14,P015,UPS APC 1500VA,3,3979.42,11938.26,C003,Energía
+2024-10-15,P005,Auriculares Sony WH-1000XM5,7,6225.94,43581.58,C001,Audio
+2024-10-15,P014,Toner HP 26A,3,981.74,2945.22,C004,Consumibles
+2024-10-15,P009,Cable HDMI 2m,2,172.57,345.14,C006,Accesorios
+2024-10-16,P013,Impresora HP LaserJet,6,4660.48,27962.88,C009,Impresión
+2024-10-16,P017,Switch 24 puertos,1,4320.35,4320.35,C008,Redes
+2024-10-16,P020,Mochila para Laptop,9,1233.8,11104.2,C010,Accesorios
+2024-10-16,P004,Mouse Logitech MX Master,3,1591.95,4775.85,C007,Periféricos
+2024-10-16,P019,Cargador Universal 65W,2,677.62,1355.24,C010,Accesorios
+2024-10-16,P019,Cargador Universal 65W,2,668.57,1337.14,C013,Accesorios
+2024-10-17,P012,Escritorio Ajustable,7,11716.96,82018.72,C015,Mobiliario
+2024-10-17,P016,Router WiFi 6,10,2792.45,27924.5,C010,Redes
+2024-10-17,P006,Webcam Logitech C920,7,1735.89,12151.23,C005,Periféricos
+2024-10-17,P020,Mochila para Laptop,7,1144.65,8012.55,C011,Accesorios
+2024-10-17,P011,Silla Ergonómica Premium,4,8116.9,32467.6,C012,Mobiliario
+2024-10-17,P016,Router WiFi 6,5,2911.17,14555.85,C015,Redes
+2024-10-18,P011,Silla Ergonómica Premium,5,8339.31,41696.55,C014,Mobiliario
+2024-10-18,P016,Router WiFi 6,2,2932.3,5864.6,C014,Redes
+2024-10-21,P015,UPS APC 1500VA,6,3712.38,22274.28,C013,Energía
+2024-10-21,P014,Toner HP 26A,2,920.35,1840.7,C010,Consumibles
+2024-10-21,P007,Disco SSD Samsung 1TB,7,2253.01,15771.07,C015,Almacenamiento
+2024-10-21,P017,Switch 24 puertos,6,4334.83,26008.98,C014,Redes
+2024-10-22,P006,Webcam Logitech C920,5,1837.72,9188.6,C002,Periféricos
+2024-10-22,P013,Impresora HP LaserJet,9,4670.7,42036.3,C003,Impresión
+2024-10-22,P001,Laptop HP ProBook 450,4,12968.98,51875.92,C003,Electrónica
+2024-10-22,P007,Disco SSD Samsung 1TB,1,2144.89,2144.89,C014,Almacenamiento
+2024-10-22,P015,UPS APC 1500VA,6,3877.76,23266.56,C001,Energía
+2024-10-22,P009,Cable HDMI 2m,8,180.09,1440.72,C006,Accesorios
+2024-10-23,P001,Laptop HP ProBook 450,6,12485.98,74915.88,C004,Electrónica
+2024-10-23,P015,UPS APC 1500VA,8,3833.01,30664.08,C003,Energía
+2024-10-24,P012,Escritorio Ajustable,5,12298.75,61493.75,C003,Mobiliario
+2024-10-24,P003,Teclado Logitech MX Keys,1,2076.18,2076.18,C005,Periféricos
+2024-10-24,P006,Webcam Logitech C920,10,1850.37,18503.7,C014,Periféricos
+2024-10-24,P007,Disco SSD Samsung 1TB,4,2232.42,8929.68,C014,Almacenamiento
+2024-10-25,P009,Cable HDMI 2m,7,180.24,1261.68,C011,Accesorios
+2024-10-25,P001,Laptop HP ProBook 450,3,12684.21,38052.63,C008,Electrónica
+2024-10-25,P020,Mochila para Laptop,1,1166.85,1166.85,C013,Accesorios
+2024-10-26,P010,Hub USB-C 7 puertos,5,843.52,4217.6,C012,Accesorios
+2024-10-26,P013,Impresora HP LaserJet,6,4481.55,26889.3,C014,Impresión
+2024-10-28,P010,Hub USB-C 7 puertos,9,877.57,7898.13,C011,Accesorios
+2024-10-28,P013,Impresora HP LaserJet,2,4278.31,8556.62,C010,Impresión
+2024-10-28,P012,Escritorio Ajustable,10,12130.86,121308.6,C009,Mobiliario
+2024-10-28,P010,Hub USB-C 7 puertos,2,848.45,1696.9,C011,Accesorios
+2024-10-28,P011,Silla Ergonómica Premium,6,8807.27,52843.62,C005,Mobiliario
+2024-10-29,P010,Hub USB-C 7 puertos,3,851.47,2554.41,C004,Accesorios
+2024-10-29,P008,Memoria RAM 16GB DDR4,1,1442.76,1442.76,C015,Componentes
+2024-10-29,P020,Mochila para Laptop,6,1221.69,7330.14,C007,Accesorios
+2024-10-29,P001,Laptop HP ProBook 450,8,13121.84,104974.72,C011,Electrónica
+2024-10-30,P014,Toner HP 26A,7,972.49,6807.43,C007,Consumibles
+2024-10-30,P019,Cargador Universal 65W,10,670.54,6705.4,C012,Accesorios
+2024-10-30,P011,Silla Ergonómica Premium,4,8658.37,34633.48,C012,Mobiliario
+2024-10-30,P016,Router WiFi 6,6,2802.05,16812.3,C015,Redes
+2024-10-31,P018,Tablet Samsung Galaxy Tab,5,6910.27,34551.35,C003,Electrónica
+2024-10-31,P005,Auriculares Sony WH-1000XM5,5,6646.37,33231.85,C012,Audio
+2024-10-31,P018,Tablet Samsung Galaxy Tab,3,7521.78,22565.34,C013,Electrónica
+2024-11-01,P003,Teclado Logitech MX Keys,6,2041.9,12251.4,C004,Periféricos
+2024-11-01,P010,Hub USB-C 7 puertos,6,839.09,5034.54,C007,Accesorios
+2024-11-01,P019,Cargador Universal 65W,8,672.83,5382.64,C005,Accesorios
+2024-11-01,P016,Router WiFi 6,10,2822.49,28224.9,C001,Redes
+2024-11-02,P003,Teclado Logitech MX Keys,4,2100.1,8400.4,C008,Periféricos
+2024-11-02,P013,Impresora HP LaserJet,5,4460.9,22304.5,C009,Impresión
+2024-11-04,P007,Disco SSD Samsung 1TB,7,2307.18,16150.26,C006,Almacenamiento
+2024-11-04,P015,UPS APC 1500VA,6,3937.71,23626.26,C003,Energía
+2024-11-04,P006,Webcam Logitech C920,2,1797.76,3595.52,C013,Periféricos
+2024-11-05,P011,Silla Ergonómica Premium,1,8079.01,8079.01,C011,Mobiliario
+2024-11-05,P009,Cable HDMI 2m,3,181.37,544.11,C004,Accesorios
+2024-11-05,P006,Webcam Logitech C920,2,1733.29,3466.58,C008,Periféricos
+2024-11-06,P014,Toner HP 26A,7,994.21,6959.47,C007,Consumibles
+2024-11-06,P013,Impresora HP LaserJet,1,4515.2,4515.2,C001,Impresión
+2024-11-06,P012,Escritorio Ajustable,6,12308.22,73849.32,C001,Mobiliario
+2024-11-06,P017,Switch 24 puertos,1,4274.23,4274.23,C004,Redes
+2024-11-06,P008,Memoria RAM 16GB DDR4,6,1373.69,8242.14,C004,Componentes
+2024-11-07,P013,Impresora HP LaserJet,10,4412.75,44127.5,C009,Impresión
+2024-11-07,P003,Teclado Logitech MX Keys,1,2057.62,2057.62,C014,Periféricos
+2024-11-08,P015,UPS APC 1500VA,9,3836.62,34529.58,C012,Energía
+2024-11-08,P011,Silla Ergonómica Premium,3,8366.32,25098.96,C007,Mobiliario
+2024-11-08,P016,Router WiFi 6,4,2706.17,10824.68,C006,Redes
+2024-11-08,P013,Impresora HP LaserJet,4,4375.94,17503.76,C001,Impresión
+2024-11-11,P019,Cargador Universal 65W,3,625.51,1876.53,C009,Accesorios
+2024-11-11,P002,Monitor Dell 27 pulgadas,5,5957.32,29786.6,C007,Electrónica
+2024-11-12,P002,Monitor Dell 27 pulgadas,1,5893.94,5893.94,C010,Electrónica
+2024-11-12,P001,Laptop HP ProBook 450,2,12395.97,24791.94,C001,Electrónica
+2024-11-12,P013,Impresora HP LaserJet,9,4388.73,39498.57,C002,Impresión
+2024-11-12,P005,Auriculares Sony WH-1000XM5,1,6370.73,6370.73,C004,Audio
+2024-11-12,P004,Mouse Logitech MX Master,9,1612.05,14508.45,C011,Periféricos
+2024-11-12,P020,Mochila para Laptop,3,1190.26,3570.78,C012,Accesorios
+2024-11-13,P017,Switch 24 puertos,10,4039.45,40394.5,C012,Redes
+2024-11-13,P004,Mouse Logitech MX Master,2,1649.63,3299.26,C013,Periféricos
+2024-11-14,P007,Disco SSD Samsung 1TB,5,2272.93,11364.65,C013,Almacenamiento
+2024-11-14,P007,Disco SSD Samsung 1TB,7,2154.98,15084.86,C006,Almacenamiento
+2024-11-14,P002,Monitor Dell 27 pulgadas,8,6038.01,48304.08,C009,Electrónica
+2024-11-14,P016,Router WiFi 6,4,2660.77,10643.08,C006,Redes
+2024-11-14,P003,Teclado Logitech MX Keys,2,2170.4,4340.8,C015,Periféricos
+2024-11-14,P016,Router WiFi 6,2,2878.27,5756.54,C003,Redes
+2024-11-15,P004,Mouse Logitech MX Master,5,1673.82,8369.1,C015,Periféricos
+2024-11-15,P015,UPS APC 1500VA,5,3786.43,18932.15,C005,Energía
+2024-11-18,P010,Hub USB-C 7 puertos,6,843.71,5062.26,C006,Accesorios
+2024-11-18,P004,Mouse Logitech MX Master,1,1569.1,1569.1,C002,Periféricos
+2024-11-19,P006,Webcam Logitech C920,6,1871.01,11226.06,C006,Periféricos
+2024-11-19,P020,Mochila para Laptop,2,1184.71,2369.42,C005,Accesorios
+2024-11-19,P011,Silla Ergonómica Premium,2,8415.66,16831.32,C003,Mobiliario
+2024-11-20,P009,Cable HDMI 2m,7,183.42,1283.94,C014,Accesorios
+2024-11-20,P016,Router WiFi 6,7,2841.68,19891.76,C013,Redes
+2024-11-20,P006,Webcam Logitech C920,3,1835.31,5505.93,C002,Periféricos
+2024-11-20,P002,Monitor Dell 27 pulgadas,3,5570.15,16710.45,C014,Electrónica
+2024-11-20,P019,Cargador Universal 65W,10,661.6,6616.0,C008,Accesorios
+2024-11-21,P020,Mochila para Laptop,6,1213.36,7280.16,C007,Accesorios
+2024-11-21,P005,Auriculares Sony WH-1000XM5,8,6248.41,49987.28,C008,Audio
+2024-11-21,P014,Toner HP 26A,1,908.52,908.52,C008,Consumibles
+2024-11-22,P001,Laptop HP ProBook 450,9,12834.41,115509.69,C012,Electrónica
+2024-11-22,P019,Cargador Universal 65W,10,632.06,6320.6,C012,Accesorios
+2024-11-22,P011,Silla Ergonómica Premium,9,8660.01,77940.09,C009,Mobiliario
+2024-11-22,P020,Mochila para Laptop,7,1219.41,8535.87,C002,Accesorios
+2024-11-24,P012,Escritorio Ajustable,7,11578.39,81048.73,C011,Mobiliario
+2024-11-25,P020,Mochila para Laptop,1,1217.21,1217.21,C001,Accesorios
+2024-11-25,P006,Webcam Logitech C920,8,1863.34,14906.72,C009,Periféricos
+2024-11-25,P006,Webcam Logitech C920,8,1767.71,14141.68,C002,Periféricos
+2024-11-25,P011,Silla Ergonómica Premium,1,8505.89,8505.89,C005,Mobiliario
+2024-11-25,P018,Tablet Samsung Galaxy Tab,7,7130.36,49912.52,C011,Electrónica
+2024-11-25,P008,Memoria RAM 16GB DDR4,8,1392.19,11137.52,C002,Componentes
+2024-11-26,P015,UPS APC 1500VA,8,3779.89,30239.12,C002,Energía
+2024-11-26,P004,Mouse Logitech MX Master,1,1584.44,1584.44,C008,Periféricos
+2024-11-26,P014,Toner HP 26A,9,954.66,8591.94,C001,Consumibles
+2024-11-26,P003,Teclado Logitech MX Keys,10,2197.27,21972.7,C013,Periféricos
+2024-11-26,P010,Hub USB-C 7 puertos,9,855.3,7697.7,C015,Accesorios
+2024-11-26,P015,UPS APC 1500VA,6,3923.62,23541.72,C006,Energía
+2024-11-27,P015,UPS APC 1500VA,9,3901.62,35114.58,C006,Energía
+2024-11-27,P020,Mochila para Laptop,6,1225.91,7355.46,C008,Accesorios
+2024-11-27,P004,Mouse Logitech MX Master,4,1567.86,6271.44,C002,Periféricos
+2024-11-28,P010,Hub USB-C 7 puertos,9,839.28,7553.52,C009,Accesorios
+2024-11-28,P004,Mouse Logitech MX Master,3,1648.75,4946.25,C001,Periféricos
+2024-11-28,P014,Toner HP 26A,5,960.53,4802.65,C002,Consumibles
+2024-11-28,P007,Disco SSD Samsung 1TB,7,2137.43,14962.01,C002,Almacenamiento
+2024-11-29,P011,Silla Ergonómica Premium,7,8114.53,56801.71,C002,Mobiliario
+2024-11-29,P019,Cargador Universal 65W,8,647.23,5177.84,C002,Accesorios
+2024-11-29,P019,Cargador Universal 65W,3,680.15,2040.45,C009,Accesorios
+2024-12-01,P002,Monitor Dell 27 pulgadas,7,5996.51,41975.57,C009,Electrónica
+2024-12-01,P016,Router WiFi 6,9,2878.7,25908.3,C015,Redes
+2024-12-02,P019,Cargador Universal 65W,3,624.23,1872.69,C003,Accesorios
+2024-12-02,P020,Mochila para Laptop,6,1200.49,7202.94,C010,Accesorios
+2024-12-02,P013,Impresora HP LaserJet,10,4687.16,46871.6,C007,Impresión
+2024-12-03,P009,Cable HDMI 2m,6,188.47,1130.82,C007,Accesorios
+2024-12-03,P015,UPS APC 1500VA,3,3662.51,10987.53,C013,Energía
+2024-12-03,P020,Mochila para Laptop,9,1175.87,10582.83,C012,Accesorios
+2024-12-04,P011,Silla Ergonómica Premium,9,8612.7,77514.3,C012,Mobiliario
+2024-12-04,P007,Disco SSD Samsung 1TB,10,2247.16,22471.6,C004,Almacenamiento
+2024-12-04,P012,Escritorio Ajustable,3,12577.6,37732.8,C015,Mobiliario
+2024-12-04,P006,Webcam Logitech C920,9,1834.98,16514.82,C009,Periféricos
+2024-12-04,P011,Silla Ergonómica Premium,2,8721.66,17443.32,C012,Mobiliario
+2024-12-04,P018,Tablet Samsung Galaxy Tab,10,7250.86,72508.6,C008,Electrónica
+2024-12-05,P018,Tablet Samsung Galaxy Tab,7,7421.98,51953.86,C005,Electrónica
+2024-12-05,P017,Switch 24 puertos,1,4149.97,4149.97,C002,Redes
+2024-12-05,P002,Monitor Dell 27 pulgadas,1,5625.94,5625.94,C011,Electrónica
+2024-12-05,P006,Webcam Logitech C920,5,1736.36,8681.8,C005,Periféricos
+2024-12-05,P002,Monitor Dell 27 pulgadas,5,5628.32,28141.6,C012,Electrónica
+2024-12-06,P002,Monitor Dell 27 pulgadas,8,5569.44,44555.52,C006,Electrónica
+2024-12-06,P018,Tablet Samsung Galaxy Tab,4,7374.54,29498.16,C014,Electrónica
+2024-12-06,P018,Tablet Samsung Galaxy Tab,4,7207.86,28831.44,C007,Electrónica
+2024-12-06,P010,Hub USB-C 7 puertos,1,886.25,886.25,C012,Accesorios
+2024-12-06,P013,Impresora HP LaserJet,6,4709.62,28257.72,C007,Impresión
+2024-12-06,P002,Monitor Dell 27 pulgadas,5,5627.79,28138.95,C001,Electrónica
+2024-12-07,P008,Memoria RAM 16GB DDR4,6,1435.72,8614.32,C015,Componentes
+2024-12-08,P020,Mochila para Laptop,4,1175.3,4701.2,C004,Accesorios
+2024-12-08,P006,Webcam Logitech C920,2,1743.66,3487.32,C011,Periféricos
+2024-12-09,P017,Switch 24 puertos,7,4007.07,28049.49,C002,Redes
+2024-12-09,P009,Cable HDMI 2m,5,173.34,866.7,C009,Accesorios
+2024-12-09,P019,Cargador Universal 65W,5,617.87,3089.35,C014,Accesorios
+2024-12-10,P005,Auriculares Sony WH-1000XM5,3,6778.61,20335.83,C001,Audio
+2024-12-10,P020,Mochila para Laptop,10,1241.18,12411.8,C001,Accesorios
+2024-12-10,P010,Hub USB-C 7 puertos,10,854.26,8542.6,C008,Accesorios
+2024-12-10,P003,Teclado Logitech MX Keys,6,2105.33,12631.98,C013,Periféricos
+2024-12-10,P006,Webcam Logitech C920,2,1851.53,3703.06,C009,Periféricos
+2024-12-11,P014,Toner HP 26A,9,940.82,8467.38,C009,Consumibles
+2024-12-11,P012,Escritorio Ajustable,4,12196.0,48784.0,C004,Mobiliario
+2024-12-11,P011,Silla Ergonómica Premium,5,8260.68,41303.4,C006,Mobiliario
+2024-12-12,P017,Switch 24 puertos,9,4335.95,39023.55,C008,Redes
+2024-12-12,P001,Laptop HP ProBook 450,6,12432.08,74592.48,C002,Electrónica
+2024-12-12,P020,Mochila para Laptop,10,1169.26,11692.6,C015,Accesorios
+2024-12-12,P002,Monitor Dell 27 pulgadas,6,5731.2,34387.2,C011,Electrónica
+2024-12-12,P004,Mouse Logitech MX Master,5,1656.64,8283.2,C007,Periféricos
+2024-12-12,P010,Hub USB-C 7 puertos,9,877.38,7896.42,C001,Accesorios
+2024-12-13,P017,Switch 24 puertos,9,4177.13,37594.17,C013,Redes
+2024-12-13,P002,Monitor Dell 27 pulgadas,4,5695.78,22783.12,C005,Electrónica
+2024-12-13,P003,Teclado Logitech MX Keys,3,2199.04,6597.12,C002,Periféricos
+2024-12-13,P018,Tablet Samsung Galaxy Tab,1,7291.39,7291.39,C009,Electrónica
+2024-12-15,P007,Disco SSD Samsung 1TB,7,2273.85,15916.95,C014,Almacenamiento
+2024-12-15,P007,Disco SSD Samsung 1TB,7,2232.24,15625.68,C009,Almacenamiento
+2024-12-16,P005,Auriculares Sony WH-1000XM5,8,6640.96,53127.68,C001,Audio
+2024-12-16,P002,Monitor Dell 27 pulgadas,2,5541.48,11082.96,C002,Electrónica
+2024-12-17,P018,Tablet Samsung Galaxy Tab,10,7431.57,74315.7,C002,Electrónica
+2024-12-17,P009,Cable HDMI 2m,7,179.12,1253.84,C007,Accesorios
+2024-12-17,P013,Impresora HP LaserJet,6,4282.6,25695.6,C007,Impresión
+2024-12-17,P004,Mouse Logitech MX Master,1,1673.33,1673.33,C009,Periféricos
+2024-12-18,P003,Teclado Logitech MX Keys,10,2004.56,20045.6,C013,Periféricos
+2024-12-18,P003,Teclado Logitech MX Keys,9,2017.29,18155.61,C006,Periféricos
+2024-12-18,P010,Hub USB-C 7 puertos,2,831.43,1662.86,C010,Accesorios
+2024-12-18,P015,UPS APC 1500VA,7,3922.41,27456.87,C007,Energía
+2024-12-18,P001,Laptop HP ProBook 450,3,12541.83,37625.49,C008,Electrónica
+2024-12-18,P005,Auriculares Sony WH-1000XM5,7,6692.9,46850.3,C012,Audio
+2024-12-19,P010,Hub USB-C 7 puertos,3,832.83,2498.49,C011,Accesorios
+2024-12-19,P012,Escritorio Ajustable,9,12449.72,112047.48,C001,Mobiliario
+2024-12-19,P005,Auriculares Sony WH-1000XM5,1,6178.27,6178.27,C002,Audio
+2024-12-19,P020,Mochila para Laptop,9,1205.7,10851.3,C007,Accesorios
+2024-12-19,P003,Teclado Logitech MX Keys,4,2152.14,8608.56,C005,Periféricos
+2024-12-19,P012,Escritorio Ajustable,7,12486.75,87407.25,C004,Mobiliario
+2024-12-20,P005,Auriculares Sony WH-1000XM5,3,6318.51,18955.53,C003,Audio
+2024-12-20,P009,Cable HDMI 2m,2,174.26,348.52,C004,Accesorios
+2024-12-20,P019,Cargador Universal 65W,1,672.84,672.84,C014,Accesorios
+2024-12-20,P018,Tablet Samsung Galaxy Tab,9,6892.66,62033.94,C008,Electrónica
+2024-12-20,P003,Teclado Logitech MX Keys,2,2036.46,4072.92,C005,Periféricos
+2024-12-20,P019,Cargador Universal 65W,6,640.71,3844.26,C008,Accesorios
+2024-12-21,P008,Memoria RAM 16GB DDR4,5,1416.73,7083.65,C002,Componentes
+2024-12-21,P007,Disco SSD Samsung 1TB,8,2189.14,17513.12,C006,Almacenamiento
+2024-12-22,P010,Hub USB-C 7 puertos,10,820.45,8204.5,C012,Accesorios
+2024-12-22,P019,Cargador Universal 65W,6,679.81,4078.86,C006,Accesorios
+2024-12-23,P001,Laptop HP ProBook 450,4,12857.08,51428.32,C006,Electrónica
+2024-12-23,P014,Toner HP 26A,6,915.26,5491.56,C005,Consumibles
+2024-12-23,P011,Silla Ergonómica Premium,8,8468.42,67747.36,C015,Mobiliario
+2024-12-24,P010,Hub USB-C 7 puertos,9,816.75,7350.75,C008,Accesorios
+2024-12-24,P020,Mochila para Laptop,5,1243.05,6215.25,C002,Accesorios
+2024-12-24,P005,Auriculares Sony WH-1000XM5,9,6302.68,56724.12,C015,Audio
+2024-12-24,P003,Teclado Logitech MX Keys,2,2182.34,4364.68,C012,Periféricos
+2024-12-25,P001,Laptop HP ProBook 450,10,12598.63,125986.3,C014,Electrónica
+2024-12-25,P019,Cargador Universal 65W,1,653.35,653.35,C004,Accesorios
+2024-12-25,P018,Tablet Samsung Galaxy Tab,9,7179.91,64619.19,C015,Electrónica
+2024-12-25,P005,Auriculares Sony WH-1000XM5,7,6320.15,44241.05,C006,Audio
+2024-12-25,P019,Cargador Universal 65W,5,626.2,3131.0,C012,Accesorios
+2024-12-25,P017,Switch 24 puertos,2,4156.65,8313.3,C009,Redes
+2024-12-26,P001,Laptop HP ProBook 450,4,12934.98,51739.92,C011,Electrónica
+2024-12-26,P020,Mochila para Laptop,3,1230.86,3692.58,C011,Accesorios
+2024-12-26,P005,Auriculares Sony WH-1000XM5,3,6291.44,18874.32,C008,Audio
+2024-12-26,P019,Cargador Universal 65W,3,665.33,1995.99,C011,Accesorios
+2024-12-26,P016,Router WiFi 6,1,2721.27,2721.27,C006,Redes
+2024-12-26,P016,Router WiFi 6,2,2734.02,5468.04,C004,Redes
+2024-12-27,P002,Monitor Dell 27 pulgadas,4,5810.37,23241.48,C011,Electrónica
+2024-12-27,P012,Escritorio Ajustable,8,12501.48,100011.84,C007,Mobiliario
+2024-12-27,P002,Monitor Dell 27 pulgadas,6,5569.87,33419.22,C001,Electrónica
+2024-12-28,P009,Cable HDMI 2m,5,181.42,907.1,C014,Accesorios
+2024-12-28,P019,Cargador Universal 65W,7,659.99,4619.93,C003,Accesorios
+2024-12-29,P019,Cargador Universal 65W,2,651.08,1302.16,C011,Accesorios
+2024-12-30,P008,Memoria RAM 16GB DDR4,7,1379.41,9655.87,C009,Componentes
+2024-12-30,P012,Escritorio Ajustable,8,12464.61,99716.88,C008,Mobiliario
+2024-12-30,P001,Laptop HP ProBook 450,3,12424.87,37274.61,C009,Electrónica
+2024-12-30,P008,Memoria RAM 16GB DDR4,9,1420.09,12780.81,C002,Componentes
+2024-12-30,P007,Disco SSD Samsung 1TB,3,2124.62,6373.86,C003,Almacenamiento
+2024-12-31,P004,Mouse Logitech MX Master,4,1635.91,6543.64,C011,Periféricos
+2024-12-31,P011,Silla Ergonómica Premium,2,8484.29,16968.58,C012,Mobiliario
+2024-12-31,P016,Router WiFi 6,4,2825.42,11301.68,C008,Redes
+2024-12-31,P014,Toner HP 26A,4,906.6,3626.4,C001,Consumibles
+2024-12-31,P019,Cargador Universal 65W,3,626.26,1878.78,C010,Accesorios
+2024-12-31,P017,Switch 24 puertos,10,4051.68,40516.8,C001,Redes
+2025-01-01,P009,Cable HDMI 2m,3,180.3,540.9,C015,Accesorios
+2025-01-01,P013,Impresora HP LaserJet,10,4561.93,45619.3,C010,Impresión
+2025-01-01,P010,Hub USB-C 7 puertos,4,845.68,3382.72,C002,Accesorios
+2025-01-02,P016,Router WiFi 6,4,2892.5,11570.0,C003,Redes
+2025-01-02,P020,Mochila para Laptop,10,1238.45,12384.5,C003,Accesorios
+2025-01-02,P006,Webcam Logitech C920,9,1757.61,15818.49,C010,Periféricos
+2025-01-02,P011,Silla Ergonómica Premium,8,8582.05,68656.4,C015,Mobiliario
+2025-01-02,P003,Teclado Logitech MX Keys,7,2075.95,14531.65,C004,Periféricos
+2025-01-03,P001,Laptop HP ProBook 450,9,12949.49,116545.41,C004,Electrónica
+2025-01-03,P017,Switch 24 puertos,7,4337.14,30359.98,C011,Redes
+2025-01-04,P004,Mouse Logitech MX Master,8,1716.27,13730.16,C003,Periféricos
+2025-01-04,P020,Mochila para Laptop,9,1200.4,10803.6,C001,Accesorios
+2025-01-06,P016,Router WiFi 6,3,2912.56,8737.68,C011,Redes
+2025-01-06,P018,Tablet Samsung Galaxy Tab,1,7485.82,7485.82,C014,Electrónica
+2025-01-07,P017,Switch 24 puertos,6,4357.43,26144.58,C007,Redes
+2025-01-07,P017,Switch 24 puertos,4,4384.14,17536.56,C007,Redes
+2025-01-07,P016,Router WiFi 6,7,2758.14,19306.98,C013,Redes
+2025-01-07,P019,Cargador Universal 65W,7,626.2,4383.4,C002,Accesorios
+2025-01-07,P016,Router WiFi 6,4,2914.82,11659.28,C013,Redes
+2025-01-08,P010,Hub USB-C 7 puertos,9,842.23,7580.07,C010,Accesorios
+2025-01-08,P007,Disco SSD Samsung 1TB,1,2217.16,2217.16,C001,Almacenamiento
+2025-01-09,P017,Switch 24 puertos,7,4264.91,29854.37,C001,Redes
+2025-01-09,P011,Silla Ergonómica Premium,6,8165.6,48993.6,C007,Mobiliario
+2025-01-10,P019,Cargador Universal 65W,5,673.07,3365.35,C005,Accesorios
+2025-01-10,P014,Toner HP 26A,6,960.63,5763.78,C010,Consumibles
+2025-01-10,P013,Impresora HP LaserJet,4,4460.95,17843.8,C013,Impresión
+2025-01-10,P018,Tablet Samsung Galaxy Tab,3,7106.55,21319.65,C008,Electrónica
+2025-01-10,P018,Tablet Samsung Galaxy Tab,5,7551.73,37758.65,C008,Electrónica
+2025-01-11,P012,Escritorio Ajustable,7,12282.94,85980.58,C013,Mobiliario
+2025-01-11,P004,Mouse Logitech MX Master,4,1641.19,6564.76,C012,Periféricos
+2025-01-12,P006,Webcam Logitech C920,4,1801.5,7206.0,C002,Periféricos
+2025-01-12,P011,Silla Ergonómica Premium,9,8596.92,77372.28,C013,Mobiliario
+2025-01-13,P006,Webcam Logitech C920,1,1854.79,1854.79,C007,Periféricos
+2025-01-13,P005,Auriculares Sony WH-1000XM5,10,6458.0,64580.0,C008,Audio
+2025-01-14,P009,Cable HDMI 2m,6,172.44,1034.64,C004,Accesorios
+2025-01-14,P002,Monitor Dell 27 pulgadas,7,6049.8,42348.6,C012,Electrónica
+2025-01-15,P020,Mochila para Laptop,9,1174.38,10569.42,C011,Accesorios
+2025-01-15,P020,Mochila para Laptop,3,1216.83,3650.49,C001,Accesorios
+2025-01-15,P015,UPS APC 1500VA,4,3933.22,15732.88,C001,Energía
+2025-01-15,P017,Switch 24 puertos,4,4004.12,16016.48,C005,Redes
+2025-01-15,P020,Mochila para Laptop,9,1223.81,11014.29,C009,Accesorios
+2025-01-16,P006,Webcam Logitech C920,1,1774.75,1774.75,C011,Periféricos
+2025-01-16,P001,Laptop HP ProBook 450,2,13121.02,26242.04,C003,Electrónica
+2025-01-16,P013,Impresora HP LaserJet,7,4457.45,31202.15,C006,Impresión
+2025-01-16,P007,Disco SSD Samsung 1TB,1,2252.12,2252.12,C009,Almacenamiento
+2025-01-16,P003,Teclado Logitech MX Keys,2,2110.41,4220.82,C015,Periféricos
+2025-01-16,P018,Tablet Samsung Galaxy Tab,10,7090.63,70906.3,C015,Electrónica
+2025-01-17,P008,Memoria RAM 16GB DDR4,4,1393.67,5574.68,C010,Componentes
+2025-01-17,P013,Impresora HP LaserJet,1,4392.5,4392.5,C010,Impresión
+2025-01-17,P014,Toner HP 26A,2,955.57,1911.14,C009,Consumibles
+2025-01-17,P017,Switch 24 puertos,6,4387.75,26326.5,C005,Redes
+2025-01-18,P009,Cable HDMI 2m,9,185.64,1670.76,C015,Accesorios
+2025-01-18,P019,Cargador Universal 65W,8,680.29,5442.32,C005,Accesorios
+2025-01-19,P016,Router WiFi 6,4,2872.09,11488.36,C013,Redes
+2025-01-19,P015,UPS APC 1500VA,8,3950.68,31605.44,C011,Energía
+2025-01-20,P016,Router WiFi 6,5,2678.92,13394.6,C002,Redes
+2025-01-20,P008,Memoria RAM 16GB DDR4,4,1442.02,5768.08,C011,Componentes
+2025-01-21,P012,Escritorio Ajustable,9,11411.67,102705.03,C009,Mobiliario
+2025-01-21,P009,Cable HDMI 2m,5,172.67,863.35,C004,Accesorios
+2025-01-21,P011,Silla Ergonómica Premium,9,8866.69,79800.21,C002,Mobiliario
+2025-01-21,P016,Router WiFi 6,6,2721.2,16327.2,C006,Redes
+2025-01-21,P019,Cargador Universal 65W,3,679.06,2037.18,C005,Accesorios
+2025-01-22,P016,Router WiFi 6,4,2725.76,10903.04,C012,Redes
+2025-01-22,P008,Memoria RAM 16GB DDR4,5,1358.95,6794.75,C014,Componentes
+2025-01-22,P007,Disco SSD Samsung 1TB,4,2273.99,9095.96,C014,Almacenamiento
+2025-01-23,P005,Auriculares Sony WH-1000XM5,2,6252.92,12505.84,C013,Audio
+2025-01-23,P003,Teclado Logitech MX Keys,8,2123.9,16991.2,C011,Periféricos
+2025-01-23,P018,Tablet Samsung Galaxy Tab,8,7107.26,56858.08,C001,Electrónica
+2025-01-23,P011,Silla Ergonómica Premium,10,8813.45,88134.5,C008,Mobiliario
+2025-01-24,P006,Webcam Logitech C920,9,1760.45,15844.05,C013,Periféricos
+2025-01-24,P008,Memoria RAM 16GB DDR4,10,1347.95,13479.5,C013,Componentes
+2025-01-24,P017,Switch 24 puertos,7,4190.89,29336.23,C013,Redes
+2025-01-24,P018,Tablet Samsung Galaxy Tab,9,7090.05,63810.45,C001,Electrónica
+2025-01-24,P006,Webcam Logitech C920,2,1835.68,3671.36,C008,Periféricos
+2025-01-25,P011,Silla Ergonómica Premium,1,8085.05,8085.05,C012,Mobiliario
+2025-01-27,P019,Cargador Universal 65W,6,641.0,3846.0,C002,Accesorios
+2025-01-27,P009,Cable HDMI 2m,9,175.73,1581.57,C003,Accesorios
+2025-01-27,P009,Cable HDMI 2m,10,177.18,1771.8,C008,Accesorios
+2025-01-27,P006,Webcam Logitech C920,7,1747.9,12235.3,C008,Periféricos
+2025-01-27,P012,Escritorio Ajustable,7,11735.56,82148.92,C006,Mobiliario
+2025-01-28,P019,Cargador Universal 65W,10,662.09,6620.9,C003,Accesorios
+2025-01-28,P004,Mouse Logitech MX Master,5,1700.17,8500.85,C012,Periféricos
+2025-01-28,P018,Tablet Samsung Galaxy Tab,7,6981.17,48868.19,C007,Electrónica
+2025-01-29,P016,Router WiFi 6,1,2709.45,2709.45,C013,Redes
+2025-01-29,P016,Router WiFi 6,9,2809.52,25285.68,C003,Redes
+2025-01-29,P011,Silla Ergonómica Premium,8,8330.03,66640.24,C013,Mobiliario
+2025-01-30,P019,Cargador Universal 65W,7,623.93,4367.51,C001,Accesorios
+2025-01-30,P006,Webcam Logitech C920,4,1856.49,7425.96,C001,Periféricos
+2025-01-30,P016,Router WiFi 6,2,2785.96,5571.92,C014,Redes
+2025-01-30,P011,Silla Ergonómica Premium,6,8381.26,50287.56,C005,Mobiliario
+2025-01-30,P018,Tablet Samsung Galaxy Tab,5,7087.78,35438.9,C015,Electrónica
+2025-01-30,P014,Toner HP 26A,6,984.9,5909.4,C002,Consumibles
+2025-01-31,P007,Disco SSD Samsung 1TB,10,2232.97,22329.7,C010,Almacenamiento
+2025-01-31,P018,Tablet Samsung Galaxy Tab,5,7095.68,35478.4,C003,Electrónica
+2025-01-31,P017,Switch 24 puertos,8,4363.65,34909.2,C008,Redes
+2025-01-31,P013,Impresora HP LaserJet,5,4483.69,22418.45,C010,Impresión
+2025-01-31,P005,Auriculares Sony WH-1000XM5,3,6591.38,19774.14,C014,Audio
+2025-01-31,P011,Silla Ergonómica Premium,10,8560.89,85608.9,C007,Mobiliario
+2025-02-03,P011,Silla Ergonómica Premium,6,8344.35,50066.1,C004,Mobiliario
+2025-02-03,P010,Hub USB-C 7 puertos,5,858.96,4294.8,C012,Accesorios
+2025-02-03,P013,Impresora HP LaserJet,8,4626.44,37011.52,C005,Impresión
+2025-02-04,P019,Cargador Universal 65W,8,644.41,5155.28,C009,Accesorios
+2025-02-04,P006,Webcam Logitech C920,1,1732.51,1732.51,C014,Periféricos
+2025-02-04,P008,Memoria RAM 16GB DDR4,5,1461.66,7308.3,C011,Componentes
+2025-02-04,P003,Teclado Logitech MX Keys,3,2078.38,6235.14,C004,Periféricos
+2025-02-05,P003,Teclado Logitech MX Keys,8,2110.17,16881.36,C015,Periféricos
+2025-02-05,P001,Laptop HP ProBook 450,7,12529.98,87709.86,C013,Electrónica
+2025-02-06,P004,Mouse Logitech MX Master,10,1593.12,15931.2,C005,Periféricos
+2025-02-06,P013,Impresora HP LaserJet,4,4386.33,17545.32,C005,Impresión
+2025-02-07,P015,UPS APC 1500VA,3,3659.89,10979.67,C011,Energía
+2025-02-07,P006,Webcam Logitech C920,1,1829.44,1829.44,C001,Periféricos
+2025-02-07,P011,Silla Ergonómica Premium,8,8472.11,67776.88,C014,Mobiliario
+2025-02-07,P018,Tablet Samsung Galaxy Tab,5,7234.95,36174.75,C015,Electrónica
+2025-02-09,P018,Tablet Samsung Galaxy Tab,10,7270.26,72702.6,C003,Electrónica
+2025-02-09,P019,Cargador Universal 65W,9,659.09,5931.81,C007,Accesorios
+2025-02-10,P010,Hub USB-C 7 puertos,6,848.44,5090.64,C015,Accesorios
+2025-02-10,P008,Memoria RAM 16GB DDR4,2,1391.86,2783.72,C013,Componentes
+2025-02-10,P012,Escritorio Ajustable,5,11586.86,57934.3,C007,Mobiliario
+2025-02-10,P001,Laptop HP ProBook 450,9,12894.22,116047.98,C001,Electrónica
+2025-02-10,P005,Auriculares Sony WH-1000XM5,5,6479.98,32399.9,C006,Audio
+2025-02-10,P001,Laptop HP ProBook 450,8,13058.7,104469.6,C012,Electrónica
+2025-02-11,P010,Hub USB-C 7 puertos,7,875.33,6127.31,C001,Accesorios
+2025-02-11,P020,Mochila para Laptop,1,1205.79,1205.79,C004,Accesorios
+2025-02-11,P007,Disco SSD Samsung 1TB,9,2186.16,19675.44,C007,Almacenamiento
+2025-02-11,P008,Memoria RAM 16GB DDR4,7,1445.98,10121.86,C003,Componentes
+2025-02-11,P008,Memoria RAM 16GB DDR4,2,1389.11,2778.22,C005,Componentes
+2025-02-12,P017,Switch 24 puertos,10,4329.18,43291.8,C013,Redes
+2025-02-12,P009,Cable HDMI 2m,9,185.56,1670.04,C005,Accesorios
+2025-02-12,P014,Toner HP 26A,2,919.83,1839.66,C004,Consumibles
+2025-02-13,P004,Mouse Logitech MX Master,8,1669.43,13355.44,C011,Periféricos
+2025-02-13,P009,Cable HDMI 2m,10,179.86,1798.6,C012,Accesorios
+2025-02-13,P011,Silla Ergonómica Premium,3,8117.19,24351.57,C001,Mobiliario
+2025-02-13,P018,Tablet Samsung Galaxy Tab,3,7540.08,22620.24,C001,Electrónica
+2025-02-14,P009,Cable HDMI 2m,8,184.09,1472.72,C003,Accesorios
+2025-02-14,P008,Memoria RAM 16GB DDR4,3,1332.06,3996.18,C002,Componentes
+2025-02-14,P007,Disco SSD Samsung 1TB,7,2158.55,15109.85,C006,Almacenamiento
+2025-02-14,P016,Router WiFi 6,8,2855.14,22841.12,C006,Redes
+2025-02-16,P003,Teclado Logitech MX Keys,3,2006.77,6020.31,C014,Periféricos
+2025-02-17,P003,Teclado Logitech MX Keys,8,2033.14,16265.12,C009,Periféricos
+2025-02-17,P009,Cable HDMI 2m,7,185.91,1301.37,C014,Accesorios
+2025-02-17,P004,Mouse Logitech MX Master,4,1630.99,6523.96,C013,Periféricos
+2025-02-17,P015,UPS APC 1500VA,1,3685.69,3685.69,C004,Energía
+2025-02-17,P004,Mouse Logitech MX Master,4,1645.52,6582.08,C009,Periféricos
+2025-02-18,P011,Silla Ergonómica Premium,1,8708.02,8708.02,C003,Mobiliario
+2025-02-18,P018,Tablet Samsung Galaxy Tab,2,7022.39,14044.78,C009,Electrónica
+2025-02-18,P010,Hub USB-C 7 puertos,6,882.94,5297.64,C004,Accesorios
+2025-02-18,P007,Disco SSD Samsung 1TB,4,2229.24,8916.96,C002,Almacenamiento
+2025-02-19,P001,Laptop HP ProBook 450,5,12605.87,63029.35,C003,Electrónica
+2025-02-19,P013,Impresora HP LaserJet,4,4279.02,17116.08,C013,Impresión
+2025-02-19,P002,Monitor Dell 27 pulgadas,8,5909.28,47274.24,C010,Electrónica
+2025-02-19,P005,Auriculares Sony WH-1000XM5,2,6336.67,12673.34,C006,Audio
+2025-02-20,P003,Teclado Logitech MX Keys,10,2066.07,20660.7,C011,Periféricos
+2025-02-20,P002,Monitor Dell 27 pulgadas,6,5883.85,35303.1,C001,Electrónica
+2025-02-20,P018,Tablet Samsung Galaxy Tab,2,6930.6,13861.2,C013,Electrónica
+2025-02-20,P008,Memoria RAM 16GB DDR4,9,1440.4,12963.6,C006,Componentes
+2025-02-20,P012,Escritorio Ajustable,8,12279.83,98238.64,C013,Mobiliario
+2025-02-21,P013,Impresora HP LaserJet,3,4387.81,13163.43,C006,Impresión
+2025-02-21,P002,Monitor Dell 27 pulgadas,8,5834.23,46673.84,C008,Electrónica
+2025-02-22,P016,Router WiFi 6,10,2712.26,27122.6,C004,Redes
+2025-02-22,P012,Escritorio Ajustable,8,11730.39,93843.12,C006,Mobiliario
+2025-02-23,P018,Tablet Samsung Galaxy Tab,2,7222.42,14444.84,C003,Electrónica
+2025-02-23,P015,UPS APC 1500VA,5,3815.81,19079.05,C005,Energía
+2025-02-24,P001,Laptop HP ProBook 450,9,12348.8,111139.2,C013,Electrónica
+2025-02-24,P006,Webcam Logitech C920,1,1821.55,1821.55,C015,Periféricos
+2025-02-24,P012,Escritorio Ajustable,10,11686.54,116865.4,C013,Mobiliario
+2025-02-24,P003,Teclado Logitech MX Keys,9,2167.0,19503.0,C011,Periféricos
+2025-02-24,P007,Disco SSD Samsung 1TB,8,2258.46,18067.68,C009,Almacenamiento
+2025-02-25,P020,Mochila para Laptop,6,1189.18,7135.08,C005,Accesorios
+2025-02-25,P011,Silla Ergonómica Premium,2,8519.72,17039.44,C002,Mobiliario
+2025-02-25,P003,Teclado Logitech MX Keys,3,2032.51,6097.53,C001,Periféricos
+2025-02-26,P007,Disco SSD Samsung 1TB,8,2132.16,17057.28,C002,Almacenamiento
+2025-02-26,P002,Monitor Dell 27 pulgadas,7,5891.59,41241.13,C010,Electrónica
+2025-02-27,P020,Mochila para Laptop,10,1170.71,11707.1,C012,Accesorios
+2025-02-27,P012,Escritorio Ajustable,10,12261.41,122614.1,C004,Mobiliario
+2025-02-27,P001,Laptop HP ProBook 450,4,12694.69,50778.76,C015,Electrónica
+2025-02-27,P003,Teclado Logitech MX Keys,1,2070.79,2070.79,C008,Periféricos
+2025-02-27,P014,Toner HP 26A,6,977.95,5867.7,C014,Consumibles
+2025-02-27,P002,Monitor Dell 27 pulgadas,10,5664.17,56641.7,C014,Electrónica
+2025-02-28,P003,Teclado Logitech MX Keys,5,2011.37,10056.85,C014,Periféricos
+2025-02-28,P007,Disco SSD Samsung 1TB,2,2112.27,4224.54,C009,Almacenamiento
+2025-03-02,P013,Impresora HP LaserJet,4,4511.79,18047.16,C004,Impresión
+2025-03-02,P008,Memoria RAM 16GB DDR4,3,1408.18,4224.54,C010,Componentes
+2025-03-03,P014,Toner HP 26A,2,975.3,1950.6,C012,Consumibles
+2025-03-03,P019,Cargador Universal 65W,8,663.17,5305.36,C006,Accesorios
+2025-03-03,P014,Toner HP 26A,2,918.35,1836.7,C015,Consumibles
+2025-03-03,P006,Webcam Logitech C920,7,1800.84,12605.88,C009,Periféricos
+2025-03-03,P006,Webcam Logitech C920,10,1789.74,17897.4,C009,Periféricos
+2025-03-03,P012,Escritorio Ajustable,6,12060.1,72360.6,C015,Mobiliario
+2025-03-04,P012,Escritorio Ajustable,7,12391.39,86739.73,C007,Mobiliario
+2025-03-04,P011,Silla Ergonómica Premium,4,8553.67,34214.68,C010,Mobiliario
+2025-03-04,P007,Disco SSD Samsung 1TB,9,2293.75,20643.75,C007,Almacenamiento
+2025-03-04,P009,Cable HDMI 2m,8,179.05,1432.4,C006,Accesorios
+2025-03-05,P001,Laptop HP ProBook 450,1,13103.7,13103.7,C012,Electrónica
+2025-03-05,P020,Mochila para Laptop,9,1156.21,10405.89,C001,Accesorios
+2025-03-05,P010,Hub USB-C 7 puertos,5,891.17,4455.85,C001,Accesorios
+2025-03-05,P007,Disco SSD Samsung 1TB,6,2094.77,12568.62,C014,Almacenamiento
+2025-03-05,P009,Cable HDMI 2m,9,180.2,1621.8,C015,Accesorios
+2025-03-06,P019,Cargador Universal 65W,2,619.95,1239.9,C003,Accesorios
+2025-03-06,P012,Escritorio Ajustable,3,11717.99,35153.97,C003,Mobiliario
+2025-03-06,P019,Cargador Universal 65W,4,634.16,2536.64,C004,Accesorios
+2025-03-06,P010,Hub USB-C 7 puertos,10,841.48,8414.8,C002,Accesorios
+2025-03-06,P007,Disco SSD Samsung 1TB,2,2249.19,4498.38,C012,Almacenamiento
+2025-03-06,P016,Router WiFi 6,8,2891.2,23129.6,C003,Redes
+2025-03-07,P004,Mouse Logitech MX Master,5,1573.67,7868.35,C010,Periféricos
+2025-03-07,P019,Cargador Universal 65W,2,668.21,1336.42,C007,Accesorios
+2025-03-07,P011,Silla Ergonómica Premium,7,8429.04,59003.28,C006,Mobiliario
+2025-03-07,P004,Mouse Logitech MX Master,4,1690.87,6763.48,C014,Periféricos
+2025-03-07,P020,Mochila para Laptop,1,1216.07,1216.07,C015,Accesorios
+2025-03-07,P013,Impresora HP LaserJet,5,4510.97,22554.85,C001,Impresión
+2025-03-08,P018,Tablet Samsung Galaxy Tab,3,7075.32,21225.96,C010,Electrónica
+2025-03-09,P008,Memoria RAM 16GB DDR4,1,1424.31,1424.31,C003,Componentes
+2025-03-09,P013,Impresora HP LaserJet,10,4533.86,45338.6,C008,Impresión
+2025-03-10,P008,Memoria RAM 16GB DDR4,5,1440.09,7200.45,C007,Componentes
+2025-03-10,P005,Auriculares Sony WH-1000XM5,6,6228.65,37371.9,C003,Audio
+2025-03-11,P002,Monitor Dell 27 pulgadas,7,5662.28,39635.96,C009,Electrónica
+2025-03-11,P013,Impresora HP LaserJet,7,4623.22,32362.54,C009,Impresión
+2025-03-11,P005,Auriculares Sony WH-1000XM5,3,6487.6,19462.8,C013,Audio
+2025-03-11,P007,Disco SSD Samsung 1TB,7,2233.49,15634.43,C008,Almacenamiento
+2025-03-11,P007,Disco SSD Samsung 1TB,10,2309.36,23093.6,C009,Almacenamiento
+2025-03-11,P017,Switch 24 puertos,4,4020.09,16080.36,C004,Redes
+2025-03-12,P011,Silla Ergonómica Premium,10,8151.16,81511.6,C011,Mobiliario
+2025-03-12,P014,Toner HP 26A,6,935.59,5613.54,C007,Consumibles
+2025-03-12,P011,Silla Ergonómica Premium,10,8632.1,86321.0,C006,Mobiliario
+2025-03-12,P010,Hub USB-C 7 puertos,6,859.88,5159.28,C003,Accesorios
+2025-03-12,P015,UPS APC 1500VA,3,3777.38,11332.14,C010,Energía
+2025-03-13,P007,Disco SSD Samsung 1TB,6,2124.32,12745.92,C011,Almacenamiento
+2025-03-13,P003,Teclado Logitech MX Keys,1,2046.04,2046.04,C002,Periféricos
+2025-03-13,P020,Mochila para Laptop,3,1244.25,3732.75,C015,Accesorios
+2025-03-14,P001,Laptop HP ProBook 450,2,12256.4,24512.8,C006,Electrónica
+2025-03-14,P016,Router WiFi 6,6,2718.52,16311.12,C001,Redes
+2025-03-14,P018,Tablet Samsung Galaxy Tab,4,7233.43,28933.72,C004,Electrónica
+2025-03-14,P009,Cable HDMI 2m,8,182.21,1457.68,C009,Accesorios
+2025-03-16,P001,Laptop HP ProBook 450,10,13007.55,130075.5,C007,Electrónica
+2025-03-16,P017,Switch 24 puertos,5,4061.53,20307.65,C001,Redes
+2025-03-17,P007,Disco SSD Samsung 1TB,10,2149.68,21496.8,C013,Almacenamiento
+2025-03-17,P015,UPS APC 1500VA,1,3635.31,3635.31,C011,Energía
+2025-03-17,P009,Cable HDMI 2m,6,186.56,1119.36,C011,Accesorios
+2025-03-17,P001,Laptop HP ProBook 450,7,12163.96,85147.72,C005,Electrónica
+2025-03-18,P017,Switch 24 puertos,2,4369.63,8739.26,C012,Redes
+2025-03-18,P016,Router WiFi 6,10,2808.84,28088.4,C014,Redes
+2025-03-18,P006,Webcam Logitech C920,9,1884.02,16956.18,C004,Periféricos
+2025-03-18,P018,Tablet Samsung Galaxy Tab,1,6868.62,6868.62,C015,Electrónica
+2025-03-18,P017,Switch 24 puertos,6,4195.77,25174.62,C005,Redes
+2025-03-19,P001,Laptop HP ProBook 450,6,12319.22,73915.32,C006,Electrónica
+2025-03-19,P010,Hub USB-C 7 puertos,9,830.95,7478.55,C004,Accesorios
+2025-03-19,P002,Monitor Dell 27 pulgadas,5,6019.63,30098.15,C011,Electrónica
+2025-03-20,P018,Tablet Samsung Galaxy Tab,4,6949.23,27796.92,C005,Electrónica
+2025-03-20,P013,Impresora HP LaserJet,3,4314.51,12943.53,C011,Impresión
+2025-03-21,P017,Switch 24 puertos,10,4356.53,43565.3,C011,Redes
+2025-03-21,P008,Memoria RAM 16GB DDR4,4,1410.21,5640.84,C007,Componentes
+2025-03-21,P014,Toner HP 26A,10,933.78,9337.8,C005,Consumibles
+2025-03-21,P018,Tablet Samsung Galaxy Tab,4,7309.78,29239.12,C003,Electrónica
+2025-03-21,P019,Cargador Universal 65W,4,673.57,2694.28,C009,Accesorios
+2025-03-22,P017,Switch 24 puertos,3,4170.63,12511.89,C015,Redes
+2025-03-24,P006,Webcam Logitech C920,2,1810.32,3620.64,C006,Periféricos
+2025-03-24,P004,Mouse Logitech MX Master,6,1706.02,10236.12,C003,Periféricos
+2025-03-24,P005,Auriculares Sony WH-1000XM5,1,6672.53,6672.53,C012,Audio
+2025-03-24,P014,Toner HP 26A,5,944.59,4722.95,C007,Consumibles
+2025-03-24,P009,Cable HDMI 2m,4,172.92,691.68,C003,Accesorios
+2025-03-24,P006,Webcam Logitech C920,10,1821.05,18210.5,C001,Periféricos
+2025-03-25,P019,Cargador Universal 65W,4,656.26,2625.04,C010,Accesorios
+2025-03-25,P008,Memoria RAM 16GB DDR4,1,1380.3,1380.3,C011,Componentes
+2025-03-25,P016,Router WiFi 6,9,2896.92,26072.28,C003,Redes
+2025-03-25,P016,Router WiFi 6,6,2711.51,16269.06,C012,Redes
+2025-03-25,P013,Impresora HP LaserJet,8,4336.88,34695.04,C008,Impresión
+2025-03-25,P007,Disco SSD Samsung 1TB,1,2179.89,2179.89,C004,Almacenamiento
+2025-03-26,P009,Cable HDMI 2m,4,184.36,737.44,C007,Accesorios
+2025-03-26,P007,Disco SSD Samsung 1TB,4,2104.55,8418.2,C013,Almacenamiento
+2025-03-27,P020,Mochila para Laptop,6,1244.01,7464.06,C008,Accesorios
+2025-03-27,P008,Memoria RAM 16GB DDR4,7,1438.67,10070.69,C007,Componentes
+2025-03-27,P020,Mochila para Laptop,7,1226.42,8584.94,C012,Accesorios
+2025-03-27,P013,Impresora HP LaserJet,10,4542.21,45422.1,C010,Impresión
+2025-03-27,P017,Switch 24 puertos,1,4208.67,4208.67,C011,Redes
+2025-03-28,P015,UPS APC 1500VA,1,3943.56,3943.56,C014,Energía
+2025-03-28,P008,Memoria RAM 16GB DDR4,9,1385.39,12468.51,C009,Componentes
+2025-03-28,P002,Monitor Dell 27 pulgadas,7,5809.35,40665.45,C009,Electrónica
+2025-03-28,P002,Monitor Dell 27 pulgadas,5,5764.94,28824.7,C004,Electrónica
+2025-03-28,P010,Hub USB-C 7 puertos,5,846.71,4233.55,C013,Accesorios
+2025-03-29,P010,Hub USB-C 7 puertos,1,866.15,866.15,C010,Accesorios
+2025-03-31,P015,UPS APC 1500VA,9,3653.01,32877.09,C002,Energía
+2025-03-31,P019,Cargador Universal 65W,9,626.29,5636.61,C015,Accesorios
+2025-03-31,P014,Toner HP 26A,8,904.87,7238.96,C006,Consumibles
+2025-03-31,P015,UPS APC 1500VA,4,3945.37,15781.48,C010,Energía
+2025-03-31,P003,Teclado Logitech MX Keys,6,2140.26,12841.56,C005,Periféricos
+2025-04-01,P004,Mouse Logitech MX Master,2,1684.03,3368.06,C002,Periféricos
+2025-04-01,P012,Escritorio Ajustable,9,12248.73,110238.57,C002,Mobiliario
+2025-04-01,P017,Switch 24 puertos,3,4149.05,12447.15,C010,Redes
+2025-04-02,P002,Monitor Dell 27 pulgadas,3,6039.11,18117.33,C013,Electrónica
+2025-04-02,P019,Cargador Universal 65W,3,628.04,1884.12,C014,Accesorios
+2025-04-02,P005,Auriculares Sony WH-1000XM5,1,6447.73,6447.73,C003,Audio
+2025-04-02,P010,Hub USB-C 7 puertos,8,832.05,6656.4,C012,Accesorios
+2025-04-02,P006,Webcam Logitech C920,3,1882.88,5648.64,C002,Periféricos
+2025-04-03,P020,Mochila para Laptop,5,1141.46,5707.3,C013,Accesorios
+2025-04-03,P016,Router WiFi 6,8,2812.18,22497.44,C014,Redes
+2025-04-04,P020,Mochila para Laptop,8,1168.55,9348.4,C015,Accesorios
+2025-04-04,P019,Cargador Universal 65W,8,646.99,5175.92,C011,Accesorios
+2025-04-05,P003,Teclado Logitech MX Keys,10,1996.38,19963.8,C010,Periféricos
+2025-04-06,P009,Cable HDMI 2m,9,185.76,1671.84,C010,Accesorios
+2025-04-06,P007,Disco SSD Samsung 1TB,3,2122.62,6367.86,C001,Almacenamiento
+2025-04-07,P002,Monitor Dell 27 pulgadas,1,5896.86,5896.86,C003,Electrónica
+2025-04-07,P020,Mochila para Laptop,6,1250.45,7502.7,C005,Accesorios
+2025-04-07,P002,Monitor Dell 27 pulgadas,7,6086.37,42604.59,C002,Electrónica
+2025-04-07,P006,Webcam Logitech C920,5,1820.0,9100.0,C011,Periféricos
+2025-04-08,P019,Cargador Universal 65W,9,629.03,5661.27,C013,Accesorios
+2025-04-08,P015,UPS APC 1500VA,10,3746.87,37468.7,C012,Energía
+2025-04-08,P002,Monitor Dell 27 pulgadas,5,5697.24,28486.2,C002,Electrónica
+2025-04-08,P013,Impresora HP LaserJet,2,4616.3,9232.6,C014,Impresión
+2025-04-08,P018,Tablet Samsung Galaxy Tab,5,7178.99,35894.95,C002,Electrónica
+2025-04-08,P004,Mouse Logitech MX Master,5,1621.82,8109.1,C012,Periféricos
+2025-04-09,P017,Switch 24 puertos,4,4247.06,16988.24,C004,Redes
+2025-04-09,P004,Mouse Logitech MX Master,9,1730.39,15573.51,C010,Periféricos
+2025-04-09,P016,Router WiFi 6,10,2921.49,29214.9,C012,Redes
+2025-04-09,P010,Hub USB-C 7 puertos,10,879.56,8795.6,C007,Accesorios
+2025-04-09,P009,Cable HDMI 2m,10,188.91,1889.1,C009,Accesorios
+2025-04-10,P005,Auriculares Sony WH-1000XM5,10,6497.66,64976.6,C010,Audio
+2025-04-10,P016,Router WiFi 6,3,2907.43,8722.29,C008,Redes
+2025-04-10,P008,Memoria RAM 16GB DDR4,5,1467.1,7335.5,C012,Componentes
+2025-04-10,P001,Laptop HP ProBook 450,1,12456.11,12456.11,C002,Electrónica
+2025-04-11,P007,Disco SSD Samsung 1TB,10,2309.78,23097.8,C013,Almacenamiento
+2025-04-11,P014,Toner HP 26A,6,935.72,5614.32,C001,Consumibles
+2025-04-12,P007,Disco SSD Samsung 1TB,4,2241.8,8967.2,C001,Almacenamiento
+2025-04-12,P009,Cable HDMI 2m,2,176.54,353.08,C013,Accesorios
+2025-04-13,P018,Tablet Samsung Galaxy Tab,1,6921.96,6921.96,C006,Electrónica
+2025-04-13,P011,Silla Ergonómica Premium,7,8690.74,60835.18,C006,Mobiliario
+2025-04-14,P001,Laptop HP ProBook 450,3,12117.52,36352.56,C014,Electrónica
+2025-04-14,P011,Silla Ergonómica Premium,8,8853.74,70829.92,C015,Mobiliario
+2025-04-14,P002,Monitor Dell 27 pulgadas,3,5789.27,17367.81,C011,Electrónica
+2025-04-14,P015,UPS APC 1500VA,9,3950.45,35554.05,C015,Energía
+2025-04-14,P015,UPS APC 1500VA,7,3962.56,27737.92,C013,Energía
+2025-04-14,P002,Monitor Dell 27 pulgadas,9,5683.62,51152.58,C014,Electrónica
+2025-04-15,P018,Tablet Samsung Galaxy Tab,1,6989.95,6989.95,C009,Electrónica
+2025-04-15,P011,Silla Ergonómica Premium,6,8131.28,48787.68,C013,Mobiliario
+2025-04-15,P005,Auriculares Sony WH-1000XM5,1,6395.45,6395.45,C005,Audio
+2025-04-15,P013,Impresora HP LaserJet,9,4654.08,41886.72,C011,Impresión
+2025-04-16,P020,Mochila para Laptop,3,1211.42,3634.26,C007,Accesorios
+2025-04-16,P010,Hub USB-C 7 puertos,6,867.84,5207.04,C012,Accesorios
+2025-04-16,P009,Cable HDMI 2m,2,179.95,359.9,C007,Accesorios
+2025-04-16,P008,Memoria RAM 16GB DDR4,8,1446.12,11568.96,C006,Componentes
+2025-04-16,P010,Hub USB-C 7 puertos,9,833.2,7498.8,C004,Accesorios
+2025-04-16,P004,Mouse Logitech MX Master,1,1695.84,1695.84,C006,Periféricos
+2025-04-17,P015,UPS APC 1500VA,1,3913.63,3913.63,C009,Energía
+2025-04-17,P017,Switch 24 puertos,4,4132.85,16531.4,C003,Redes
+2025-04-18,P017,Switch 24 puertos,6,4050.18,24301.08,C005,Redes
+2025-04-18,P004,Mouse Logitech MX Master,9,1679.16,15112.44,C014,Periféricos
+2025-04-18,P005,Auriculares Sony WH-1000XM5,1,6473.59,6473.59,C004,Audio
+2025-04-18,P017,Switch 24 puertos,1,4120.61,4120.61,C002,Redes
+2025-04-18,P002,Monitor Dell 27 pulgadas,10,6015.69,60156.9,C011,Electrónica
+2025-04-19,P015,UPS APC 1500VA,1,3649.18,3649.18,C015,Energía
+2025-04-20,P010,Hub USB-C 7 puertos,10,871.97,8719.7,C001,Accesorios
+2025-04-20,P007,Disco SSD Samsung 1TB,4,2132.36,8529.44,C006,Almacenamiento
+2025-04-21,P018,Tablet Samsung Galaxy Tab,8,7323.21,58585.68,C006,Electrónica
+2025-04-21,P009,Cable HDMI 2m,3,175.93,527.79,C003,Accesorios
+2025-04-21,P001,Laptop HP ProBook 450,9,12517.58,112658.22,C010,Electrónica
+2025-04-21,P007,Disco SSD Samsung 1TB,6,2210.86,13265.16,C009,Almacenamiento
+2025-04-22,P005,Auriculares Sony WH-1000XM5,5,6548.15,32740.75,C012,Audio
+2025-04-22,P006,Webcam Logitech C920,5,1820.39,9101.95,C002,Periféricos
+2025-04-22,P011,Silla Ergonómica Premium,8,8118.12,64944.96,C009,Mobiliario
+2025-04-22,P001,Laptop HP ProBook 450,1,12007.41,12007.41,C008,Electrónica
+2025-04-23,P003,Teclado Logitech MX Keys,7,2032.59,14228.13,C007,Periféricos
+2025-04-23,P020,Mochila para Laptop,10,1215.54,12155.4,C015,Accesorios
+2025-04-24,P020,Mochila para Laptop,5,1179.88,5899.4,C006,Accesorios
+2025-04-24,P007,Disco SSD Samsung 1TB,9,2107.28,18965.52,C012,Almacenamiento
+2025-04-24,P015,UPS APC 1500VA,3,3645.31,10935.93,C010,Energía
+2025-04-24,P015,UPS APC 1500VA,8,3727.95,29823.6,C002,Energía
+2025-04-24,P015,UPS APC 1500VA,4,3970.03,15880.12,C008,Energía
+2025-04-25,P020,Mochila para Laptop,6,1187.05,7122.3,C005,Accesorios
+2025-04-25,P011,Silla Ergonómica Premium,6,8460.29,50761.74,C013,Mobiliario
+2025-04-25,P001,Laptop HP ProBook 450,8,12016.11,96128.88,C002,Electrónica
+2025-04-26,P015,UPS APC 1500VA,3,3717.26,11151.78,C014,Energía
+2025-04-27,P020,Mochila para Laptop,3,1200.95,3602.85,C010,Accesorios
+2025-04-28,P004,Mouse Logitech MX Master,9,1674.66,15071.94,C006,Periféricos
+2025-04-28,P010,Hub USB-C 7 puertos,8,841.57,6732.56,C009,Accesorios
+2025-04-28,P014,Toner HP 26A,10,925.65,9256.5,C004,Consumibles
+2025-04-28,P006,Webcam Logitech C920,7,1721.89,12053.23,C008,Periféricos
+2025-04-28,P007,Disco SSD Samsung 1TB,10,2184.85,21848.5,C014,Almacenamiento
+2025-04-29,P019,Cargador Universal 65W,6,652.89,3917.34,C013,Accesorios
+2025-04-29,P008,Memoria RAM 16GB DDR4,2,1433.51,2867.02,C003,Componentes
+2025-04-29,P019,Cargador Universal 65W,8,624.93,4999.44,C014,Accesorios
+2025-04-29,P020,Mochila para Laptop,6,1206.61,7239.66,C008,Accesorios
+2025-04-29,P015,UPS APC 1500VA,5,3973.24,19866.2,C003,Energía
+2025-04-30,P020,Mochila para Laptop,10,1232.56,12325.6,C002,Accesorios
+2025-04-30,P013,Impresora HP LaserJet,8,4565.25,36522.0,C006,Impresión
+2025-05-01,P003,Teclado Logitech MX Keys,3,2181.32,6543.96,C004,Periféricos
+2025-05-01,P001,Laptop HP ProBook 450,3,12701.1,38103.3,C013,Electrónica
+2025-05-02,P018,Tablet Samsung Galaxy Tab,7,7283.21,50982.47,C005,Electrónica
+2025-05-02,P015,UPS APC 1500VA,4,3868.98,15475.92,C004,Energía
+2025-05-02,P011,Silla Ergonómica Premium,10,8750.19,87501.9,C005,Mobiliario
+2025-05-02,P010,Hub USB-C 7 puertos,7,868.51,6079.57,C015,Accesorios
+2025-05-02,P012,Escritorio Ajustable,10,11409.74,114097.4,C002,Mobiliario
+2025-05-03,P013,Impresora HP LaserJet,3,4658.63,13975.89,C014,Impresión
+2025-05-03,P002,Monitor Dell 27 pulgadas,9,6071.38,54642.42,C006,Electrónica
+2025-05-05,P012,Escritorio Ajustable,5,12438.82,62194.1,C002,Mobiliario
+2025-05-05,P008,Memoria RAM 16GB DDR4,10,1385.2,13852.0,C007,Componentes
+2025-05-05,P011,Silla Ergonómica Premium,7,8420.13,58940.91,C012,Mobiliario
+2025-05-05,P014,Toner HP 26A,4,965.44,3861.76,C009,Consumibles
+2025-05-05,P016,Router WiFi 6,4,2815.52,11262.08,C003,Redes
+2025-05-05,P012,Escritorio Ajustable,7,11585.12,81095.84,C014,Mobiliario
+2025-05-06,P005,Auriculares Sony WH-1000XM5,2,6596.45,13192.9,C001,Audio
+2025-05-06,P005,Auriculares Sony WH-1000XM5,8,6602.65,52821.2,C012,Audio
+2025-05-06,P005,Auriculares Sony WH-1000XM5,3,6592.46,19777.38,C002,Audio
+2025-05-07,P015,UPS APC 1500VA,10,3963.52,39635.2,C015,Energía
+2025-05-07,P020,Mochila para Laptop,8,1201.13,9609.04,C003,Accesorios
+2025-05-07,P018,Tablet Samsung Galaxy Tab,8,7116.99,56935.92,C014,Electrónica
+2025-05-07,P008,Memoria RAM 16GB DDR4,7,1414.64,9902.48,C003,Componentes
+2025-05-07,P019,Cargador Universal 65W,4,663.79,2655.16,C008,Accesorios
+2025-05-08,P014,Toner HP 26A,9,957.25,8615.25,C015,Consumibles
+2025-05-08,P002,Monitor Dell 27 pulgadas,10,5790.3,57903.0,C001,Electrónica
+2025-05-08,P012,Escritorio Ajustable,10,11977.84,119778.4,C002,Mobiliario
+2025-05-08,P003,Teclado Logitech MX Keys,9,2201.55,19813.95,C003,Periféricos
+2025-05-09,P015,UPS APC 1500VA,2,3808.88,7617.76,C009,Energía
+2025-05-09,P020,Mochila para Laptop,4,1196.69,4786.76,C002,Accesorios
+2025-05-09,P003,Teclado Logitech MX Keys,9,2162.6,19463.4,C011,Periféricos
+2025-05-09,P010,Hub USB-C 7 puertos,1,884.3,884.3,C010,Accesorios
+2025-05-10,P001,Laptop HP ProBook 450,8,12515.83,100126.64,C008,Electrónica
+2025-05-10,P016,Router WiFi 6,6,2777.88,16667.28,C010,Redes
+2025-05-11,P010,Hub USB-C 7 puertos,1,866.58,866.58,C003,Accesorios
+2025-05-12,P010,Hub USB-C 7 puertos,10,829.64,8296.4,C012,Accesorios
+2025-05-12,P016,Router WiFi 6,3,2820.4,8461.2,C010,Redes
+2025-05-12,P010,Hub USB-C 7 puertos,10,809.82,8098.2,C013,Accesorios
+2025-05-12,P016,Router WiFi 6,3,2801.57,8404.71,C002,Redes
+2025-05-12,P009,Cable HDMI 2m,3,182.08,546.24,C005,Accesorios
+2025-05-12,P009,Cable HDMI 2m,5,171.26,856.3,C014,Accesorios
+2025-05-13,P020,Mochila para Laptop,10,1228.68,12286.8,C003,Accesorios
+2025-05-13,P015,UPS APC 1500VA,3,3709.28,11127.84,C006,Energía
+2025-05-14,P016,Router WiFi 6,9,2901.36,26112.24,C003,Redes
+2025-05-14,P011,Silla Ergonómica Premium,3,8581.21,25743.63,C002,Mobiliario
+2025-05-14,P005,Auriculares Sony WH-1000XM5,8,6664.29,53314.32,C014,Audio
+2025-05-15,P013,Impresora HP LaserJet,8,4601.7,36813.6,C004,Impresión
+2025-05-15,P006,Webcam Logitech C920,10,1842.18,18421.8,C004,Periféricos
+2025-05-15,P012,Escritorio Ajustable,5,12306.58,61532.9,C001,Mobiliario
+2025-05-15,P004,Mouse Logitech MX Master,3,1644.06,4932.18,C001,Periféricos
+2025-05-15,P016,Router WiFi 6,8,2868.92,22951.36,C005,Redes
+2025-05-16,P008,Memoria RAM 16GB DDR4,7,1396.44,9775.08,C007,Componentes
+2025-05-16,P005,Auriculares Sony WH-1000XM5,7,6182.71,43278.97,C009,Audio
+2025-05-16,P015,UPS APC 1500VA,6,3975.47,23852.82,C007,Energía
+2025-05-16,P002,Monitor Dell 27 pulgadas,9,5879.71,52917.39,C002,Electrónica
+2025-05-16,P014,Toner HP 26A,5,934.32,4671.6,C010,Consumibles
+2025-05-16,P009,Cable HDMI 2m,2,175.6,351.2,C013,Accesorios
+2025-05-17,P013,Impresora HP LaserJet,4,4605.44,18421.76,C008,Impresión
+2025-05-17,P019,Cargador Universal 65W,4,651.3,2605.2,C013,Accesorios
+2025-05-18,P006,Webcam Logitech C920,9,1711.9,15407.1,C006,Periféricos
+2025-05-18,P001,Laptop HP ProBook 450,2,11889.95,23779.9,C014,Electrónica
+2025-05-19,P017,Switch 24 puertos,8,4137.64,33101.12,C002,Redes
+2025-05-19,P010,Hub USB-C 7 puertos,4,810.39,3241.56,C005,Accesorios
+2025-05-20,P003,Teclado Logitech MX Keys,10,2132.89,21328.9,C001,Periféricos
+2025-05-20,P007,Disco SSD Samsung 1TB,2,2245.78,4491.56,C010,Almacenamiento
+2025-05-20,P004,Mouse Logitech MX Master,10,1588.93,15889.3,C002,Periféricos
+2025-05-20,P019,Cargador Universal 65W,3,675.74,2027.22,C013,Accesorios
+2025-05-20,P006,Webcam Logitech C920,5,1794.05,8970.25,C005,Periféricos
+2025-05-20,P003,Teclado Logitech MX Keys,8,2188.77,17510.16,C011,Periféricos
+2025-05-21,P014,Toner HP 26A,6,926.95,5561.7,C012,Consumibles
+2025-05-21,P003,Teclado Logitech MX Keys,1,2075.39,2075.39,C005,Periféricos
+2025-05-21,P011,Silla Ergonómica Premium,5,8887.26,44436.3,C001,Mobiliario
+2025-05-21,P009,Cable HDMI 2m,8,172.25,1378.0,C003,Accesorios
+2025-05-22,P020,Mochila para Laptop,3,1217.46,3652.38,C007,Accesorios
+2025-05-22,P004,Mouse Logitech MX Master,9,1694.34,15249.06,C003,Periféricos
+2025-05-22,P007,Disco SSD Samsung 1TB,2,2290.77,4581.54,C010,Almacenamiento
+2025-05-23,P004,Mouse Logitech MX Master,2,1579.12,3158.24,C001,Periféricos
+2025-05-23,P009,Cable HDMI 2m,8,171.34,1370.72,C013,Accesorios
+2025-05-23,P016,Router WiFi 6,1,2921.21,2921.21,C003,Redes
+2025-05-23,P013,Impresora HP LaserJet,3,4590.02,13770.06,C005,Impresión
+2025-05-24,P019,Cargador Universal 65W,9,663.49,5971.41,C001,Accesorios
+2025-05-25,P016,Router WiFi 6,7,2896.33,20274.31,C007,Redes
+2025-05-26,P018,Tablet Samsung Galaxy Tab,1,7116.79,7116.79,C004,Electrónica
+2025-05-26,P016,Router WiFi 6,10,2809.89,28098.9,C002,Redes
+2025-05-27,P011,Silla Ergonómica Premium,5,8415.52,42077.6,C011,Mobiliario
+2025-05-27,P003,Teclado Logitech MX Keys,9,2174.2,19567.8,C006,Periféricos
+2025-05-27,P011,Silla Ergonómica Premium,8,8721.39,69771.12,C002,Mobiliario
+2025-05-27,P010,Hub USB-C 7 puertos,4,822.51,3290.04,C011,Accesorios
+2025-05-28,P013,Impresora HP LaserJet,4,4409.49,17637.96,C011,Impresión
+2025-05-28,P013,Impresora HP LaserJet,2,4558.78,9117.56,C015,Impresión
+2025-05-29,P016,Router WiFi 6,8,2865.89,22927.12,C002,Redes
+2025-05-29,P005,Auriculares Sony WH-1000XM5,4,6191.49,24765.96,C001,Audio
+2025-05-29,P019,Cargador Universal 65W,8,642.77,5142.16,C004,Accesorios
+2025-05-29,P018,Tablet Samsung Galaxy Tab,5,7199.77,35998.85,C011,Electrónica
+2025-05-30,P001,Laptop HP ProBook 450,6,11945.07,71670.42,C001,Electrónica
+2025-05-30,P002,Monitor Dell 27 pulgadas,2,5632.77,11265.54,C007,Electrónica
+2025-05-30,P017,Switch 24 puertos,9,4052.56,36473.04,C008,Redes
+2025-05-30,P019,Cargador Universal 65W,2,619.9,1239.8,C004,Accesorios
+2025-05-30,P005,Auriculares Sony WH-1000XM5,1,6481.29,6481.29,C008,Audio
+2025-05-31,P002,Monitor Dell 27 pulgadas,3,5518.33,16554.99,C004,Electrónica
+2025-05-31,P002,Monitor Dell 27 pulgadas,5,5986.03,29930.15,C015,Electrónica
+2025-06-02,P020,Mochila para Laptop,10,1147.67,11476.7,C003,Accesorios
+2025-06-02,P004,Mouse Logitech MX Master,8,1665.67,13325.36,C002,Periféricos
+2025-06-02,P020,Mochila para Laptop,2,1236.53,2473.06,C004,Accesorios
+2025-06-02,P014,Toner HP 26A,7,933.3,6533.1,C006,Consumibles
+2025-06-02,P019,Cargador Universal 65W,3,638.4,1915.2,C009,Accesorios
+2025-06-03,P002,Monitor Dell 27 pulgadas,3,5704.59,17113.77,C010,Electrónica
+2025-06-03,P004,Mouse Logitech MX Master,3,1692.5,5077.5,C005,Periféricos
+2025-06-03,P006,Webcam Logitech C920,6,1809.61,10857.66,C012,Periféricos
+2025-06-04,P008,Memoria RAM 16GB DDR4,10,1335.7,13357.0,C015,Componentes
+2025-06-04,P004,Mouse Logitech MX Master,10,1629.56,16295.6,C013,Periféricos
+2025-06-04,P006,Webcam Logitech C920,8,1724.53,13796.24,C001,Periféricos
+2025-06-04,P001,Laptop HP ProBook 450,2,12758.43,25516.86,C003,Electrónica
+2025-06-04,P019,Cargador Universal 65W,5,644.55,3222.75,C015,Accesorios
+2025-06-05,P005,Auriculares Sony WH-1000XM5,3,6590.89,19772.67,C004,Audio
+2025-06-05,P017,Switch 24 puertos,7,4090.49,28633.43,C008,Redes
+2025-06-05,P006,Webcam Logitech C920,1,1817.33,1817.33,C010,Periféricos
+2025-06-05,P016,Router WiFi 6,2,2835.61,5671.22,C010,Redes
+2025-06-05,P010,Hub USB-C 7 puertos,7,807.89,5655.23,C006,Accesorios
+2025-06-06,P007,Disco SSD Samsung 1TB,9,2304.89,20744.01,C002,Almacenamiento
+2025-06-06,P020,Mochila para Laptop,9,1200.9,10808.1,C006,Accesorios
+2025-06-06,P015,UPS APC 1500VA,4,3715.04,14860.16,C013,Energía
+2025-06-09,P016,Router WiFi 6,3,2704.73,8114.19,C008,Redes
+2025-06-09,P002,Monitor Dell 27 pulgadas,6,5675.34,34052.04,C001,Electrónica
+2025-06-09,P014,Toner HP 26A,6,961.1,5766.6,C005,Consumibles
+2025-06-10,P002,Monitor Dell 27 pulgadas,1,6046.42,6046.42,C002,Electrónica
+2025-06-10,P006,Webcam Logitech C920,1,1797.31,1797.31,C003,Periféricos
+2025-06-10,P004,Mouse Logitech MX Master,4,1686.53,6746.12,C002,Periféricos
+2025-06-10,P019,Cargador Universal 65W,6,644.74,3868.44,C010,Accesorios
+2025-06-10,P011,Silla Ergonómica Premium,2,8352.21,16704.42,C004,Mobiliario
+2025-06-11,P008,Memoria RAM 16GB DDR4,7,1451.78,10162.46,C012,Componentes
+2025-06-11,P013,Impresora HP LaserJet,4,4308.09,17232.36,C015,Impresión
+2025-06-12,P016,Router WiFi 6,7,2700.58,18904.06,C001,Redes
+2025-06-12,P020,Mochila para Laptop,3,1186.48,3559.44,C008,Accesorios
+2025-06-12,P005,Auriculares Sony WH-1000XM5,4,6585.81,26343.24,C008,Audio
+2025-06-12,P009,Cable HDMI 2m,6,173.29,1039.74,C004,Accesorios
+2025-06-12,P019,Cargador Universal 65W,5,626.37,3131.85,C001,Accesorios
+2025-06-12,P015,UPS APC 1500VA,7,3675.06,25725.42,C008,Energía
+2025-06-13,P008,Memoria RAM 16GB DDR4,5,1414.51,7072.55,C015,Componentes
+2025-06-13,P020,Mochila para Laptop,3,1209.37,3628.11,C015,Accesorios
+2025-06-13,P018,Tablet Samsung Galaxy Tab,4,6902.26,27609.04,C014,Electrónica
+2025-06-13,P017,Switch 24 puertos,4,4238.46,16953.84,C008,Redes
+2025-06-14,P009,Cable HDMI 2m,7,184.25,1289.75,C001,Accesorios
+2025-06-16,P011,Silla Ergonómica Premium,10,8264.05,82640.5,C007,Mobiliario
+2025-06-16,P019,Cargador Universal 65W,10,675.89,6758.9,C003,Accesorios
+2025-06-16,P014,Toner HP 26A,1,996.67,996.67,C001,Consumibles
+2025-06-17,P002,Monitor Dell 27 pulgadas,9,5738.71,51648.39,C007,Electrónica
+2025-06-17,P004,Mouse Logitech MX Master,8,1607.18,12857.44,C008,Periféricos
+2025-06-17,P018,Tablet Samsung Galaxy Tab,1,7339.08,7339.08,C013,Electrónica
+2025-06-17,P014,Toner HP 26A,3,936.55,2809.65,C004,Consumibles
+2025-06-17,P008,Memoria RAM 16GB DDR4,2,1332.23,2664.46,C011,Componentes
+2025-06-17,P010,Hub USB-C 7 puertos,8,880.42,7043.36,C003,Accesorios
+2025-06-18,P001,Laptop HP ProBook 450,8,12839.79,102718.32,C008,Electrónica
+2025-06-18,P013,Impresora HP LaserJet,6,4557.06,27342.36,C003,Impresión
+2025-06-18,P001,Laptop HP ProBook 450,2,12356.1,24712.2,C014,Electrónica
+2025-06-18,P011,Silla Ergonómica Premium,1,8327.1,8327.1,C009,Mobiliario
+2025-06-18,P009,Cable HDMI 2m,10,180.76,1807.6,C012,Accesorios
+2025-06-18,P007,Disco SSD Samsung 1TB,2,2226.5,4453.0,C013,Almacenamiento
+2025-06-19,P002,Monitor Dell 27 pulgadas,6,6025.03,36150.18,C009,Electrónica
+2025-06-19,P004,Mouse Logitech MX Master,6,1644.28,9865.68,C007,Periféricos
+2025-06-19,P002,Monitor Dell 27 pulgadas,6,5611.66,33669.96,C006,Electrónica
+2025-06-19,P018,Tablet Samsung Galaxy Tab,2,7243.75,14487.5,C012,Electrónica
+2025-06-20,P005,Auriculares Sony WH-1000XM5,4,6525.76,26103.04,C006,Audio
+2025-06-20,P016,Router WiFi 6,10,2903.92,29039.2,C012,Redes
+2025-06-20,P007,Disco SSD Samsung 1TB,4,2160.5,8642.0,C013,Almacenamiento
+2025-06-21,P017,Switch 24 puertos,7,4106.4,28744.8,C011,Redes
+2025-06-23,P012,Escritorio Ajustable,8,12001.74,96013.92,C008,Mobiliario
+2025-06-23,P004,Mouse Logitech MX Master,9,1679.42,15114.78,C008,Periféricos
+2025-06-23,P018,Tablet Samsung Galaxy Tab,5,7165.42,35827.1,C015,Electrónica
+2025-06-23,P012,Escritorio Ajustable,2,11626.02,23252.04,C013,Mobiliario
+2025-06-24,P003,Teclado Logitech MX Keys,7,2183.57,15284.99,C002,Periféricos
+2025-06-24,P010,Hub USB-C 7 puertos,2,821.51,1643.02,C002,Accesorios
+2025-06-24,P004,Mouse Logitech MX Master,3,1649.39,4948.17,C012,Periféricos
+2025-06-24,P007,Disco SSD Samsung 1TB,1,2154.5,2154.5,C009,Almacenamiento
+2025-06-24,P018,Tablet Samsung Galaxy Tab,3,7181.21,21543.63,C015,Electrónica
+2025-06-25,P015,UPS APC 1500VA,1,3720.78,3720.78,C012,Energía
+2025-06-25,P003,Teclado Logitech MX Keys,4,2170.34,8681.36,C001,Periféricos
+2025-06-25,P017,Switch 24 puertos,6,4162.91,24977.46,C011,Redes
+2025-06-25,P011,Silla Ergonómica Premium,6,8488.23,50929.38,C011,Mobiliario
+2025-06-25,P017,Switch 24 puertos,9,4177.01,37593.09,C014,Redes
+2025-06-26,P019,Cargador Universal 65W,5,628.66,3143.3,C003,Accesorios
+2025-06-26,P009,Cable HDMI 2m,8,177.69,1421.52,C004,Accesorios
+2025-06-26,P010,Hub USB-C 7 puertos,1,820.11,820.11,C013,Accesorios
+2025-06-26,P010,Hub USB-C 7 puertos,3,860.08,2580.24,C008,Accesorios
+2025-06-27,P018,Tablet Samsung Galaxy Tab,3,7540.71,22622.13,C005,Electrónica
+2025-06-27,P005,Auriculares Sony WH-1000XM5,4,6251.0,25004.0,C003,Audio
+2025-06-27,P011,Silla Ergonómica Premium,3,8449.76,25349.28,C010,Mobiliario
+2025-06-28,P006,Webcam Logitech C920,9,1837.28,16535.52,C004,Periféricos
+2025-06-29,P011,Silla Ergonómica Premium,3,8391.98,25175.94,C006,Mobiliario
+2025-06-29,P018,Tablet Samsung Galaxy Tab,9,7057.12,63514.08,C003,Electrónica
+2025-06-30,P013,Impresora HP LaserJet,8,4620.83,36966.64,C015,Impresión
+2025-06-30,P015,UPS APC 1500VA,6,3669.3,22015.8,C015,Energía
+2025-07-01,P017,Switch 24 puertos,5,4189.04,20945.2,C006,Redes
+2025-07-01,P010,Hub USB-C 7 puertos,10,864.19,8641.9,C013,Accesorios
+2025-07-01,P019,Cargador Universal 65W,8,639.51,5116.08,C012,Accesorios
+2025-07-01,P004,Mouse Logitech MX Master,8,1716.03,13728.24,C012,Periféricos
+2025-07-01,P005,Auriculares Sony WH-1000XM5,9,6250.97,56258.73,C011,Audio
+2025-07-01,P001,Laptop HP ProBook 450,10,12926.1,129261.0,C007,Electrónica
+2025-07-02,P012,Escritorio Ajustable,6,11466.04,68796.24,C002,Mobiliario
+2025-07-02,P007,Disco SSD Samsung 1TB,9,2138.87,19249.83,C010,Almacenamiento
+2025-07-02,P009,Cable HDMI 2m,1,172.5,172.5,C004,Accesorios
+2025-07-02,P015,UPS APC 1500VA,2,3980.82,7961.64,C011,Energía
+2025-07-02,P013,Impresora HP LaserJet,8,4417.99,35343.92,C004,Impresión
+2025-07-03,P017,Switch 24 puertos,6,4156.97,24941.82,C001,Redes
+2025-07-03,P014,Toner HP 26A,7,937.92,6565.44,C006,Consumibles
+2025-07-03,P010,Hub USB-C 7 puertos,6,833.69,5002.14,C006,Accesorios
+2025-07-03,P015,UPS APC 1500VA,9,3643.29,32789.61,C014,Energía
+2025-07-03,P015,UPS APC 1500VA,7,3915.4,27407.8,C012,Energía
+2025-07-03,P010,Hub USB-C 7 puertos,7,869.43,6086.01,C003,Accesorios
+2025-07-04,P005,Auriculares Sony WH-1000XM5,10,6563.66,65636.6,C014,Audio
+2025-07-04,P005,Auriculares Sony WH-1000XM5,5,6483.5,32417.5,C004,Audio
+2025-07-04,P017,Switch 24 puertos,2,4381.92,8763.84,C006,Redes
+2025-07-04,P019,Cargador Universal 65W,7,623.25,4362.75,C013,Accesorios
+2025-07-04,P014,Toner HP 26A,5,941.88,4709.4,C011,Consumibles
+2025-07-05,P015,UPS APC 1500VA,10,3896.99,38969.9,C012,Energía
+2025-07-05,P005,Auriculares Sony WH-1000XM5,3,6715.98,20147.94,C004,Audio
+2025-07-06,P018,Tablet Samsung Galaxy Tab,1,7432.42,7432.42,C008,Electrónica
+2025-07-07,P019,Cargador Universal 65W,8,653.85,5230.8,C005,Accesorios
+2025-07-07,P015,UPS APC 1500VA,1,3910.66,3910.66,C004,Energía
+2025-07-07,P005,Auriculares Sony WH-1000XM5,5,6796.42,33982.1,C005,Audio
+2025-07-07,P016,Router WiFi 6,5,2776.8,13884.0,C002,Redes
+2025-07-08,P008,Memoria RAM 16GB DDR4,2,1437.06,2874.12,C001,Componentes
+2025-07-08,P016,Router WiFi 6,10,2868.76,28687.6,C002,Redes
+2025-07-08,P019,Cargador Universal 65W,10,645.84,6458.4,C008,Accesorios
+2025-07-08,P009,Cable HDMI 2m,8,188.54,1508.32,C011,Accesorios
+2025-07-08,P004,Mouse Logitech MX Master,9,1688.44,15195.96,C006,Periféricos
+2025-07-09,P009,Cable HDMI 2m,10,172.05,1720.5,C003,Accesorios
+2025-07-09,P011,Silla Ergonómica Premium,3,8378.78,25136.34,C008,Mobiliario
+2025-07-10,P009,Cable HDMI 2m,7,182.45,1277.15,C006,Accesorios
+2025-07-10,P012,Escritorio Ajustable,5,11750.0,58750.0,C001,Mobiliario
+2025-07-11,P017,Switch 24 puertos,3,4311.17,12933.51,C004,Redes
+2025-07-11,P020,Mochila para Laptop,3,1205.25,3615.75,C013,Accesorios
+2025-07-12,P010,Hub USB-C 7 puertos,6,815.65,4893.9,C005,Accesorios
+2025-07-13,P012,Escritorio Ajustable,3,11415.48,34246.44,C014,Mobiliario
+2025-07-13,P017,Switch 24 puertos,6,4317.1,25902.6,C005,Redes
+2025-07-14,P011,Silla Ergonómica Premium,3,8162.06,24486.18,C015,Mobiliario
+2025-07-14,P005,Auriculares Sony WH-1000XM5,4,6715.52,26862.08,C009,Audio
+2025-07-14,P018,Tablet Samsung Galaxy Tab,9,7449.17,67042.53,C010,Electrónica
+2025-07-14,P018,Tablet Samsung Galaxy Tab,2,7140.49,14280.98,C012,Electrónica
+2025-07-14,P003,Teclado Logitech MX Keys,3,2188.92,6566.76,C002,Periféricos
+2025-07-15,P012,Escritorio Ajustable,6,11566.82,69400.92,C005,Mobiliario
+2025-07-15,P015,UPS APC 1500VA,10,3808.79,38087.9,C015,Energía
+2025-07-15,P011,Silla Ergonómica Premium,5,8099.45,40497.25,C003,Mobiliario
+2025-07-15,P004,Mouse Logitech MX Master,3,1708.87,5126.61,C004,Periféricos
+2025-07-15,P005,Auriculares Sony WH-1000XM5,4,6374.83,25499.32,C012,Audio
+2025-07-16,P005,Auriculares Sony WH-1000XM5,7,6624.03,46368.21,C002,Audio
+2025-07-16,P004,Mouse Logitech MX Master,1,1695.32,1695.32,C002,Periféricos
+2025-07-16,P014,Toner HP 26A,4,912.74,3650.96,C001,Consumibles
+2025-07-17,P019,Cargador Universal 65W,8,625.23,5001.84,C001,Accesorios
+2025-07-17,P009,Cable HDMI 2m,2,176.43,352.86,C001,Accesorios
+2025-07-17,P001,Laptop HP ProBook 450,2,12852.96,25705.92,C013,Electrónica
+2025-07-17,P020,Mochila para Laptop,10,1248.14,12481.4,C004,Accesorios
+2025-07-17,P006,Webcam Logitech C920,6,1715.27,10291.62,C011,Periféricos
+2025-07-17,P005,Auriculares Sony WH-1000XM5,5,6791.71,33958.55,C014,Audio
+2025-07-18,P012,Escritorio Ajustable,9,12336.96,111032.64,C003,Mobiliario
+2025-07-18,P020,Mochila para Laptop,9,1208.43,10875.87,C004,Accesorios
+2025-07-18,P004,Mouse Logitech MX Master,10,1693.44,16934.4,C014,Periféricos
+2025-07-18,P017,Switch 24 puertos,4,4394.99,17579.96,C004,Redes
+2025-07-20,P001,Laptop HP ProBook 450,2,13030.29,26060.58,C012,Electrónica
+2025-07-20,P017,Switch 24 puertos,8,4143.91,33151.28,C014,Redes
+2025-07-21,P006,Webcam Logitech C920,2,1742.55,3485.1,C008,Periféricos
+2025-07-21,P012,Escritorio Ajustable,7,11657.13,81599.91,C007,Mobiliario
+2025-07-21,P008,Memoria RAM 16GB DDR4,2,1436.6,2873.2,C007,Componentes
+2025-07-21,P011,Silla Ergonómica Premium,8,8168.77,65350.16,C002,Mobiliario
+2025-07-21,P005,Auriculares Sony WH-1000XM5,6,6633.08,39798.48,C008,Audio
+2025-07-21,P018,Tablet Samsung Galaxy Tab,1,6899.22,6899.22,C012,Electrónica
+2025-07-22,P004,Mouse Logitech MX Master,5,1642.9,8214.5,C007,Periféricos
+2025-07-22,P010,Hub USB-C 7 puertos,8,826.7,6613.6,C011,Accesorios
+2025-07-22,P014,Toner HP 26A,7,920.43,6443.01,C005,Consumibles
+2025-07-22,P003,Teclado Logitech MX Keys,8,2192.21,17537.68,C015,Periféricos
+2025-07-22,P012,Escritorio Ajustable,1,12598.47,12598.47,C003,Mobiliario
+2025-07-23,P004,Mouse Logitech MX Master,8,1653.74,13229.92,C007,Periféricos
+2025-07-23,P003,Teclado Logitech MX Keys,3,2077.91,6233.73,C002,Periféricos
+2025-07-23,P019,Cargador Universal 65W,3,621.71,1865.13,C002,Accesorios
+2025-07-23,P007,Disco SSD Samsung 1TB,4,2220.89,8883.56,C006,Almacenamiento
+2025-07-23,P013,Impresora HP LaserJet,4,4652.15,18608.6,C002,Impresión
+2025-07-24,P009,Cable HDMI 2m,10,181.69,1816.9,C013,Accesorios
+2025-07-24,P013,Impresora HP LaserJet,8,4575.0,36600.0,C006,Impresión
+2025-07-24,P013,Impresora HP LaserJet,9,4400.5,39604.5,C008,Impresión
+2025-07-24,P015,UPS APC 1500VA,2,3705.26,7410.52,C002,Energía
+2025-07-24,P016,Router WiFi 6,3,2668.32,8004.96,C004,Redes
+2025-07-25,P003,Teclado Logitech MX Keys,1,2199.14,2199.14,C008,Periféricos
+2025-07-25,P013,Impresora HP LaserJet,6,4343.73,26062.38,C010,Impresión
+2025-07-26,P020,Mochila para Laptop,2,1219.33,2438.66,C002,Accesorios
+2025-07-26,P017,Switch 24 puertos,8,4322.95,34583.6,C013,Redes
+2025-07-28,P016,Router WiFi 6,9,2733.27,24599.43,C008,Redes
+2025-07-28,P011,Silla Ergonómica Premium,9,8539.63,76856.67,C013,Mobiliario
+2025-07-28,P002,Monitor Dell 27 pulgadas,2,5732.51,11465.02,C007,Electrónica
+2025-07-28,P011,Silla Ergonómica Premium,7,8451.17,59158.19,C014,Mobiliario
+2025-07-29,P002,Monitor Dell 27 pulgadas,9,5892.46,53032.14,C003,Electrónica
+2025-07-29,P010,Hub USB-C 7 puertos,3,849.28,2547.84,C015,Accesorios
+2025-07-30,P010,Hub USB-C 7 puertos,7,848.93,5942.51,C012,Accesorios
+2025-07-30,P004,Mouse Logitech MX Master,8,1676.41,13411.28,C010,Periféricos
+2025-07-30,P018,Tablet Samsung Galaxy Tab,8,7182.66,57461.28,C010,Electrónica
+2025-07-31,P017,Switch 24 puertos,7,4100.62,28704.34,C001,Redes
+2025-07-31,P019,Cargador Universal 65W,10,661.47,6614.7,C007,Accesorios
+2025-07-31,P010,Hub USB-C 7 puertos,1,809.89,809.89,C006,Accesorios
+2025-08-01,P005,Auriculares Sony WH-1000XM5,6,6401.77,38410.62,C014,Audio
+2025-08-01,P019,Cargador Universal 65W,6,642.24,3853.44,C001,Accesorios
+2025-08-02,P012,Escritorio Ajustable,7,11821.52,82750.64,C006,Mobiliario
+2025-08-03,P008,Memoria RAM 16GB DDR4,4,1420.73,5682.92,C004,Componentes
+2025-08-03,P019,Cargador Universal 65W,2,673.98,1347.96,C002,Accesorios
+2025-08-04,P011,Silla Ergonómica Premium,1,8532.65,8532.65,C003,Mobiliario
+2025-08-04,P002,Monitor Dell 27 pulgadas,7,5839.47,40876.29,C008,Electrónica
+2025-08-05,P009,Cable HDMI 2m,8,181.58,1452.64,C001,Accesorios
+2025-08-05,P011,Silla Ergonómica Premium,10,8406.76,84067.6,C007,Mobiliario
+2025-08-05,P019,Cargador Universal 65W,8,624.0,4992.0,C002,Accesorios
+2025-08-05,P007,Disco SSD Samsung 1TB,8,2200.61,17604.88,C006,Almacenamiento
+2025-08-05,P011,Silla Ergonómica Premium,10,8329.59,83295.9,C003,Mobiliario
+2025-08-06,P007,Disco SSD Samsung 1TB,2,2274.88,4549.76,C008,Almacenamiento
+2025-08-06,P018,Tablet Samsung Galaxy Tab,5,7030.91,35154.55,C004,Electrónica
+2025-08-06,P010,Hub USB-C 7 puertos,7,875.89,6131.23,C010,Accesorios
+2025-08-06,P020,Mochila para Laptop,2,1226.12,2452.24,C012,Accesorios
+2025-08-06,P019,Cargador Universal 65W,10,639.39,6393.9,C002,Accesorios
+2025-08-07,P019,Cargador Universal 65W,9,648.39,5835.51,C013,Accesorios
+2025-08-07,P007,Disco SSD Samsung 1TB,2,2233.34,4466.68,C006,Almacenamiento
+2025-08-08,P017,Switch 24 puertos,5,4171.82,20859.1,C013,Redes
+2025-08-08,P018,Tablet Samsung Galaxy Tab,4,7138.31,28553.24,C006,Electrónica
+2025-08-08,P009,Cable HDMI 2m,9,179.16,1612.44,C010,Accesorios
+2025-08-08,P018,Tablet Samsung Galaxy Tab,1,7292.05,7292.05,C003,Electrónica
+2025-08-09,P006,Webcam Logitech C920,8,1748.33,13986.64,C010,Periféricos
+2025-08-09,P015,UPS APC 1500VA,9,3917.39,35256.51,C005,Energía
+2025-08-10,P019,Cargador Universal 65W,1,651.45,651.45,C012,Accesorios
+2025-08-11,P015,UPS APC 1500VA,4,3667.18,14668.72,C003,Energía
+2025-08-11,P010,Hub USB-C 7 puertos,7,842.37,5896.59,C014,Accesorios
+2025-08-11,P003,Teclado Logitech MX Keys,4,2172.65,8690.6,C011,Periféricos
+2025-08-11,P009,Cable HDMI 2m,5,182.63,913.15,C014,Accesorios
+2025-08-12,P020,Mochila para Laptop,7,1168.62,8180.34,C004,Accesorios
+2025-08-12,P005,Auriculares Sony WH-1000XM5,1,6334.63,6334.63,C004,Audio
+2025-08-12,P010,Hub USB-C 7 puertos,8,855.09,6840.72,C008,Accesorios
+2025-08-12,P014,Toner HP 26A,1,921.69,921.69,C007,Consumibles
+2025-08-13,P005,Auriculares Sony WH-1000XM5,5,6688.29,33441.45,C001,Audio
+2025-08-13,P009,Cable HDMI 2m,9,174.17,1567.53,C011,Accesorios
+2025-08-13,P002,Monitor Dell 27 pulgadas,8,5963.7,47709.6,C012,Electrónica
+2025-08-13,P002,Monitor Dell 27 pulgadas,2,5692.06,11384.12,C014,Electrónica
+2025-08-14,P003,Teclado Logitech MX Keys,7,2183.32,15283.24,C015,Periféricos
+2025-08-14,P003,Teclado Logitech MX Keys,3,2044.57,6133.71,C007,Periféricos
+2025-08-14,P019,Cargador Universal 65W,9,678.14,6103.26,C012,Accesorios
+2025-08-14,P017,Switch 24 puertos,10,4388.86,43888.6,C011,Redes
+2025-08-15,P009,Cable HDMI 2m,2,175.29,350.58,C008,Accesorios
+2025-08-15,P004,Mouse Logitech MX Master,6,1621.83,9730.98,C013,Periféricos
+2025-08-15,P019,Cargador Universal 65W,7,669.88,4689.16,C012,Accesorios
+2025-08-15,P008,Memoria RAM 16GB DDR4,7,1360.52,9523.64,C015,Componentes
+2025-08-15,P004,Mouse Logitech MX Master,4,1727.54,6910.16,C003,Periféricos
+2025-08-15,P015,UPS APC 1500VA,5,3937.9,19689.5,C007,Energía
+2025-08-17,P018,Tablet Samsung Galaxy Tab,2,7067.87,14135.74,C006,Electrónica
+2025-08-18,P016,Router WiFi 6,4,2929.73,11718.92,C011,Redes
+2025-08-18,P005,Auriculares Sony WH-1000XM5,8,6640.19,53121.52,C006,Audio
+2025-08-18,P010,Hub USB-C 7 puertos,10,810.46,8104.6,C001,Accesorios
+2025-08-18,P002,Monitor Dell 27 pulgadas,4,5656.73,22626.92,C012,Electrónica
+2025-08-18,P013,Impresora HP LaserJet,6,4681.42,28088.52,C005,Impresión
+2025-08-19,P018,Tablet Samsung Galaxy Tab,4,7457.51,29830.04,C014,Electrónica
+2025-08-19,P013,Impresora HP LaserJet,7,4692.38,32846.66,C001,Impresión
+2025-08-20,P010,Hub USB-C 7 puertos,4,832.78,3331.12,C002,Accesorios
+2025-08-20,P006,Webcam Logitech C920,8,1823.64,14589.12,C015,Periféricos
+2025-08-20,P014,Toner HP 26A,1,928.53,928.53,C013,Consumibles
+2025-08-20,P003,Teclado Logitech MX Keys,8,2093.93,16751.44,C014,Periféricos
+2025-08-21,P011,Silla Ergonómica Premium,7,8820.25,61741.75,C012,Mobiliario
+2025-08-21,P004,Mouse Logitech MX Master,3,1682.75,5048.25,C014,Periféricos
+2025-08-21,P017,Switch 24 puertos,6,4166.77,25000.62,C002,Redes
+2025-08-21,P018,Tablet Samsung Galaxy Tab,6,7166.35,42998.1,C012,Electrónica
+2025-08-21,P001,Laptop HP ProBook 450,1,12676.72,12676.72,C013,Electrónica
+2025-08-22,P015,UPS APC 1500VA,3,3611.17,10833.51,C013,Energía
+2025-08-22,P007,Disco SSD Samsung 1TB,5,2159.02,10795.1,C011,Almacenamiento
+2025-08-22,P003,Teclado Logitech MX Keys,3,2047.42,6142.26,C002,Periféricos
+2025-08-23,P005,Auriculares Sony WH-1000XM5,10,6620.74,66207.4,C014,Audio
+2025-08-23,P011,Silla Ergonómica Premium,8,8817.48,70539.84,C008,Mobiliario
+2025-08-25,P006,Webcam Logitech C920,10,1858.82,18588.2,C011,Periféricos
+2025-08-25,P010,Hub USB-C 7 puertos,2,842.73,1685.46,C004,Accesorios
+2025-08-25,P006,Webcam Logitech C920,7,1880.06,13160.42,C007,Periféricos
+2025-08-25,P019,Cargador Universal 65W,1,679.13,679.13,C004,Accesorios
+2025-08-26,P020,Mochila para Laptop,4,1248.82,4995.28,C011,Accesorios
+2025-08-26,P015,UPS APC 1500VA,5,3876.48,19382.4,C004,Energía
+2025-08-26,P006,Webcam Logitech C920,7,1821.24,12748.68,C001,Periféricos
+2025-08-26,P020,Mochila para Laptop,3,1150.69,3452.07,C005,Accesorios
+2025-08-26,P012,Escritorio Ajustable,10,11540.82,115408.2,C003,Mobiliario
+2025-08-26,P017,Switch 24 puertos,8,4337.45,34699.6,C007,Redes
+2025-08-27,P004,Mouse Logitech MX Master,4,1598.94,6395.76,C004,Periféricos
+2025-08-27,P009,Cable HDMI 2m,8,177.88,1423.04,C005,Accesorios
+2025-08-27,P014,Toner HP 26A,4,959.51,3838.04,C014,Consumibles
+2025-08-27,P010,Hub USB-C 7 puertos,4,843.06,3372.24,C012,Accesorios
+2025-08-27,P014,Toner HP 26A,3,905.23,2715.69,C013,Consumibles
+2025-08-28,P008,Memoria RAM 16GB DDR4,8,1457.03,11656.24,C010,Componentes
+2025-08-28,P012,Escritorio Ajustable,8,11502.89,92023.12,C010,Mobiliario
+2025-08-28,P016,Router WiFi 6,6,2932.83,17596.98,C003,Redes
+2025-08-28,P013,Impresora HP LaserJet,4,4596.0,18384.0,C011,Impresión
+2025-08-29,P020,Mochila para Laptop,2,1151.43,2302.86,C005,Accesorios
+2025-08-29,P002,Monitor Dell 27 pulgadas,6,6050.02,36300.12,C001,Electrónica
+2025-08-29,P016,Router WiFi 6,6,2939.09,17634.54,C015,Redes
+2025-08-29,P020,Mochila para Laptop,1,1140.64,1140.64,C012,Accesorios
+2025-08-29,P017,Switch 24 puertos,7,4117.05,28819.35,C010,Redes
+2025-08-30,P012,Escritorio Ajustable,9,11449.35,103044.15,C003,Mobiliario
+2025-09-01,P006,Webcam Logitech C920,8,1877.46,15019.68,C009,Periféricos
+2025-09-01,P015,UPS APC 1500VA,2,3730.58,7461.16,C003,Energía
+2025-09-01,P017,Switch 24 puertos,3,4099.37,12298.11,C007,Redes
+2025-09-01,P011,Silla Ergonómica Premium,3,8499.33,25497.99,C001,Mobiliario
+2025-09-02,P012,Escritorio Ajustable,7,11739.51,82176.57,C015,Mobiliario
+2025-09-02,P009,Cable HDMI 2m,5,180.31,901.55,C010,Accesorios
+2025-09-02,P014,Toner HP 26A,3,932.48,2797.44,C015,Consumibles
+2025-09-02,P016,Router WiFi 6,3,2815.59,8446.77,C013,Redes
+2025-09-03,P002,Monitor Dell 27 pulgadas,3,5541.65,16624.95,C004,Electrónica
+2025-09-03,P006,Webcam Logitech C920,8,1756.84,14054.72,C001,Periféricos
+2025-09-03,P015,UPS APC 1500VA,2,3988.18,7976.36,C007,Energía
+2025-09-03,P016,Router WiFi 6,8,2759.83,22078.64,C001,Redes
+2025-09-03,P018,Tablet Samsung Galaxy Tab,8,7194.95,57559.6,C008,Electrónica
+2025-09-04,P004,Mouse Logitech MX Master,2,1601.12,3202.24,C006,Periféricos
+2025-09-04,P010,Hub USB-C 7 puertos,3,871.24,2613.72,C003,Accesorios
+2025-09-04,P009,Cable HDMI 2m,10,174.82,1748.2,C010,Accesorios
+2025-09-05,P017,Switch 24 puertos,10,4065.84,40658.4,C013,Redes
+2025-09-05,P003,Teclado Logitech MX Keys,8,2137.15,17097.2,C004,Periféricos
+2025-09-06,P001,Laptop HP ProBook 450,2,12367.71,24735.42,C005,Electrónica
+2025-09-07,P004,Mouse Logitech MX Master,6,1592.87,9557.22,C014,Periféricos
+2025-09-07,P003,Teclado Logitech MX Keys,8,2090.35,16722.8,C008,Periféricos
+2025-09-08,P020,Mochila para Laptop,1,1179.53,1179.53,C011,Accesorios
+2025-09-08,P002,Monitor Dell 27 pulgadas,10,6061.52,60615.2,C011,Electrónica
+2025-09-08,P011,Silla Ergonómica Premium,10,8184.92,81849.2,C012,Mobiliario
+2025-09-08,P002,Monitor Dell 27 pulgadas,5,5697.44,28487.2,C013,Electrónica
+2025-09-09,P003,Teclado Logitech MX Keys,10,2075.09,20750.9,C009,Periféricos
+2025-09-09,P013,Impresora HP LaserJet,3,4383.04,13149.12,C005,Impresión
+2025-09-10,P003,Teclado Logitech MX Keys,4,2029.22,8116.88,C001,Periféricos
+2025-09-10,P013,Impresora HP LaserJet,3,4329.27,12987.81,C005,Impresión
+2025-09-10,P016,Router WiFi 6,7,2866.05,20062.35,C013,Redes
+2025-09-10,P010,Hub USB-C 7 puertos,10,818.66,8186.6,C015,Accesorios
+2025-09-10,P004,Mouse Logitech MX Master,6,1652.09,9912.54,C014,Periféricos
+2025-09-11,P015,UPS APC 1500VA,7,3791.05,26537.35,C015,Energía
+2025-09-11,P019,Cargador Universal 65W,7,623.36,4363.52,C010,Accesorios
+2025-09-11,P014,Toner HP 26A,6,960.82,5764.92,C013,Consumibles
+2025-09-11,P014,Toner HP 26A,7,911.33,6379.31,C011,Consumibles
+2025-09-11,P017,Switch 24 puertos,8,4274.1,34192.8,C006,Redes
+2025-09-12,P016,Router WiFi 6,9,2683.51,24151.59,C009,Redes
+2025-09-12,P015,UPS APC 1500VA,2,3954.74,7909.48,C007,Energía
+2025-09-12,P016,Router WiFi 6,3,2935.57,8806.71,C005,Redes
+2025-09-13,P010,Hub USB-C 7 puertos,4,851.96,3407.84,C014,Accesorios
+2025-09-13,P010,Hub USB-C 7 puertos,1,854.33,854.33,C010,Accesorios
+2025-09-15,P004,Mouse Logitech MX Master,7,1635.65,11449.55,C009,Periféricos
+2025-09-15,P015,UPS APC 1500VA,10,3918.87,39188.7,C011,Energía
+2025-09-15,P012,Escritorio Ajustable,10,11498.12,114981.2,C005,Mobiliario
+2025-09-15,P017,Switch 24 puertos,2,4301.02,8602.04,C001,Redes
+2025-09-15,P015,UPS APC 1500VA,3,3930.31,11790.93,C003,Energía
+2025-09-15,P002,Monitor Dell 27 pulgadas,7,6018.52,42129.64,C002,Electrónica
+2025-09-16,P011,Silla Ergonómica Premium,8,8718.75,69750.0,C010,Mobiliario
+2025-09-16,P015,UPS APC 1500VA,5,3739.71,18698.55,C010,Energía
+2025-09-16,P006,Webcam Logitech C920,3,1724.08,5172.24,C004,Periféricos
+2025-09-16,P020,Mochila para Laptop,2,1192.06,2384.12,C005,Accesorios
+2025-09-17,P001,Laptop HP ProBook 450,2,11891.63,23783.26,C007,Electrónica
+2025-09-17,P016,Router WiFi 6,7,2903.26,20322.82,C008,Redes
+2025-09-18,P016,Router WiFi 6,10,2887.68,28876.8,C005,Redes
+2025-09-18,P020,Mochila para Laptop,7,1236.56,8655.92,C006,Accesorios
+2025-09-18,P003,Teclado Logitech MX Keys,3,1997.91,5993.73,C003,Periféricos
+2025-09-18,P004,Mouse Logitech MX Master,1,1682.35,1682.35,C014,Periféricos
+2025-09-18,P007,Disco SSD Samsung 1TB,1,2136.03,2136.03,C014,Almacenamiento
+2025-09-18,P005,Auriculares Sony WH-1000XM5,4,6458.26,25833.04,C011,Audio
+2025-09-19,P007,Disco SSD Samsung 1TB,5,2259.34,11296.7,C002,Almacenamiento
+2025-09-19,P005,Auriculares Sony WH-1000XM5,7,6189.18,43324.26,C008,Audio
+2025-09-19,P006,Webcam Logitech C920,3,1842.98,5528.94,C015,Periféricos
+2025-09-19,P015,UPS APC 1500VA,8,3617.46,28939.68,C008,Energía
+2025-09-19,P015,UPS APC 1500VA,4,3686.51,14746.04,C010,Energía
+2025-09-19,P019,Cargador Universal 65W,7,620.81,4345.67,C014,Accesorios
+2025-09-22,P014,Toner HP 26A,8,972.52,7780.16,C014,Consumibles
+2025-09-22,P020,Mochila para Laptop,9,1259.88,11338.92,C012,Accesorios
+2025-09-22,P002,Monitor Dell 27 pulgadas,7,5791.94,40543.58,C008,Electrónica
+2025-09-22,P019,Cargador Universal 65W,10,678.29,6782.9,C012,Accesorios
+2025-09-22,P016,Router WiFi 6,1,2807.93,2807.93,C004,Redes
+2025-09-23,P019,Cargador Universal 65W,9,621.63,5594.67,C006,Accesorios
+2025-09-23,P014,Toner HP 26A,8,913.61,7308.88,C015,Consumibles
+2025-09-23,P020,Mochila para Laptop,6,1193.8,7162.8,C011,Accesorios
+2025-09-23,P014,Toner HP 26A,3,929.86,2789.58,C001,Consumibles
+2025-09-23,P007,Disco SSD Samsung 1TB,6,2186.38,13118.28,C008,Almacenamiento
+2025-09-24,P008,Memoria RAM 16GB DDR4,6,1459.04,8754.24,C010,Componentes
+2025-09-24,P015,UPS APC 1500VA,5,3884.74,19423.7,C003,Energía
+2025-09-24,P013,Impresora HP LaserJet,6,4633.19,27799.14,C007,Impresión
+2025-09-24,P006,Webcam Logitech C920,4,1760.84,7043.36,C010,Periféricos
+2025-09-24,P003,Teclado Logitech MX Keys,8,2022.11,16176.88,C011,Periféricos
+2025-09-24,P007,Disco SSD Samsung 1TB,10,2198.28,21982.8,C003,Almacenamiento
+2025-09-25,P016,Router WiFi 6,4,2718.64,10874.56,C005,Redes
+2025-09-25,P002,Monitor Dell 27 pulgadas,6,6020.93,36125.58,C001,Electrónica
+2025-09-25,P012,Escritorio Ajustable,3,11609.66,34828.98,C011,Mobiliario
+2025-09-25,P017,Switch 24 puertos,2,4131.85,8263.7,C001,Redes
+2025-09-25,P004,Mouse Logitech MX Master,4,1587.41,6349.64,C010,Periféricos
+2025-09-26,P016,Router WiFi 6,6,2879.77,17278.62,C005,Redes
+2025-09-26,P002,Monitor Dell 27 pulgadas,9,5665.14,50986.26,C013,Electrónica
+2025-09-26,P005,Auriculares Sony WH-1000XM5,9,6567.79,59110.11,C014,Audio
+2025-09-28,P002,Monitor Dell 27 pulgadas,8,5973.41,47787.28,C015,Electrónica
+2025-09-28,P004,Mouse Logitech MX Master,10,1668.09,16680.9,C002,Periféricos
+2025-09-29,P018,Tablet Samsung Galaxy Tab,9,6915.9,62243.1,C001,Electrónica
+2025-09-29,P004,Mouse Logitech MX Master,4,1717.81,6871.24,C014,Periféricos
+2025-09-30,P010,Hub USB-C 7 puertos,8,872.27,6978.16,C012,Accesorios
+2025-09-30,P016,Router WiFi 6,2,2703.2,5406.4,C012,Redes
+2025-09-30,P012,Escritorio Ajustable,3,11547.58,34642.74,C006,Mobiliario
+2025-10-01,P015,UPS APC 1500VA,1,3703.22,3703.22,C007,Energía
+2025-10-01,P016,Router WiFi 6,5,2801.41,14007.05,C006,Redes
+2025-10-01,P003,Teclado Logitech MX Keys,6,2145.19,12871.14,C005,Periféricos
+2025-10-02,P012,Escritorio Ajustable,4,11581.93,46327.72,C011,Mobiliario
+2025-10-02,P017,Switch 24 puertos,4,4047.96,16191.84,C007,Redes
+2025-10-02,P014,Toner HP 26A,7,987.82,6914.74,C007,Consumibles
+2025-10-02,P017,Switch 24 puertos,6,4386.37,26318.22,C013,Redes
+2025-10-02,P015,UPS APC 1500VA,1,3882.7,3882.7,C003,Energía
+2025-10-03,P003,Teclado Logitech MX Keys,6,2061.11,12366.66,C002,Periféricos
+2025-10-03,P006,Webcam Logitech C920,1,1780.79,1780.79,C007,Periféricos
+2025-10-03,P002,Monitor Dell 27 pulgadas,3,6033.46,18100.38,C011,Electrónica
+2025-10-03,P002,Monitor Dell 27 pulgadas,9,6074.14,54667.26,C011,Electrónica
+2025-10-03,P014,Toner HP 26A,9,985.49,8869.41,C007,Consumibles
+2025-10-03,P011,Silla Ergonómica Premium,6,8081.72,48490.32,C015,Mobiliario
+2025-10-04,P017,Switch 24 puertos,3,4284.12,12852.36,C010,Redes
+2025-10-05,P007,Disco SSD Samsung 1TB,9,2227.36,20046.24,C015,Almacenamiento
+2025-10-06,P015,UPS APC 1500VA,6,3947.32,23683.92,C012,Energía
+2025-10-06,P013,Impresora HP LaserJet,4,4671.44,18685.76,C013,Impresión
+2025-10-06,P003,Teclado Logitech MX Keys,9,2065.24,18587.16,C001,Periféricos
+2025-10-06,P005,Auriculares Sony WH-1000XM5,9,6359.55,57235.95,C009,Audio
+2025-10-06,P003,Teclado Logitech MX Keys,9,2060.57,18545.13,C009,Periféricos
+2025-10-06,P011,Silla Ergonómica Premium,3,8094.91,24284.73,C013,Mobiliario
+2025-10-07,P019,Cargador Universal 65W,4,671.59,2686.36,C005,Accesorios
+2025-10-07,P010,Hub USB-C 7 puertos,7,891.39,6239.73,C012,Accesorios
+2025-10-07,P004,Mouse Logitech MX Master,1,1706.36,1706.36,C012,Periféricos
+2025-10-07,P009,Cable HDMI 2m,9,177.38,1596.42,C011,Accesorios
+2025-10-07,P002,Monitor Dell 27 pulgadas,2,5770.27,11540.54,C013,Electrónica
+2025-10-07,P019,Cargador Universal 65W,1,646.95,646.95,C012,Accesorios
+2025-10-08,P019,Cargador Universal 65W,9,672.39,6051.51,C010,Accesorios
+2025-10-08,P008,Memoria RAM 16GB DDR4,5,1369.83,6849.15,C006,Componentes
+2025-10-08,P019,Cargador Universal 65W,3,663.93,1991.79,C011,Accesorios
+2025-10-09,P008,Memoria RAM 16GB DDR4,6,1402.3,8413.8,C002,Componentes
+2025-10-09,P007,Disco SSD Samsung 1TB,6,2189.95,13139.7,C014,Almacenamiento
+2025-10-09,P005,Auriculares Sony WH-1000XM5,7,6713.48,46994.36,C012,Audio
+2025-10-09,P003,Teclado Logitech MX Keys,1,2084.23,2084.23,C002,Periféricos
+2025-10-09,P005,Auriculares Sony WH-1000XM5,4,6465.01,25860.04,C008,Audio
+2025-10-09,P012,Escritorio Ajustable,9,11883.3,106949.7,C011,Mobiliario
+2025-10-10,P017,Switch 24 puertos,7,4356.25,30493.75,C013,Redes
+2025-10-10,P019,Cargador Universal 65W,7,682.27,4775.89,C008,Accesorios
+2025-10-10,P016,Router WiFi 6,7,2890.67,20234.69,C012,Redes
+2025-10-10,P005,Auriculares Sony WH-1000XM5,3,6490.1,19470.3,C009,Audio
+2025-10-10,P015,UPS APC 1500VA,9,3938.04,35442.36,C003,Energía
+2025-10-10,P004,Mouse Logitech MX Master,4,1642.65,6570.6,C012,Periféricos
+2025-10-12,P006,Webcam Logitech C920,6,1875.91,11255.46,C009,Periféricos
+2025-10-12,P004,Mouse Logitech MX Master,7,1585.71,11099.97,C010,Periféricos
+2025-10-13,P019,Cargador Universal 65W,1,651.48,651.48,C005,Accesorios
+2025-10-13,P004,Mouse Logitech MX Master,5,1731.02,8655.1,C006,Periféricos
+2025-10-13,P010,Hub USB-C 7 puertos,8,809.88,6479.04,C005,Accesorios
+2025-10-13,P005,Auriculares Sony WH-1000XM5,10,6449.14,64491.4,C003,Audio
+2025-10-14,P010,Hub USB-C 7 puertos,3,877.13,2631.39,C004,Accesorios
+2025-10-14,P016,Router WiFi 6,2,2813.31,5626.62,C001,Redes
+2025-10-14,P003,Teclado Logitech MX Keys,1,2082.69,2082.69,C014,Periféricos
+2025-10-14,P019,Cargador Universal 65W,10,646.9,6469.0,C005,Accesorios
+2025-10-15,P013,Impresora HP LaserJet,10,4334.76,43347.6,C008,Impresión
+2025-10-15,P005,Auriculares Sony WH-1000XM5,8,6670.09,53360.72,C009,Audio
+2025-10-15,P015,UPS APC 1500VA,6,3643.94,21863.64,C003,Energía
+2025-10-15,P020,Mochila para Laptop,10,1189.16,11891.6,C011,Accesorios
+2025-10-16,P013,Impresora HP LaserJet,9,4295.62,38660.58,C006,Impresión
+2025-10-16,P015,UPS APC 1500VA,5,3855.45,19277.25,C012,Energía
+2025-10-16,P006,Webcam Logitech C920,1,1812.96,1812.96,C012,Periféricos
+2025-10-17,P018,Tablet Samsung Galaxy Tab,2,7303.62,14607.24,C011,Electrónica
+2025-10-17,P003,Teclado Logitech MX Keys,10,2108.79,21087.9,C004,Periféricos
+2025-10-17,P002,Monitor Dell 27 pulgadas,9,5619.85,50578.65,C010,Electrónica
+2025-10-17,P016,Router WiFi 6,1,2693.68,2693.68,C009,Redes
+2025-10-18,P006,Webcam Logitech C920,5,1851.62,9258.1,C001,Periféricos
+2025-10-18,P008,Memoria RAM 16GB DDR4,10,1392.19,13921.9,C014,Componentes
+2025-10-19,P020,Mochila para Laptop,7,1210.67,8474.69,C006,Accesorios
+2025-10-19,P016,Router WiFi 6,1,2755.19,2755.19,C014,Redes
+2025-10-20,P014,Toner HP 26A,9,932.65,8393.85,C001,Consumibles
+2025-10-20,P009,Cable HDMI 2m,2,188.64,377.28,C002,Accesorios
+2025-10-20,P018,Tablet Samsung Galaxy Tab,5,6943.7,34718.5,C003,Electrónica
+2025-10-21,P003,Teclado Logitech MX Keys,5,2194.95,10974.75,C003,Periféricos
+2025-10-21,P006,Webcam Logitech C920,10,1883.0,18830.0,C001,Periféricos
+2025-10-21,P006,Webcam Logitech C920,1,1763.64,1763.64,C001,Periféricos
+2025-10-21,P004,Mouse Logitech MX Master,3,1635.62,4906.86,C006,Periféricos
+2025-10-22,P009,Cable HDMI 2m,2,171.93,343.86,C007,Accesorios
+2025-10-22,P008,Memoria RAM 16GB DDR4,10,1412.04,14120.4,C013,Componentes
+2025-10-22,P016,Router WiFi 6,9,2767.81,24910.29,C009,Redes
+2025-10-22,P004,Mouse Logitech MX Master,1,1620.03,1620.03,C005,Periféricos
+2025-10-23,P014,Toner HP 26A,8,905.25,7242.0,C002,Consumibles
+2025-10-23,P008,Memoria RAM 16GB DDR4,1,1367.68,1367.68,C015,Componentes
+2025-10-23,P019,Cargador Universal 65W,2,633.51,1267.02,C011,Accesorios
+2025-10-23,P018,Tablet Samsung Galaxy Tab,3,7059.32,21177.96,C011,Electrónica
+2025-10-23,P014,Toner HP 26A,2,982.9,1965.8,C008,Consumibles
+2025-10-23,P017,Switch 24 puertos,3,4146.79,12440.37,C004,Redes
+2025-10-24,P008,Memoria RAM 16GB DDR4,7,1464.59,10252.13,C009,Componentes
+2025-10-24,P018,Tablet Samsung Galaxy Tab,1,6840.72,6840.72,C008,Electrónica
+2025-10-24,P015,UPS APC 1500VA,10,3719.91,37199.1,C014,Energía
+2025-10-27,P016,Router WiFi 6,10,2730.25,27302.5,C005,Redes
+2025-10-27,P013,Impresora HP LaserJet,4,4538.32,18153.28,C006,Impresión
+2025-10-28,P010,Hub USB-C 7 puertos,3,870.33,2610.99,C001,Accesorios
+2025-10-28,P019,Cargador Universal 65W,5,623.33,3116.65,C002,Accesorios
+2025-10-28,P004,Mouse Logitech MX Master,3,1687.14,5061.42,C014,Periféricos
+2025-10-28,P009,Cable HDMI 2m,7,174.8,1223.6,C015,Accesorios
+2025-10-28,P017,Switch 24 puertos,6,4361.25,26167.5,C013,Redes
+2025-10-28,P011,Silla Ergonómica Premium,5,8907.69,44538.45,C011,Mobiliario
+2025-10-29,P009,Cable HDMI 2m,6,177.15,1062.9,C004,Accesorios
+2025-10-29,P015,UPS APC 1500VA,6,3616.03,21696.18,C010,Energía
+2025-10-29,P005,Auriculares Sony WH-1000XM5,1,6570.71,6570.71,C011,Audio
+2025-10-29,P001,Laptop HP ProBook 450,1,12715.88,12715.88,C015,Electrónica
+2025-10-29,P014,Toner HP 26A,8,974.93,7799.44,C009,Consumibles
+2025-10-30,P003,Teclado Logitech MX Keys,2,2108.12,4216.24,C013,Periféricos
+2025-10-30,P015,UPS APC 1500VA,2,3744.14,7488.28,C011,Energía
+2025-10-30,P013,Impresora HP LaserJet,10,4436.08,44360.8,C014,Impresión
+2025-10-30,P006,Webcam Logitech C920,1,1732.46,1732.46,C014,Periféricos
+2025-10-30,P012,Escritorio Ajustable,4,11933.49,47733.96,C015,Mobiliario
+2025-10-30,P008,Memoria RAM 16GB DDR4,1,1436.18,1436.18,C012,Componentes
+2025-10-31,P007,Disco SSD Samsung 1TB,10,2227.55,22275.5,C002,Almacenamiento
+2025-10-31,P008,Memoria RAM 16GB DDR4,8,1465.42,11723.36,C004,Componentes
+2025-10-31,P002,Monitor Dell 27 pulgadas,8,6034.61,48276.88,C005,Electrónica
+2025-10-31,P020,Mochila para Laptop,1,1163.53,1163.53,C004,Accesorios
+2025-11-01,P013,Impresora HP LaserJet,5,4531.1,22655.5,C002,Impresión
+2025-11-01,P016,Router WiFi 6,9,2714.26,24428.34,C003,Redes
+2025-11-02,P019,Cargador Universal 65W,10,654.23,6542.3,C011,Accesorios
+2025-11-02,P003,Teclado Logitech MX Keys,3,2151.65,6454.95,C010,Periféricos
+2025-11-03,P009,Cable HDMI 2m,10,186.4,1864.0,C015,Accesorios
+2025-11-03,P017,Switch 24 puertos,5,4070.58,20352.9,C012,Redes
+2025-11-03,P001,Laptop HP ProBook 450,9,12643.07,113787.63,C012,Electrónica
+2025-11-04,P015,UPS APC 1500VA,7,3853.57,26974.99,C001,Energía
+2025-11-04,P002,Monitor Dell 27 pulgadas,6,5760.88,34565.28,C014,Electrónica
+2025-11-04,P014,Toner HP 26A,2,967.12,1934.24,C005,Consumibles
+2025-11-04,P015,UPS APC 1500VA,6,3806.56,22839.36,C008,Energía
+2025-11-04,P002,Monitor Dell 27 pulgadas,4,5537.24,22148.96,C015,Electrónica
+2025-11-04,P014,Toner HP 26A,8,932.54,7460.32,C009,Consumibles
+2025-11-05,P007,Disco SSD Samsung 1TB,2,2283.62,4567.24,C006,Almacenamiento
+2025-11-05,P001,Laptop HP ProBook 450,4,13097.62,52390.48,C012,Electrónica
+2025-11-05,P014,Toner HP 26A,4,921.2,3684.8,C002,Consumibles
+2025-11-05,P011,Silla Ergonómica Premium,2,8607.1,17214.2,C005,Mobiliario
+2025-11-05,P004,Mouse Logitech MX Master,8,1638.77,13110.16,C001,Periféricos
+2025-11-06,P019,Cargador Universal 65W,6,672.13,4032.78,C013,Accesorios
+2025-11-06,P008,Memoria RAM 16GB DDR4,8,1363.37,10906.96,C002,Componentes
+2025-11-07,P002,Monitor Dell 27 pulgadas,6,5811.41,34868.46,C014,Electrónica
+2025-11-07,P008,Memoria RAM 16GB DDR4,10,1416.74,14167.4,C002,Componentes
+2025-11-07,P004,Mouse Logitech MX Master,8,1663.02,13304.16,C011,Periféricos
+2025-11-07,P003,Teclado Logitech MX Keys,1,2074.25,2074.25,C001,Periféricos
+2025-11-08,P003,Teclado Logitech MX Keys,3,2008.02,6024.06,C013,Periféricos
+2025-11-08,P015,UPS APC 1500VA,5,3842.08,19210.4,C001,Energía
+2025-11-09,P003,Teclado Logitech MX Keys,1,2112.44,2112.44,C002,Periféricos
+2025-11-10,P013,Impresora HP LaserJet,2,4552.79,9105.58,C007,Impresión
+2025-11-10,P014,Toner HP 26A,10,977.31,9773.1,C004,Consumibles
+2025-11-10,P020,Mochila para Laptop,8,1186.07,9488.56,C001,Accesorios
+2025-11-10,P014,Toner HP 26A,10,961.33,9613.3,C015,Consumibles
+2025-11-11,P001,Laptop HP ProBook 450,9,12285.24,110567.16,C008,Electrónica
+2025-11-11,P007,Disco SSD Samsung 1TB,2,2092.7,4185.4,C002,Almacenamiento
+2025-11-11,P003,Teclado Logitech MX Keys,4,2184.92,8739.68,C010,Periféricos
+2025-11-11,P005,Auriculares Sony WH-1000XM5,9,6341.59,57074.31,C011,Audio
+2025-11-12,P016,Router WiFi 6,10,2784.49,27844.9,C012,Redes
+2025-11-12,P008,Memoria RAM 16GB DDR4,1,1338.47,1338.47,C003,Componentes
+2025-11-12,P010,Hub USB-C 7 puertos,7,851.12,5957.84,C010,Accesorios
+2025-11-12,P012,Escritorio Ajustable,10,12462.27,124622.7,C005,Mobiliario
+2025-11-12,P005,Auriculares Sony WH-1000XM5,8,6375.64,51005.12,C003,Audio
+2025-11-13,P010,Hub USB-C 7 puertos,1,851.5,851.5,C006,Accesorios
+2025-11-13,P005,Auriculares Sony WH-1000XM5,4,6504.62,26018.48,C001,Audio
+2025-11-13,P018,Tablet Samsung Galaxy Tab,1,7143.88,7143.88,C014,Electrónica
+2025-11-13,P007,Disco SSD Samsung 1TB,4,2262.76,9051.04,C004,Almacenamiento
+2025-11-14,P007,Disco SSD Samsung 1TB,8,2242.85,17942.8,C011,Almacenamiento
+2025-11-14,P015,UPS APC 1500VA,6,3933.76,23602.56,C010,Energía
+2025-11-14,P019,Cargador Universal 65W,10,636.98,6369.8,C006,Accesorios
+2025-11-14,P011,Silla Ergonómica Premium,2,8461.16,16922.32,C003,Mobiliario
+2025-11-16,P008,Memoria RAM 16GB DDR4,1,1419.43,1419.43,C015,Componentes
+2025-11-17,P015,UPS APC 1500VA,4,3700.83,14803.32,C010,Energía
+2025-11-17,P011,Silla Ergonómica Premium,7,8249.52,57746.64,C013,Mobiliario
+2025-11-17,P006,Webcam Logitech C920,1,1775.31,1775.31,C014,Periféricos
+2025-11-18,P012,Escritorio Ajustable,9,11538.23,103844.07,C001,Mobiliario
+2025-11-18,P010,Hub USB-C 7 puertos,4,861.16,3444.64,C008,Accesorios
+2025-11-19,P002,Monitor Dell 27 pulgadas,4,5624.74,22498.96,C001,Electrónica
+2025-11-19,P006,Webcam Logitech C920,5,1839.39,9196.95,C004,Periféricos
+2025-11-19,P011,Silla Ergonómica Premium,9,8284.07,74556.63,C014,Mobiliario
+2025-11-19,P007,Disco SSD Samsung 1TB,3,2275.43,6826.29,C001,Almacenamiento
+2025-11-20,P001,Laptop HP ProBook 450,3,12348.65,37045.95,C014,Electrónica
+2025-11-20,P004,Mouse Logitech MX Master,4,1617.84,6471.36,C006,Periféricos
+2025-11-21,P012,Escritorio Ajustable,6,12193.09,73158.54,C013,Mobiliario
+2025-11-21,P017,Switch 24 puertos,10,4360.3,43603.0,C013,Redes
+2025-11-21,P003,Teclado Logitech MX Keys,3,2180.37,6541.11,C002,Periféricos
+2025-11-24,P018,Tablet Samsung Galaxy Tab,6,7068.93,42413.58,C007,Electrónica
+2025-11-24,P014,Toner HP 26A,4,990.0,3960.0,C011,Consumibles
+2025-11-24,P020,Mochila para Laptop,4,1242.53,4970.12,C010,Accesorios
+2025-11-25,P005,Auriculares Sony WH-1000XM5,4,6209.62,24838.48,C006,Audio
+2025-11-25,P009,Cable HDMI 2m,3,186.33,558.99,C014,Accesorios
+2025-11-25,P019,Cargador Universal 65W,8,631.1,5048.8,C015,Accesorios
+2025-11-25,P003,Teclado Logitech MX Keys,8,2161.11,17288.88,C013,Periféricos
+2025-11-26,P003,Teclado Logitech MX Keys,9,2076.5,18688.5,C003,Periféricos
+2025-11-26,P017,Switch 24 puertos,8,4207.93,33663.44,C006,Redes
+2025-11-26,P006,Webcam Logitech C920,6,1804.59,10827.54,C006,Periféricos
+2025-11-26,P016,Router WiFi 6,8,2792.65,22341.2,C012,Redes
+2025-11-26,P019,Cargador Universal 65W,10,659.73,6597.3,C007,Accesorios
+2025-11-26,P007,Disco SSD Samsung 1TB,4,2189.46,8757.84,C004,Almacenamiento
+2025-11-27,P013,Impresora HP LaserJet,5,4466.26,22331.3,C004,Impresión
+2025-11-27,P013,Impresora HP LaserJet,3,4695.97,14087.91,C010,Impresión
+2025-11-27,P012,Escritorio Ajustable,9,11501.71,103515.39,C005,Mobiliario
+2025-11-28,P010,Hub USB-C 7 puertos,9,837.38,7536.42,C008,Accesorios
+2025-11-28,P019,Cargador Universal 65W,8,650.8,5206.4,C001,Accesorios
+2025-11-29,P014,Toner HP 26A,8,943.59,7548.72,C008,Consumibles
+2025-11-30,P016,Router WiFi 6,5,2767.06,13835.3,C006,Redes
+2025-12-01,P015,UPS APC 1500VA,5,3855.23,19276.15,C004,Energía
+2025-12-01,P012,Escritorio Ajustable,2,11753.42,23506.84,C015,Mobiliario
+2025-12-01,P017,Switch 24 puertos,9,4260.33,38342.97,C009,Redes
+2025-12-02,P008,Memoria RAM 16GB DDR4,2,1339.99,2679.98,C002,Componentes
+2025-12-02,P002,Monitor Dell 27 pulgadas,4,5703.58,22814.32,C009,Electrónica
+2025-12-02,P011,Silla Ergonómica Premium,5,8708.43,43542.15,C005,Mobiliario
+2025-12-02,P009,Cable HDMI 2m,10,188.96,1889.6,C004,Accesorios
+2025-12-03,P009,Cable HDMI 2m,5,176.07,880.35,C001,Accesorios
+2025-12-03,P012,Escritorio Ajustable,7,12534.98,87744.86,C013,Mobiliario
+2025-12-03,P019,Cargador Universal 65W,1,648.18,648.18,C013,Accesorios
+2025-12-03,P017,Switch 24 puertos,3,4353.5,13060.5,C013,Redes
+2025-12-03,P008,Memoria RAM 16GB DDR4,4,1396.42,5585.68,C004,Componentes
+2025-12-03,P017,Switch 24 puertos,9,4308.2,38773.8,C010,Redes
+2025-12-04,P011,Silla Ergonómica Premium,2,8341.11,16682.22,C013,Mobiliario
+2025-12-04,P007,Disco SSD Samsung 1TB,7,2136.11,14952.77,C007,Almacenamiento
+2025-12-04,P015,UPS APC 1500VA,9,3621.44,32592.96,C014,Energía
+2025-12-04,P005,Auriculares Sony WH-1000XM5,3,6373.62,19120.86,C010,Audio
+2025-12-04,P001,Laptop HP ProBook 450,6,12299.78,73798.68,C008,Electrónica
+2025-12-05,P014,Toner HP 26A,7,974.97,6824.79,C011,Consumibles
+2025-12-05,P018,Tablet Samsung Galaxy Tab,6,7262.61,43575.66,C005,Electrónica
+2025-12-05,P019,Cargador Universal 65W,1,677.44,677.44,C013,Accesorios
+2025-12-05,P005,Auriculares Sony WH-1000XM5,10,6584.4,65844.0,C006,Audio
+2025-12-05,P020,Mochila para Laptop,10,1208.87,12088.7,C015,Accesorios
+2025-12-06,P013,Impresora HP LaserJet,7,4303.67,30125.69,C004,Impresión
+2025-12-07,P007,Disco SSD Samsung 1TB,2,2162.35,4324.7,C008,Almacenamiento
+2025-12-08,P010,Hub USB-C 7 puertos,3,816.37,2449.11,C002,Accesorios
+2025-12-08,P018,Tablet Samsung Galaxy Tab,1,7435.06,7435.06,C003,Electrónica
+2025-12-08,P020,Mochila para Laptop,1,1162.4,1162.4,C008,Accesorios
+2025-12-08,P003,Teclado Logitech MX Keys,7,2054.6,14382.2,C015,Periféricos
+2025-12-08,P008,Memoria RAM 16GB DDR4,9,1339.8,12058.2,C005,Componentes
+2025-12-09,P012,Escritorio Ajustable,1,11606.19,11606.19,C009,Mobiliario
+2025-12-09,P014,Toner HP 26A,3,996.51,2989.53,C007,Consumibles
+2025-12-10,P018,Tablet Samsung Galaxy Tab,8,7375.06,59000.48,C007,Electrónica
+2025-12-10,P013,Impresora HP LaserJet,4,4333.47,17333.88,C015,Impresión
+2025-12-10,P007,Disco SSD Samsung 1TB,7,2269.94,15889.58,C005,Almacenamiento
+2025-12-11,P006,Webcam Logitech C920,10,1879.05,18790.5,C010,Periféricos
+2025-12-11,P019,Cargador Universal 65W,9,664.09,5976.81,C004,Accesorios
+2025-12-11,P015,UPS APC 1500VA,4,3612.83,14451.32,C005,Energía
+2025-12-11,P005,Auriculares Sony WH-1000XM5,2,6710.98,13421.96,C008,Audio
+2025-12-11,P020,Mochila para Laptop,4,1203.1,4812.4,C013,Accesorios
+2025-12-12,P016,Router WiFi 6,8,2821.32,22570.56,C008,Redes
+2025-12-12,P003,Teclado Logitech MX Keys,8,2067.82,16542.56,C005,Periféricos
+2025-12-12,P010,Hub USB-C 7 puertos,10,877.49,8774.9,C007,Accesorios
+2025-12-12,P006,Webcam Logitech C920,4,1742.32,6969.28,C007,Periféricos
+2025-12-12,P020,Mochila para Laptop,7,1194.94,8364.58,C012,Accesorios
+2025-12-12,P006,Webcam Logitech C920,10,1727.2,17272.0,C012,Periféricos
+2025-12-13,P002,Monitor Dell 27 pulgadas,3,5668.79,17006.37,C004,Electrónica
+2025-12-13,P018,Tablet Samsung Galaxy Tab,2,7342.59,14685.18,C005,Electrónica
+2025-12-14,P007,Disco SSD Samsung 1TB,8,2180.48,17443.84,C015,Almacenamiento
+2025-12-14,P018,Tablet Samsung Galaxy Tab,6,6895.1,41370.6,C002,Electrónica
+2025-12-15,P017,Switch 24 puertos,6,4162.24,24973.44,C013,Redes
+2025-12-15,P006,Webcam Logitech C920,4,1801.09,7204.36,C005,Periféricos
+2025-12-16,P001,Laptop HP ProBook 450,8,12351.44,98811.52,C002,Electrónica
+2025-12-16,P013,Impresora HP LaserJet,4,4453.5,17814.0,C014,Impresión
+2025-12-16,P001,Laptop HP ProBook 450,2,12761.37,25522.74,C005,Electrónica
+2025-12-16,P005,Auriculares Sony WH-1000XM5,8,6490.09,51920.72,C006,Audio
+2025-12-16,P003,Teclado Logitech MX Keys,9,2132.97,19196.73,C002,Periféricos
+2025-12-17,P005,Auriculares Sony WH-1000XM5,5,6722.02,33610.1,C008,Audio
+2025-12-17,P006,Webcam Logitech C920,1,1819.26,1819.26,C014,Periféricos
+2025-12-17,P006,Webcam Logitech C920,2,1806.24,3612.48,C005,Periféricos
+2025-12-17,P013,Impresora HP LaserJet,2,4577.13,9154.26,C003,Impresión
+2025-12-17,P001,Laptop HP ProBook 450,5,12066.87,60334.35,C011,Electrónica
+2025-12-18,P006,Webcam Logitech C920,1,1870.68,1870.68,C004,Periféricos
+2025-12-18,P018,Tablet Samsung Galaxy Tab,8,7341.65,58733.2,C004,Electrónica
+2025-12-18,P017,Switch 24 puertos,2,4154.06,8308.12,C011,Redes
+2025-12-18,P010,Hub USB-C 7 puertos,1,858.35,858.35,C008,Accesorios
+2025-12-19,P013,Impresora HP LaserJet,4,4692.97,18771.88,C013,Impresión
+2025-12-19,P012,Escritorio Ajustable,4,11639.98,46559.92,C015,Mobiliario
+2025-12-21,P001,Laptop HP ProBook 450,6,12900.66,77403.96,C001,Electrónica
+2025-12-22,P008,Memoria RAM 16GB DDR4,2,1441.57,2883.14,C015,Componentes
+2025-12-22,P006,Webcam Logitech C920,3,1717.92,5153.76,C012,Periféricos
+2025-12-23,P004,Mouse Logitech MX Master,6,1620.74,9724.44,C014,Periféricos
+2025-12-23,P007,Disco SSD Samsung 1TB,4,2295.55,9182.2,C010,Almacenamiento
+2025-12-23,P013,Impresora HP LaserJet,2,4379.58,8759.16,C007,Impresión
+2025-12-23,P004,Mouse Logitech MX Master,6,1596.15,9576.9,C006,Periféricos
+2025-12-23,P013,Impresora HP LaserJet,6,4280.39,25682.34,C011,Impresión
+2025-12-23,P007,Disco SSD Samsung 1TB,4,2104.52,8418.08,C008,Almacenamiento
+2025-12-24,P020,Mochila para Laptop,1,1148.08,1148.08,C006,Accesorios
+2025-12-24,P007,Disco SSD Samsung 1TB,5,2258.86,11294.3,C007,Almacenamiento
+2025-12-24,P016,Router WiFi 6,9,2881.55,25933.95,C002,Redes
+2025-12-24,P019,Cargador Universal 65W,5,679.84,3399.2,C003,Accesorios
+2025-12-25,P011,Silla Ergonómica Premium,7,8651.22,60558.54,C011,Mobiliario
+2025-12-25,P005,Auriculares Sony WH-1000XM5,3,6587.98,19763.94,C006,Audio
+2025-12-25,P011,Silla Ergonómica Premium,8,8132.39,65059.12,C014,Mobiliario
+2025-12-25,P001,Laptop HP ProBook 450,10,12436.14,124361.4,C010,Electrónica
+2025-12-25,P017,Switch 24 puertos,4,4201.44,16805.76,C011,Redes
+2025-12-25,P001,Laptop HP ProBook 450,1,12645.44,12645.44,C004,Electrónica
+2025-12-26,P010,Hub USB-C 7 puertos,7,871.87,6103.09,C004,Accesorios
+2025-12-26,P020,Mochila para Laptop,1,1156.51,1156.51,C002,Accesorios
+2025-12-27,P010,Hub USB-C 7 puertos,3,839.44,2518.32,C004,Accesorios
+2025-12-28,P002,Monitor Dell 27 pulgadas,10,6083.36,60833.6,C004,Electrónica
+2025-12-28,P015,UPS APC 1500VA,6,3661.02,21966.12,C012,Energía
+2025-12-29,P002,Monitor Dell 27 pulgadas,7,5885.87,41201.09,C009,Electrónica
+2025-12-29,P010,Hub USB-C 7 puertos,1,826.97,826.97,C013,Accesorios
+2025-12-29,P011,Silla Ergonómica Premium,4,8249.94,32999.76,C006,Mobiliario
+2025-12-29,P002,Monitor Dell 27 pulgadas,4,5974.84,23899.36,C015,Electrónica
+2025-12-30,P020,Mochila para Laptop,7,1202.58,8418.06,C014,Accesorios
+2025-12-30,P006,Webcam Logitech C920,1,1721.63,1721.63,C008,Periféricos
+2025-12-30,P016,Router WiFi 6,4,2674.59,10698.36,C002,Redes
+2025-12-31,P007,Disco SSD Samsung 1TB,2,2128.21,4256.42,C003,Almacenamiento
+2025-12-31,P018,Tablet Samsung Galaxy Tab,4,7010.14,28040.56,C014,Electrónica
+2025-12-31,P003,Teclado Logitech MX Keys,8,2060.41,16483.28,C007,Periféricos
+2026-01-01,P008,Memoria RAM 16GB DDR4,3,1414.82,4244.46,C007,Componentes
+2026-01-01,P010,Hub USB-C 7 puertos,10,845.6,8456.0,C005,Accesorios
+2026-01-01,P007,Disco SSD Samsung 1TB,8,2107.6,16860.8,C005,Almacenamiento
+2026-01-02,P013,Impresora HP LaserJet,3,4486.82,13460.46,C007,Impresión
+2026-01-02,P014,Toner HP 26A,10,972.32,9723.2,C009,Consumibles
+2026-01-02,P005,Auriculares Sony WH-1000XM5,8,6187.88,49503.04,C014,Audio
+2026-01-02,P013,Impresora HP LaserJet,2,4616.49,9232.98,C007,Impresión
+2026-01-03,P020,Mochila para Laptop,3,1206.34,3619.02,C009,Accesorios
+2026-01-05,P013,Impresora HP LaserJet,5,4479.12,22395.6,C008,Impresión
+2026-01-05,P013,Impresora HP LaserJet,10,4491.38,44913.8,C009,Impresión
+2026-01-05,P011,Silla Ergonómica Premium,8,8241.36,65930.88,C003,Mobiliario
+2026-01-05,P007,Disco SSD Samsung 1TB,1,2279.56,2279.56,C001,Almacenamiento
+2026-01-06,P016,Router WiFi 6,7,2923.28,20462.96,C007,Redes
+2026-01-06,P012,Escritorio Ajustable,8,11769.37,94154.96,C007,Mobiliario
+2026-01-06,P019,Cargador Universal 65W,7,675.02,4725.14,C002,Accesorios
+2026-01-06,P004,Mouse Logitech MX Master,10,1594.29,15942.9,C007,Periféricos
+2026-01-07,P009,Cable HDMI 2m,6,180.17,1081.02,C013,Accesorios
+2026-01-07,P016,Router WiFi 6,6,2855.01,17130.06,C011,Redes
+2026-01-07,P013,Impresora HP LaserJet,7,4606.05,32242.35,C015,Impresión
+2026-01-07,P008,Memoria RAM 16GB DDR4,1,1459.01,1459.01,C008,Componentes
+2026-01-07,P012,Escritorio Ajustable,1,12236.97,12236.97,C011,Mobiliario
+2026-01-08,P009,Cable HDMI 2m,8,188.0,1504.0,C010,Accesorios
+2026-01-08,P005,Auriculares Sony WH-1000XM5,4,6566.4,26265.6,C005,Audio
+2026-01-08,P006,Webcam Logitech C920,2,1848.77,3697.54,C001,Periféricos
+2026-01-09,P013,Impresora HP LaserJet,10,4713.37,47133.7,C012,Impresión
+2026-01-09,P003,Teclado Logitech MX Keys,4,2178.96,8715.84,C009,Periféricos
+2026-01-09,P006,Webcam Logitech C920,7,1755.52,12288.64,C014,Periféricos
+2026-01-09,P010,Hub USB-C 7 puertos,9,863.47,7771.23,C009,Accesorios
+2026-01-09,P013,Impresora HP LaserJet,5,4605.27,23026.35,C010,Impresión
+2026-01-10,P003,Teclado Logitech MX Keys,10,2158.11,21581.1,C002,Periféricos
+2026-01-10,P012,Escritorio Ajustable,3,11722.83,35168.49,C014,Mobiliario
+2026-01-12,P010,Hub USB-C 7 puertos,3,876.89,2630.67,C001,Accesorios
+2026-01-12,P001,Laptop HP ProBook 450,2,12842.18,25684.36,C002,Electrónica
+2026-01-12,P014,Toner HP 26A,7,964.68,6752.76,C009,Consumibles
+2026-01-12,P014,Toner HP 26A,3,938.09,2814.27,C003,Consumibles
+2026-01-12,P005,Auriculares Sony WH-1000XM5,8,6293.29,50346.32,C004,Audio
+2026-01-13,P015,UPS APC 1500VA,4,3680.54,14722.16,C010,Energía
+2026-01-13,P002,Monitor Dell 27 pulgadas,3,5979.32,17937.96,C012,Electrónica
+2026-01-14,P009,Cable HDMI 2m,7,178.93,1252.51,C015,Accesorios
+2026-01-14,P020,Mochila para Laptop,3,1149.58,3448.74,C002,Accesorios
+2026-01-14,P003,Teclado Logitech MX Keys,2,2053.12,4106.24,C007,Periféricos
+2026-01-15,P001,Laptop HP ProBook 450,4,12472.37,49889.48,C010,Electrónica
+2026-01-15,P004,Mouse Logitech MX Master,1,1611.4,1611.4,C001,Periféricos
+2026-01-15,P001,Laptop HP ProBook 450,10,12861.51,128615.1,C011,Electrónica
+2026-01-15,P002,Monitor Dell 27 pulgadas,4,5812.95,23251.8,C002,Electrónica
+2026-01-16,P013,Impresora HP LaserJet,9,4719.1,42471.9,C010,Impresión
+2026-01-16,P009,Cable HDMI 2m,8,179.52,1436.16,C015,Accesorios
+2026-01-17,P020,Mochila para Laptop,6,1184.49,7106.94,C007,Accesorios
+2026-01-18,P011,Silla Ergonómica Premium,4,8874.84,35499.36,C014,Mobiliario
+2026-01-19,P013,Impresora HP LaserJet,1,4713.89,4713.89,C010,Impresión
+2026-01-19,P011,Silla Ergonómica Premium,2,8077.62,16155.24,C013,Mobiliario
+2026-01-19,P013,Impresora HP LaserJet,3,4286.56,12859.68,C012,Impresión
+2026-01-19,P004,Mouse Logitech MX Master,9,1613.61,14522.49,C014,Periféricos
+2026-01-19,P008,Memoria RAM 16GB DDR4,8,1416.57,11332.56,C006,Componentes
+2026-01-20,P017,Switch 24 puertos,4,3991.31,15965.24,C007,Redes
+2026-01-20,P011,Silla Ergonómica Premium,6,8817.42,52904.52,C001,Mobiliario
+2026-01-20,P011,Silla Ergonómica Premium,8,8273.52,66188.16,C011,Mobiliario
+2026-01-20,P016,Router WiFi 6,10,2882.31,28823.1,C007,Redes
+2026-01-20,P012,Escritorio Ajustable,8,12584.25,100674.0,C007,Mobiliario
+2026-01-21,P013,Impresora HP LaserJet,10,4362.78,43627.8,C005,Impresión
+2026-01-21,P005,Auriculares Sony WH-1000XM5,9,6744.55,60700.95,C014,Audio
+2026-01-22,P002,Monitor Dell 27 pulgadas,8,5972.16,47777.28,C003,Electrónica
+2026-01-22,P010,Hub USB-C 7 puertos,9,891.41,8022.69,C014,Accesorios
+2026-01-22,P015,UPS APC 1500VA,8,3972.92,31783.36,C003,Energía
+2026-01-22,P016,Router WiFi 6,9,2727.45,24547.05,C011,Redes
+2026-01-22,P007,Disco SSD Samsung 1TB,2,2113.2,4226.4,C003,Almacenamiento
+2026-01-22,P001,Laptop HP ProBook 450,6,13003.31,78019.86,C003,Electrónica
+2026-01-23,P008,Memoria RAM 16GB DDR4,5,1423.23,7116.15,C012,Componentes
+2026-01-23,P004,Mouse Logitech MX Master,3,1719.75,5159.25,C011,Periféricos
+2026-01-23,P016,Router WiFi 6,6,2904.14,17424.84,C002,Redes
+2026-01-23,P019,Cargador Universal 65W,10,621.7,6217.0,C013,Accesorios
+2026-01-24,P013,Impresora HP LaserJet,7,4569.26,31984.82,C015,Impresión
+2026-01-25,P014,Toner HP 26A,4,923.74,3694.96,C013,Consumibles
+2026-01-25,P004,Mouse Logitech MX Master,2,1585.88,3171.76,C005,Periféricos
+2026-01-26,P019,Cargador Universal 65W,4,665.9,2663.6,C015,Accesorios
+2026-01-26,P004,Mouse Logitech MX Master,6,1588.52,9531.12,C010,Periféricos
+2026-01-26,P011,Silla Ergonómica Premium,10,8701.38,87013.8,C007,Mobiliario
+2026-01-26,P010,Hub USB-C 7 puertos,10,853.03,8530.3,C001,Accesorios
+2026-01-27,P014,Toner HP 26A,6,978.26,5869.56,C006,Consumibles
+2026-01-27,P005,Auriculares Sony WH-1000XM5,10,6559.0,65590.0,C009,Audio
+2026-01-27,P004,Mouse Logitech MX Master,1,1656.32,1656.32,C007,Periféricos
+2026-01-27,P015,UPS APC 1500VA,3,3920.14,11760.42,C006,Energía
+2026-01-27,P010,Hub USB-C 7 puertos,4,849.99,3399.96,C014,Accesorios
+2026-01-28,P005,Auriculares Sony WH-1000XM5,5,6269.82,31349.1,C010,Audio
+2026-01-28,P002,Monitor Dell 27 pulgadas,6,5689.16,34134.96,C010,Electrónica
+2026-01-28,P004,Mouse Logitech MX Master,10,1646.42,16464.2,C005,Periféricos
+2026-01-28,P007,Disco SSD Samsung 1TB,5,2244.91,11224.55,C008,Almacenamiento
+2026-01-28,P013,Impresora HP LaserJet,6,4343.72,26062.32,C001,Impresión
+2026-01-29,P008,Memoria RAM 16GB DDR4,1,1459.24,1459.24,C012,Componentes
+2026-01-29,P006,Webcam Logitech C920,8,1840.93,14727.44,C014,Periféricos
+2026-01-29,P010,Hub USB-C 7 puertos,3,891.74,2675.22,C014,Accesorios
+2026-01-30,P013,Impresora HP LaserJet,7,4580.05,32060.35,C006,Impresión
+2026-01-30,P012,Escritorio Ajustable,7,11869.28,83084.96,C013,Mobiliario
+2026-01-30,P017,Switch 24 puertos,5,4108.59,20542.95,C012,Redes
+2026-01-30,P007,Disco SSD Samsung 1TB,9,2176.63,19589.67,C012,Almacenamiento
+2026-01-30,P005,Auriculares Sony WH-1000XM5,10,6737.81,67378.1,C006,Audio
+2026-01-30,P002,Monitor Dell 27 pulgadas,5,5775.37,28876.85,C014,Electrónica
+2026-02-01,P005,Auriculares Sony WH-1000XM5,8,6364.2,50913.6,C008,Audio
+2026-02-01,P005,Auriculares Sony WH-1000XM5,4,6697.83,26791.32,C004,Audio
+2026-02-02,P001,Laptop HP ProBook 450,10,12002.43,120024.3,C006,Electrónica
+2026-02-02,P005,Auriculares Sony WH-1000XM5,7,6616.64,46316.48,C007,Audio
+2026-02-02,P006,Webcam Logitech C920,1,1727.29,1727.29,C015,Periféricos
+2026-02-03,P006,Webcam Logitech C920,2,1886.45,3772.9,C001,Periféricos
+2026-02-03,P011,Silla Ergonómica Premium,7,8899.27,62294.89,C010,Mobiliario
+2026-02-03,P013,Impresora HP LaserJet,1,4328.46,4328.46,C004,Impresión
+2026-02-03,P013,Impresora HP LaserJet,5,4584.59,22922.95,C008,Impresión
+2026-02-03,P006,Webcam Logitech C920,7,1849.65,12947.55,C011,Periféricos
+2026-02-04,P015,UPS APC 1500VA,7,3714.58,26002.06,C014,Energía
+2026-02-04,P015,UPS APC 1500VA,1,3655.6,3655.6,C006,Energía
+2026-02-05,P004,Mouse Logitech MX Master,9,1604.61,14441.49,C008,Periféricos
+2026-02-05,P019,Cargador Universal 65W,10,648.67,6486.7,C010,Accesorios
+2026-02-06,P019,Cargador Universal 65W,7,648.97,4542.79,C003,Accesorios
+2026-02-06,P014,Toner HP 26A,10,914.4,9144.0,C005,Consumibles
+2026-02-07,P003,Teclado Logitech MX Keys,9,2033.83,18304.47,C012,Periféricos
+2026-02-08,P001,Laptop HP ProBook 450,9,12896.83,116071.47,C007,Electrónica
+2026-02-08,P017,Switch 24 puertos,2,4207.94,8415.88,C008,Redes
+2026-02-09,P018,Tablet Samsung Galaxy Tab,2,7382.53,14765.06,C012,Electrónica
+2026-02-09,P007,Disco SSD Samsung 1TB,2,2129.75,4259.5,C011,Almacenamiento
+2026-02-09,P020,Mochila para Laptop,3,1140.64,3421.92,C012,Accesorios
+2026-02-09,P015,UPS APC 1500VA,6,3656.76,21940.56,C013,Energía
+2026-02-09,P005,Auriculares Sony WH-1000XM5,4,6599.22,26396.88,C010,Audio
+2026-02-09,P003,Teclado Logitech MX Keys,5,2173.8,10869.0,C009,Periféricos
+2026-02-10,P003,Teclado Logitech MX Keys,9,2057.7,18519.3,C002,Periféricos
+2026-02-10,P018,Tablet Samsung Galaxy Tab,7,7543.51,52804.57,C003,Electrónica
+2026-02-11,P008,Memoria RAM 16GB DDR4,1,1462.47,1462.47,C005,Componentes
+2026-02-11,P017,Switch 24 puertos,5,4266.85,21334.25,C015,Redes
+2026-02-12,P005,Auriculares Sony WH-1000XM5,8,6626.82,53014.56,C010,Audio
+2026-02-12,P017,Switch 24 puertos,6,4244.59,25467.54,C015,Redes
+2026-02-12,P017,Switch 24 puertos,2,4268.3,8536.6,C004,Redes
+2026-02-12,P002,Monitor Dell 27 pulgadas,1,5619.08,5619.08,C004,Electrónica
+2026-02-12,P010,Hub USB-C 7 puertos,4,888.88,3555.52,C014,Accesorios
+2026-02-13,P018,Tablet Samsung Galaxy Tab,10,7098.53,70985.3,C004,Electrónica
+2026-02-13,P005,Auriculares Sony WH-1000XM5,10,6449.31,64493.1,C012,Audio
+2026-02-13,P018,Tablet Samsung Galaxy Tab,5,7114.88,35574.4,C005,Electrónica
+2026-02-13,P006,Webcam Logitech C920,8,1724.99,13799.92,C007,Periféricos
+2026-02-13,P009,Cable HDMI 2m,7,187.92,1315.44,C011,Accesorios
+2026-02-13,P005,Auriculares Sony WH-1000XM5,4,6220.86,24883.44,C009,Audio
+2026-02-14,P009,Cable HDMI 2m,4,183.86,735.44,C011,Accesorios
+2026-02-14,P019,Cargador Universal 65W,9,656.82,5911.38,C011,Accesorios
+2026-02-15,P005,Auriculares Sony WH-1000XM5,7,6421.31,44949.17,C006,Audio
+2026-02-16,P008,Memoria RAM 16GB DDR4,5,1347.45,6737.25,C002,Componentes
+2026-02-16,P004,Mouse Logitech MX Master,9,1634.62,14711.58,C011,Periféricos
+2026-02-17,P006,Webcam Logitech C920,5,1815.99,9079.95,C009,Periféricos
+
