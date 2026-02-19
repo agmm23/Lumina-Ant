@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { analyticsService, gastosService, inventarioService, clientesService } from '../services/api'
 import KpiCard from '../components/KpiCard'
-import AlertBadge from '../components/AlertBadge'
+import AlertCard from '../components/AlertCard'
+import useWatcherRefresh from '../hooks/useWatcherRefresh'
 
 function formatCurrency(value) {
   if (value == null) return '—'
@@ -12,80 +13,106 @@ function formatCurrency(value) {
   }).format(value)
 }
 
+const ALERT_FILTERS = [
+  { id: 'todas',    label: 'Todas' },
+  { id: 'critical', label: 'Cr\u00edticas' },
+  { id: 'warning',  label: 'Avisos' },
+]
+
 function Dashboard() {
   const [salesStats, setSalesStats] = useState(null)
   const [gastosStats, setGastosStats] = useState(null)
   const [inventarioStats, setInventarioStats] = useState(null)
   const [clientesStats, setClientesStats] = useState(null)
   const [alerts, setAlerts] = useState([])
+  const [alertFilter, setAlertFilter] = useState('todas')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        setLoading(true)
-        setError(null)
+  const fetchData = useCallback(async () => {
+    try {
+      setLoading(true)
+      setError(null)
 
-        const [salesRes, gastosRes, gastosCatRes, invRes, invLowRes, clientesRes, alertsRes] =
-          await Promise.allSettled([
-            analyticsService.getSalesStats(),       // ventas totales
-            gastosService.getCount(),               // { total_gastos }
-            gastosService.getPorCategoria(),         // [{ categoria, total, cantidad }]
-            inventarioService.getCount(),            // { total_items }
-            inventarioService.getLowStock(),         // lista bajo stock
-            clientesService.getCount(),              // { total_clientes, clientes_activos }
-            analyticsService.getAlerts(5),           // alertas
-          ])
+      const [salesRes, gastosRes, gastosCatRes, invRes, invLowRes, clientesRes, alertsRes] =
+        await Promise.allSettled([
+          analyticsService.getSalesStats(),
+          gastosService.getCount(),
+          gastosService.getPorCategoria(),
+          inventarioService.getCount(),
+          inventarioService.getLowStock(),
+          clientesService.getCount(),
+          analyticsService.getAlerts(10, true),
+        ])
 
-        if (salesRes.status === 'fulfilled') setSalesStats(salesRes.value.data)
-        if (gastosRes.status === 'fulfilled') setGastosStats(gastosRes.value.data)
+      if (salesRes.status === 'fulfilled') setSalesStats(salesRes.value.data)
+      if (gastosRes.status === 'fulfilled') setGastosStats(gastosRes.value.data)
 
-        // Calcular total de gastos sumando por categoría
-        // El endpoint devuelve { status: "success", data: [{ categoria, total, cantidad }] }
-        if (gastosCatRes.status === 'fulfilled') {
-          const categorias = gastosCatRes.value.data?.data || []
-          const total = Array.isArray(categorias)
-            ? categorias.reduce((acc, cat) => acc + (cat.total || 0), 0)
-            : 0
-          setGastosStats(prev => ({ ...prev, monto_total: total }))
-        }
-
-        if (invRes.status === 'fulfilled') {
-          const invData = invRes.value.data
-          setInventarioStats(invData)
-        }
-        if (invLowRes.status === 'fulfilled') {
-          const lowStockData = invLowRes.value.data
-          const count = Array.isArray(lowStockData)
-            ? lowStockData.length
-            : (lowStockData?.total_bajo_stock ?? 0)
-          setInventarioStats(prev => ({ ...prev, bajo_stock: count }))
-        }
-
-        if (clientesRes.status === 'fulfilled') setClientesStats(clientesRes.value.data)
-
-        if (alertsRes.status === 'fulfilled') {
-          const data = alertsRes.value.data
-          setAlerts(Array.isArray(data) ? data : data?.alertas || [])
-        }
-
-        // Si TODAS fallaron, mostrar error de conexión
-        const allFailed = [salesRes, gastosRes, invRes, clientesRes].every(
-          r => r.status === 'rejected'
-        )
-        if (allFailed) {
-          setError('No se pudo conectar con la API. Asegúrate de que el servidor esté corriendo.')
-        }
-      } catch (err) {
-        setError('Error inesperado al cargar los datos.')
-        console.error(err)
-      } finally {
-        setLoading(false)
+      if (gastosCatRes.status === 'fulfilled') {
+        const categorias = gastosCatRes.value.data?.data || []
+        const total = Array.isArray(categorias)
+          ? categorias.reduce((acc, cat) => acc + (cat.total || 0), 0)
+          : 0
+        setGastosStats(prev => ({ ...prev, monto_total: total }))
       }
+
+      if (invRes.status === 'fulfilled') setInventarioStats(invRes.value.data)
+      if (invLowRes.status === 'fulfilled') {
+        const lowStockData = invLowRes.value.data
+        const count = Array.isArray(lowStockData)
+          ? lowStockData.length
+          : (lowStockData?.total_bajo_stock ?? 0)
+        setInventarioStats(prev => ({ ...prev, bajo_stock: count }))
+      }
+
+      if (clientesRes.status === 'fulfilled') setClientesStats(clientesRes.value.data)
+
+      if (alertsRes.status === 'fulfilled') {
+        const data = alertsRes.value.data
+        setAlerts(Array.isArray(data) ? data : data?.alertas || [])
+      }
+
+      const allFailed = [salesRes, gastosRes, invRes, clientesRes].every(
+        r => r.status === 'rejected'
+      )
+      if (allFailed) {
+        setError('No se pudo conectar con la API. Aseg\u00farate de que el servidor est\u00e9 corriendo.')
+      }
+    } catch (err) {
+      setError('Error inesperado al cargar los datos.')
+      console.error(err)
+    } finally {
+      setLoading(false)
     }
-    fetchData()
   }, [])
+
+  useEffect(() => { fetchData() }, [fetchData])
+
+  // Auto-refresh cuando el watcher detecta datos nuevos
+  useWatcherRefresh(fetchData)
+
+  async function handleMarcarLeida(id) {
+    try {
+      await analyticsService.marcarLeida(id)
+      setAlerts(prev => prev.filter(a => a.id !== id))
+    } catch {
+      // silencioso
+    }
+  }
+
+  async function handleMarcarTodasLeidas() {
+    const ids = alerts.filter(a => !a.leida).map(a => a.id)
+    await Promise.allSettled(ids.map(id => analyticsService.marcarLeida(id)))
+    setAlerts([])
+  }
+
+  const filteredAlerts = alerts.filter(a => {
+    if (alertFilter === 'critical') return a.nivel === 'critical'
+    if (alertFilter === 'warning') return a.nivel === 'warning'
+    return true
+  })
+
+  const noLeidasCount = alerts.filter(a => !a.leida).length
 
   return (
     <div className="p-6 max-w-6xl">
@@ -96,7 +123,7 @@ function Dashboard() {
 
       {error && (
         <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm">
-          <p className="font-medium">Error de conexión</p>
+          <p className="font-medium">Error de conexi&oacute;n</p>
           <p className="mt-0.5 text-red-600">{error}</p>
           <p className="mt-2 text-xs text-red-500">
             Inicia el backend: <code className="bg-red-100 px-1 rounded">cd backend &amp;&amp; uvicorn app.main:app --reload</code>
@@ -186,23 +213,54 @@ function Dashboard() {
 
       {/* Alertas */}
       <section>
-        <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">
-          Alertas recientes
-        </h3>
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
+          <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide">
+            Alertas {noLeidasCount > 0 && <span className="text-xs bg-red-500 text-white rounded-full px-1.5 py-0.5 ml-1.5 normal-case">{noLeidasCount}</span>}
+          </h3>
+          <div className="flex items-center gap-2">
+            {/* Filtros */}
+            <div className="flex gap-1">
+              {ALERT_FILTERS.map(f => (
+                <button
+                  key={f.id}
+                  onClick={() => setAlertFilter(f.id)}
+                  className={`text-xs px-2.5 py-1 rounded-lg border transition-colors cursor-pointer ${
+                    alertFilter === f.id
+                      ? 'bg-gray-800 text-white border-gray-800'
+                      : 'bg-white text-gray-500 border-gray-200 hover:border-gray-300'
+                  }`}
+                >
+                  {f.label}
+                </button>
+              ))}
+            </div>
+            {noLeidasCount > 1 && (
+              <button
+                onClick={handleMarcarTodasLeidas}
+                className="text-xs text-gray-500 hover:text-gray-800 border border-gray-200 bg-white rounded-lg px-2.5 py-1 transition-colors cursor-pointer"
+              >
+                Marcar todas le\u00eddas
+              </button>
+            )}
+          </div>
+        </div>
+
         {loading ? (
           <div className="space-y-2">
             {[1, 2, 3].map((i) => (
               <div key={i} className="h-14 bg-gray-100 rounded-lg animate-pulse" />
             ))}
           </div>
-        ) : alerts.length === 0 ? (
+        ) : filteredAlerts.length === 0 ? (
           <div className="p-4 bg-gray-50 rounded-xl border border-gray-200 text-sm text-gray-500">
-            Sin alertas activas. ¡Todo en orden!
+            {alertFilter === 'todas'
+              ? 'Sin alertas activas. \u00a1Todo en orden!'
+              : 'No hay alertas en este filtro.'}
           </div>
         ) : (
           <div className="space-y-2">
-            {alerts.map((alert, i) => (
-              <AlertBadge key={alert.id ?? i} alert={alert} />
+            {filteredAlerts.map((alert) => (
+              <AlertCard key={alert.id} alerta={alert} onMarcarLeida={handleMarcarLeida} />
             ))}
           </div>
         )}

@@ -2,6 +2,17 @@ import { useState, useRef, useEffect, useCallback } from 'react'
 import { ventasService, gastosService, inventarioService, clientesService, analyticsService, mappingService } from '../services/api'
 import ColumnMapper from '../components/ColumnMapper'
 
+const TIPO_GROUP = {
+  ventas:     { label: 'Ventas',     icon: '💰', color: 'green' },
+  gastos:     { label: 'Gastos',     icon: '💸', color: 'rose' },
+  inventario: { label: 'Inventario', icon: '📦', color: 'blue' },
+}
+
+const NIVEL_BADGE = {
+  critical: 'bg-red-100 text-red-700',
+  warning:  'bg-amber-100 text-amber-700',
+}
+
 // ── Datos de fuentes CSV ───────────────────────────────────────────────────────
 
 const DATASOURCES = [
@@ -318,226 +329,154 @@ function UploadCard({ datasource }) {
   )
 }
 
-// ── AlertasSection ─────────────────────────────────────────────────────────────
+// ── AlertasSection (configuración de reglas) ─────────────────────────────────
 
-const NIVEL_CONFIG = {
-  critical: { label: 'Crítica',   bg: 'bg-red-50',    border: 'border-red-200',   text: 'text-red-700',   badge: 'bg-red-100 text-red-700',   dot: 'bg-red-500'   },
-  warning:  { label: 'Aviso',     bg: 'bg-amber-50',  border: 'border-amber-200', text: 'text-amber-700', badge: 'bg-amber-100 text-amber-700', dot: 'bg-amber-400' },
-  info:     { label: 'Info',      bg: 'bg-blue-50',   border: 'border-blue-200',  text: 'text-blue-700',  badge: 'bg-blue-100 text-blue-700',  dot: 'bg-blue-400'  },
-}
+function AlertasSection() {
+  const [rules, setRules] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+  const debounceTimers = useRef({})
 
-const TIPO_BADGE = {
-  ventas:     'bg-green-100 text-green-700',
-  gastos:     'bg-rose-100 text-rose-700',
-  inventario: 'bg-blue-100 text-blue-700',
-  clientes:   'bg-purple-100 text-purple-700',
-}
+  useEffect(() => {
+    async function fetch() {
+      try {
+        const res = await analyticsService.getAlertConfig()
+        setRules(res.data)
+      } catch {
+        setError('No se pudo conectar con la API.')
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetch()
+  }, [])
 
-const FILTROS = [
-  { id: 'todas',    label: 'Todas' },
-  { id: 'no_leidas', label: 'No leídas' },
-  { id: 'critical', label: '🔴 Críticas' },
-  { id: 'warning',  label: '🟡 Avisos' },
-  { id: 'info',     label: '🔵 Info' },
-]
-
-function fmtDateTime(value) {
-  if (!value) return '—'
-  const d = new Date(value)
-  if (isNaN(d)) return value
-  return d.toLocaleString('es-MX', {
-    day: '2-digit', month: 'short', year: 'numeric',
-    hour: '2-digit', minute: '2-digit',
-  })
-}
-
-function AlertCard({ alerta, onMarcarLeida }) {
-  const [marking, setMarking] = useState(false)
-  const n = NIVEL_CONFIG[alerta.nivel] ?? NIVEL_CONFIG.info
-
-  async function handleMarcar() {
-    setMarking(true)
+  async function handleToggle(ruleId, currentEnabled) {
+    setRules(prev => prev.map(r => r.rule_id === ruleId ? { ...r, enabled: !currentEnabled } : r))
     try {
-      await onMarcarLeida(alerta.id)
-    } finally {
-      setMarking(false)
+      await analyticsService.toggleAlertRule(ruleId, !currentEnabled)
+    } catch {
+      setRules(prev => prev.map(r => r.rule_id === ruleId ? { ...r, enabled: currentEnabled } : r))
     }
   }
 
-  return (
-    <div className={`rounded-xl border p-4 transition-opacity ${n.bg} ${n.border} ${alerta.leida ? 'opacity-50' : ''}`}>
-      <div className="flex items-start gap-3">
-        {/* Dot indicador */}
-        <div className="mt-1 flex-shrink-0">
-          <span className={`inline-block w-2 h-2 rounded-full ${alerta.leida ? 'bg-gray-300' : n.dot}`} />
-        </div>
-
-        {/* Contenido */}
-        <div className="flex-1 min-w-0">
-          <div className="flex flex-wrap items-center gap-2 mb-1">
-            {/* Nivel */}
-            <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${n.badge}`}>
-              {n.label}
-            </span>
-            {/* Tipo */}
-            <span className={`text-xs px-2 py-0.5 rounded-full capitalize ${TIPO_BADGE[alerta.tipo] ?? 'bg-gray-100 text-gray-600'}`}>
-              {alerta.tipo}
-            </span>
-            {alerta.leida && (
-              <span className="text-xs text-gray-400">Leída</span>
-            )}
-          </div>
-
-          <p className={`text-sm font-medium ${n.text}`}>{alerta.mensaje}</p>
-
-          <p className="text-xs text-gray-400 mt-1">{fmtDateTime(alerta.fecha_creacion)}</p>
-        </div>
-
-        {/* Acción */}
-        {!alerta.leida && (
-          <button
-            onClick={handleMarcar}
-            disabled={marking}
-            className="flex-shrink-0 text-xs text-gray-400 hover:text-gray-700 border border-gray-200 hover:border-gray-300 bg-white rounded-lg px-2.5 py-1.5 transition-colors cursor-pointer disabled:opacity-50"
-          >
-            {marking ? '...' : 'Marcar leída'}
-          </button>
-        )}
-      </div>
-    </div>
-  )
-}
-
-function AlertasSection() {
-  const [alertas, setAlertas] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [detecting, setDetecting] = useState(false)
-  const [detectResult, setDetectResult] = useState(null)
-  const [filtro, setFiltro] = useState('todas')
-  const [error, setError] = useState(null)
-
-  const fetchAlertas = useCallback(async () => {
-    setLoading(true)
-    setError(null)
-    try {
-      const res = await analyticsService.getAlerts(100)
-      setAlertas(res.data)
-    } catch {
-      setError('No se pudo conectar con la API.')
-    } finally {
-      setLoading(false)
-    }
+  const saveParams = useCallback((ruleId, params) => {
+    clearTimeout(debounceTimers.current[ruleId])
+    debounceTimers.current[ruleId] = setTimeout(() => {
+      analyticsService.updateAlertParams(ruleId, params).catch(() => {})
+    }, 600)
   }, [])
 
-  useEffect(() => { fetchAlertas() }, [fetchAlertas])
+  function handleParamChange(ruleId, key, value, paramDef) {
+    let num = parseFloat(value)
+    if (isNaN(num)) return
+    if (paramDef.min != null) num = Math.max(paramDef.min, num)
+    if (paramDef.max != null) num = Math.min(paramDef.max, num)
+
+    setRules(prev => prev.map(r => {
+      if (r.rule_id !== ruleId) return r
+      const newParams = { ...r.params, [key]: num }
+      // Interpolar descripción con nuevos params
+      let desc = r._descTemplate || r.description
+      for (const pd of r.params_def) {
+        const val = pd.key === key ? num : (newParams[pd.key] ?? pd.default)
+        desc = desc.replaceAll(`{${pd.key}}`, String(val))
+      }
+      return { ...r, params: newParams, description: desc }
+    }))
+
+    // Obtener params completos para guardar
+    const rule = rules.find(r => r.rule_id === ruleId)
+    if (rule) {
+      const fullParams = { ...rule.params, [key]: num }
+      saveParams(ruleId, fullParams)
+    }
+  }
+
+  // Guardar template de descripción al cargar (para interpolar después)
+  useEffect(() => {
+    if (rules.length > 0 && !rules[0]._descTemplate) {
+      setRules(prev => prev.map(r => {
+        // Reconstruir template desde description reemplazando valores actuales por placeholders
+        let template = r.description
+        for (const pd of (r.params_def || [])) {
+          const val = r.params?.[pd.key] ?? pd.default
+          template = template.replaceAll(String(val), `{${pd.key}}`)
+        }
+        return { ...r, _descTemplate: template }
+      }))
+    }
+  }, [rules.length])
+
+  // Agrupar por tipo
+  const grouped = {}
+  for (const rule of rules) {
+    if (!grouped[rule.tipo]) grouped[rule.tipo] = []
+    grouped[rule.tipo].push(rule)
+  }
+
+  const enabledCount = rules.filter(r => r.enabled).length
+  const [detecting, setDetecting] = useState(false)
+  const [detectResult, setDetectResult] = useState(null)
 
   async function handleDetectar() {
     setDetecting(true)
     setDetectResult(null)
     try {
       const res = await analyticsService.detectarAnomalias()
-      setDetectResult({ type: 'success', message: res.data.message })
-      await fetchAlertas()
-    } catch (err) {
-      const msg = err.response?.data?.detail || 'Error al detectar anomalías'
-      setDetectResult({ type: 'error', message: msg })
+      setDetectResult({ type: 'success', message: res.data?.message || 'Detección completada' })
+    } catch {
+      setDetectResult({ type: 'error', message: 'Error al ejecutar la detección' })
     } finally {
       setDetecting(false)
     }
   }
 
-  async function handleMarcarLeida(id) {
-    try {
-      await analyticsService.marcarLeida(id)
-      setAlertas(prev => prev.map(a => a.id === id ? { ...a, leida: true } : a))
-    } catch {
-      // silencioso
-    }
-  }
-
-  async function handleMarcarTodasLeidas() {
-    const noLeidas = alertas.filter(a => !a.leida)
-    await Promise.allSettled(noLeidas.map(a => analyticsService.marcarLeida(a.id)))
-    setAlertas(prev => prev.map(a => ({ ...a, leida: true })))
-  }
-
-  const alertasFiltradas = alertas.filter(a => {
-    if (filtro === 'no_leidas') return !a.leida
-    if (filtro === 'critical') return a.nivel === 'critical'
-    if (filtro === 'warning')  return a.nivel === 'warning'
-    if (filtro === 'info')     return a.nivel === 'info'
-    return true
-  })
-
-  const noLeidasCount = alertas.filter(a => !a.leida).length
-
   return (
     <div>
-      {/* Header de sección */}
-      <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
-        <div>
-          <h3 className="text-base font-semibold text-gray-900">Gestión de alertas</h3>
-          <p className="text-sm text-gray-500 mt-0.5">
-            {noLeidasCount > 0
-              ? `${noLeidasCount} alerta${noLeidasCount > 1 ? 's' : ''} sin leer`
-              : 'Todas las alertas han sido revisadas'}
-          </p>
-        </div>
-
-        <div className="flex items-center gap-2">
-          {noLeidasCount > 0 && (
-            <button
-              onClick={handleMarcarTodasLeidas}
-              className="text-sm text-gray-500 hover:text-gray-800 border border-gray-200 bg-white rounded-lg px-3 py-2 transition-colors cursor-pointer"
-            >
-              Marcar todas leídas
-            </button>
-          )}
+      <div className="mb-5">
+        <div className="flex items-center justify-between gap-4">
+          <div>
+            <h3 className="text-base font-semibold text-gray-900">Configuración de alertas</h3>
+            <p className="text-sm text-gray-500 mt-0.5">
+              Elige qué reglas de alerta quieres que se evalúen automáticamente.
+              Las alertas activas se muestran en el Dashboard.
+            </p>
+            <p className="text-xs text-gray-400 mt-1">
+              {enabledCount} de {rules.length} reglas activas
+            </p>
+          </div>
           <button
             onClick={handleDetectar}
             disabled={detecting}
-            className={`text-sm font-medium px-4 py-2 rounded-lg transition-colors cursor-pointer ${
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer whitespace-nowrap ${
               detecting
                 ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                : 'bg-amber-500 hover:bg-amber-600 text-white'
+                : 'bg-blue-600 text-white hover:bg-blue-700'
             }`}
           >
-            {detecting ? 'Analizando...' : '🔍 Detectar anomalías'}
-          </button>
-        </div>
-      </div>
-
-      {/* Resultado de detección */}
-      {detectResult && (
-        <div className={`mb-4 p-3 rounded-lg text-sm ${
-          detectResult.type === 'success'
-            ? 'bg-green-50 border border-green-200 text-green-800'
-            : 'bg-red-50 border border-red-200 text-red-800'
-        }`}>
-          {detectResult.type === 'success' ? '✓' : '✗'} {detectResult.message}
-        </div>
-      )}
-
-      {/* Filtros */}
-      <div className="flex flex-wrap gap-2 mb-4">
-        {FILTROS.map(f => (
-          <button
-            key={f.id}
-            onClick={() => setFiltro(f.id)}
-            className={`text-sm px-3 py-1.5 rounded-lg border transition-colors cursor-pointer ${
-              filtro === f.id
-                ? 'bg-gray-800 text-white border-gray-800'
-                : 'bg-white text-gray-600 border-gray-200 hover:border-gray-300'
-            }`}
-          >
-            {f.label}
-            {f.id === 'no_leidas' && noLeidasCount > 0 && (
-              <span className="ml-1.5 text-xs bg-red-500 text-white rounded-full px-1.5 py-0.5">
-                {noLeidasCount}
-              </span>
+            {detecting ? (
+              <>
+                <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                </svg>
+                Detectando...
+              </>
+            ) : (
+              'Detectar alertas'
             )}
           </button>
-        ))}
+        </div>
+        {detectResult && (
+          <div className={`mt-3 p-3 rounded-lg text-sm ${
+            detectResult.type === 'success'
+              ? 'bg-green-50 border border-green-200 text-green-700'
+              : 'bg-red-50 border border-red-200 text-red-700'
+          }`}>
+            {detectResult.message}
+          </div>
+        )}
       </div>
 
       {error && (
@@ -547,29 +486,86 @@ function AlertasSection() {
       )}
 
       {loading ? (
-        <div className="space-y-3">
+        <div className="space-y-4">
           {[1, 2, 3].map(i => (
-            <div key={i} className="h-20 bg-gray-100 rounded-xl animate-pulse" />
+            <div key={i} className="h-16 bg-gray-100 rounded-xl animate-pulse" />
           ))}
-        </div>
-      ) : alertasFiltradas.length === 0 ? (
-        <div className="p-8 bg-gray-50 border border-dashed border-gray-200 rounded-xl text-center text-gray-400">
-          <p className="text-3xl mb-2">🔔</p>
-          <p className="font-medium text-sm">
-            {filtro === 'todas' ? 'No hay alertas registradas' : 'No hay alertas en este filtro'}
-          </p>
-          {filtro === 'todas' && (
-            <p className="text-xs mt-1">Usa "Detectar anomalías" para analizar los datos cargados.</p>
-          )}
         </div>
       ) : (
-        <div className="space-y-3">
-          {alertasFiltradas.map(a => (
-            <AlertCard key={a.id} alerta={a} onMarcarLeida={handleMarcarLeida} />
-          ))}
-          {alertasFiltradas.length >= 100 && (
-            <p className="text-xs text-gray-400 text-center pt-1">Mostrando las últimas 100 alertas.</p>
-          )}
+        <div className="space-y-6">
+          {Object.entries(grouped).map(([tipo, tipoRules]) => {
+            const group = TIPO_GROUP[tipo] || { label: tipo, icon: '📋', color: 'gray' }
+            return (
+              <div key={tipo}>
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-lg">{group.icon}</span>
+                  <h4 className="text-sm font-semibold text-gray-700">{group.label}</h4>
+                </div>
+                <div className="space-y-2">
+                  {tipoRules.map(rule => (
+                    <div
+                      key={rule.rule_id}
+                      className={`p-4 rounded-xl border transition-colors ${
+                        rule.enabled
+                          ? 'bg-white border-gray-200'
+                          : 'bg-gray-50 border-gray-100 opacity-60'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between gap-4">
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 mb-0.5">
+                            <p className="text-sm font-medium text-gray-900">{rule.label}</p>
+                            <span className={`text-xs px-2 py-0.5 rounded-full ${NIVEL_BADGE[rule.nivel] ?? 'bg-gray-100 text-gray-600'}`}>
+                              {rule.nivel === 'critical' ? 'Crítica' : 'Aviso'}
+                            </span>
+                          </div>
+                          <p className="text-xs text-gray-500">{rule.description}</p>
+                        </div>
+                        <button
+                          onClick={() => handleToggle(rule.rule_id, rule.enabled)}
+                          className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out ${
+                            rule.enabled ? 'bg-blue-600' : 'bg-gray-200'
+                          }`}
+                          role="switch"
+                          aria-checked={rule.enabled}
+                        >
+                          <span
+                            className={`pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow ring-0 transition-transform duration-200 ease-in-out ${
+                              rule.enabled ? 'translate-x-5' : 'translate-x-0'
+                            }`}
+                          />
+                        </button>
+                      </div>
+
+                      {/* Parámetros configurables */}
+                      {rule.enabled && rule.params_def?.length > 0 && (
+                        <div className="mt-3 pt-3 border-t border-gray-100 flex flex-wrap gap-4">
+                          {rule.params_def.map(pd => (
+                            <label key={pd.key} className="flex items-center gap-2 text-xs text-gray-600">
+                              <span>{pd.label}:</span>
+                              <span className="flex items-center gap-1">
+                                {pd.prefix && <span className="text-gray-400">{pd.prefix}</span>}
+                                <input
+                                  type="number"
+                                  min={pd.min}
+                                  max={pd.max}
+                                  step={pd.key === 'multiplicador' ? 0.5 : 1}
+                                  value={rule.params?.[pd.key] ?? pd.default}
+                                  onChange={e => handleParamChange(rule.rule_id, pd.key, e.target.value, pd)}
+                                  className="w-16 px-2 py-1 text-xs text-center border border-gray-200 rounded-lg bg-gray-50 focus:outline-none focus:ring-1 focus:ring-blue-400 focus:border-blue-400"
+                                />
+                                {pd.suffix && <span className="text-gray-400">{pd.suffix}</span>}
+                              </span>
+                            </label>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )
+          })}
         </div>
       )}
     </div>

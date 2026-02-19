@@ -5,6 +5,7 @@ import {
 } from 'recharts'
 import { clientesService } from '../services/api'
 import useWatcherRefresh from '../hooks/useWatcherRefresh'
+import SectionAlerts from '../components/SectionAlerts'
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -207,6 +208,8 @@ function Clientes() {
           )}
         </div>
       </div>
+
+      <SectionAlerts tipo="clientes" refreshKey={refreshKey} />
 
       {error && (
         <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm">

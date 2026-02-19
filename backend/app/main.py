@@ -12,6 +12,14 @@ from app.database import engine, Base
 import asyncio
 from app.routers import ventas, analytics, gastos, inventarios, clientes, mappings, watcher
 from app.services.watcher_service import watcher_loop
+from app.database import SessionLocal
+from app.models.models import AlertConfig
+
+ALERT_RULES = [
+    "ventas_caida", "ventas_criticas", "ventas_tendencia",
+    "gastos_pico", "gastos_excesivos", "gastos_tendencia",
+    "inventario_bajo", "inventario_sin_stock",
+]
 
 # Configurar logging
 logging.basicConfig(
@@ -162,6 +170,20 @@ def app_info():
 _watcher_task: asyncio.Task | None = None
 
 
+def _seed_alert_configs():
+    """Inserta las reglas estándar si no existen."""
+    db = SessionLocal()
+    try:
+        existing = {r.rule_id for r in db.query(AlertConfig).all()}
+        for rule_id in ALERT_RULES:
+            if rule_id not in existing:
+                db.add(AlertConfig(rule_id=rule_id, enabled=True))
+        db.commit()
+        logger.info(f"Alert configs seeded: {len(ALERT_RULES)} reglas")
+    finally:
+        db.close()
+
+
 @app.on_event("startup")
 async def startup_event():
     """
@@ -171,6 +193,7 @@ async def startup_event():
     logger.info(f"🚀 {settings.app_name} v{settings.version} iniciada")
     logger.info(f"📊 Base de datos: {settings.database_url}")
     logger.info(f"🤖 IA: {'Configurada' if settings.anthropic_api_key else 'No configurada'}")
+    _seed_alert_configs()
     _watcher_task = asyncio.create_task(watcher_loop())
     logger.info("✅ Aplicación lista para recibir requests")
 

@@ -7,11 +7,18 @@ const api = axios.create({
 
 export const analyticsService = {
   getSalesStats: () => api.get('/analytics/stats'),
-  getAlerts: (limit = 10, soloNoLeidas = false) => api.get(`/analytics/alertas?limit=${limit}&solo_no_leidas=${soloNoLeidas}`),
+  getAlerts: (limit = 10, soloNoLeidas = false, tipo = null) => {
+    let url = `/analytics/alertas?limit=${limit}&solo_no_leidas=${soloNoLeidas}`
+    if (tipo) url += `&tipo=${tipo}`
+    return api.get(url)
+  },
   getInsights: () => api.get('/analytics/insights'),
   getTopProductos: (limit = 5) => api.get(`/analytics/top-productos?limit=${limit}`),
   marcarLeida: (id) => api.patch(`/analytics/alertas/${id}/marcar-leida`),
   detectarAnomalias: () => api.post('/analytics/detect-anomalies'),
+  getAlertConfig: () => api.get('/analytics/alert-config'),
+  toggleAlertRule: (ruleId, enabled) => api.patch(`/analytics/alert-config/${ruleId}`, { enabled }),
+  updateAlertParams: (ruleId, params) => api.patch(`/analytics/alert-config/${ruleId}`, { params }),
 }
 
 export const mappingService = {

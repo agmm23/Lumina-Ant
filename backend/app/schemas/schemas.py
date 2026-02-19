@@ -55,6 +55,7 @@ class Alerta(AlertaBase):
     """Schema completo de Alerta (con id)"""
     id: int
     fecha_creacion: datetime
+    rule_id: Optional[str] = None
     leida: bool
     
     class Config:

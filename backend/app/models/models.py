@@ -41,6 +41,7 @@ class Alerta(Base):
     fecha_creacion = Column(DateTime(timezone=True), server_default=func.now())
     tipo = Column(String(50), nullable=False, index=True)  # 'ventas', 'gastos', 'inventario'
     nivel = Column(String(20), nullable=False)  # 'info', 'warning', 'critical'
+    rule_id = Column(String(50), nullable=True, index=True)  # vincula con AlertConfig.rule_id
     mensaje = Column(String(500), nullable=False)
     detalles = Column(String(2000), nullable=True)  # JSON string con info adicional
     leida = Column(Boolean, default=False)
@@ -157,6 +158,16 @@ class ColumnMapping(Base):
     original_column = Column(String(200), nullable=False)
     mapped_column = Column(String(200), nullable=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+
+class AlertConfig(Base):
+    """Configuración de reglas de alerta: el usuario elige cuáles activar."""
+    __tablename__ = "alert_configs"
+
+    id = Column(Integer, primary_key=True, index=True)
+    rule_id = Column(String(50), nullable=False, unique=True)
+    enabled = Column(Boolean, default=True)
+    params = Column(String(1000), nullable=True)  # JSON string, ej: {"dias": 5}
 
 
 class WatchedFile(Base):
