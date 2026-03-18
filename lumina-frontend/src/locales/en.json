@@ -1,0 +1,373 @@
+{
+  "sidebar": {
+    "brand": "Lumina Ant",
+    "subtitle": "Business Intelligence",
+    "dashboard": "Dashboard",
+    "ventas": "Sales",
+    "gastos": "Expenses",
+    "inventario": "Inventory",
+    "clientes": "Customers",
+    "chat": "AI Copilot",
+    "config": "Settings",
+    "darkMode": "Dark mode",
+    "lightMode": "Light mode",
+    "toggleDark": "Switch to dark mode",
+    "toggleLight": "Switch to light mode",
+    "version": "v0.1.0 — Phase 1"
+  },
+
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "desde": "From",
+    "hasta": "To",
+    "limpiar": "Clear",
+    "limpiarFechas": "Clear dates",
+    "dia": "Day",
+    "semana": "Week",
+    "mes": "Month",
+    "linea": "Line",
+    "barras": "Bar",
+    "total": "Total",
+    "sinDatos": "No data",
+    "cancelar": "Cancel",
+    "confirmar": "Confirm",
+    "buscar": "Search",
+    "errorConexion": "Connection error",
+    "errorConexionMsg": "Could not connect to the API. Make sure the server is running.",
+    "errorInesperado": "Unexpected error loading data.",
+    "backendInstruccion": "Start the backend: cd backend && uvicorn app.main:app --reload"
+  },
+
+  "periods": {
+    "7d": "Last 7 days",
+    "30d": "Last 30 days",
+    "3m": "Last 3 months",
+    "6m": "Last 6 months",
+    "1y": "Last year",
+    "all": "All time"
+  },
+
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Business overview",
+    "kpi": {
+      "ventasTotales": "Total sales",
+      "ticketPromedio": "Avg. ticket",
+      "topProducto": "Top product",
+      "clientesActivos": "Active customers",
+      "gastosTotales": "Total expenses",
+      "margenEstimado": "Est. margin",
+      "productosStock": "Products in stock",
+      "stockBajo": "Low stock",
+      "transacciones": "{n} transactions",
+      "registrados": "{n} registered",
+      "ventasMenosGastos": "sales − expenses",
+      "requierenReposicion": "need restocking"
+    },
+    "sections": {
+      "ventas": "Sales",
+      "gastosInventario": "Expenses & Inventory",
+      "resumenVisual": "Visual summary"
+    },
+    "charts": {
+      "ventas": "Sales",
+      "gastosPorCategoria": "Expenses by category",
+      "top5Productos": "Top 5 products",
+      "ventasVsGastos": "Sales vs Expenses",
+      "gastos": "Expenses"
+    },
+    "empty": {
+      "ventas": "No sales data",
+      "gastos": "No expense data",
+      "productos": "No product data",
+      "comparar": "No data to compare"
+    },
+    "alertas": {
+      "title": "Alerts",
+      "todas": "All",
+      "criticas": "Critical",
+      "avisos": "Warnings",
+      "marcarTodas": "Mark all as read",
+      "sinAlertas": "No active alerts. All good!",
+      "sinAlertasFiltro": "No alerts in this filter."
+    }
+  },
+
+  "ventas": {
+    "title": "Sales",
+    "subtitle": "Transaction analysis and trends",
+    "kpi": {
+      "totalVentas": "Total sales",
+      "transacciones": "Transactions",
+      "ticketPromedio": "Avg. ticket",
+      "productoLider": "Top product"
+    },
+    "sections": {
+      "resumen": "Summary",
+      "ventasPorGrupo": "Sales by {groupBy}",
+      "porCategoria": "By category",
+      "top5Productos": "Top 5 products",
+      "transaccionesRecientes": "Recent transactions"
+    },
+    "table": {
+      "fecha": "Date",
+      "producto": "Product",
+      "categoria": "Category",
+      "cantidad": "Qty.",
+      "monto": "Amount",
+      "montoTotal": "Total amount"
+    },
+    "empty": {
+      "sinDatos": "No sales data",
+      "cargaCSV": "Upload a CSV in Settings to get started, or try a wider date range.",
+      "sinCategorias": "No category data.",
+      "sinPuntos": "Not enough data points to chart."
+    },
+    "mostrando": "Showing 15 of {total} transactions in this period."
+  },
+
+  "gastos": {
+    "title": "Expenses",
+    "subtitle": "Expense analysis by category and supplier",
+    "kpi": {
+      "totalGastos": "Total expenses",
+      "registros": "Records",
+      "gastoPromedio": "Avg. expense",
+      "categoriaPrincipal": "Top category"
+    },
+    "sections": {
+      "resumen": "Summary",
+      "gastosPorGrupo": "Expenses by {groupBy}",
+      "porCategoria": "By category",
+      "top5Proveedores": "Top 5 suppliers",
+      "registrosRecientes": "Recent records"
+    },
+    "table": {
+      "fecha": "Date",
+      "descripcion": "Description",
+      "categoria": "Category",
+      "proveedor": "Supplier",
+      "pago": "Payment",
+      "monto": "Amount",
+      "totalPagado": "Total paid"
+    },
+    "empty": {
+      "sinDatos": "No expense data",
+      "cargaCSV": "Upload a CSV in Settings to get started, or try a wider date range.",
+      "sinCategorias": "No category data.",
+      "sinPuntos": "Not enough data points to chart."
+    },
+    "mostrando": "Showing 15 of {total} records in this period."
+  },
+
+  "inventario": {
+    "title": "Inventory",
+    "subtitle": "Current product stock status",
+    "buscarProducto": "Search product...",
+    "todasCategorias": "All categories",
+    "soloBajoStock": "Low stock only",
+    "kpi": {
+      "productos": "Products",
+      "unidadesStock": "Units in stock",
+      "valorVenta": "Value (sale)",
+      "costoCompra": "Cost (purchase)",
+      "bajoStock": "Low stock",
+      "categorias": "{n} categories",
+      "requierenReposicion": "need restocking"
+    },
+    "sections": {
+      "resumenGeneral": "General summary",
+      "unidadesPorCategoria": "Units in stock by category",
+      "valorPorCategoria": "Stock value by category",
+      "productos": "Products"
+    },
+    "table": {
+      "producto": "Product",
+      "categoria": "Category",
+      "stock": "Stock",
+      "min": "Min.",
+      "pCompra": "Purchase $",
+      "pVenta": "Sale $",
+      "estado": "Status",
+      "sinMin": "No min.",
+      "bajoStock": "⚠ Low stock",
+      "ok": "OK"
+    },
+    "empty": {
+      "sinDatos": "No inventory data",
+      "cargaCSV": "Upload a CSV in Settings to get started.",
+      "sinCategorias": "No category data.",
+      "sinPrecios": "No sale prices recorded.",
+      "sinResultados": "No products match the filters."
+    },
+    "filtroResumen": "— {filtered} of {total}",
+    "filtroTotal": "— {total} total"
+  },
+
+  "clientes": {
+    "title": "Customers",
+    "subtitle": "Customer directory and segmentation",
+    "buscarCliente": "Search customer...",
+    "todosTipos": "All types",
+    "todos": "all",
+    "activos": "active",
+    "inactivos": "inactive",
+    "kpi": {
+      "totalClientes": "Total customers",
+      "activos": "Active",
+      "inactivos": "Inactive",
+      "tipos": "Types",
+      "ciudades": "Cities",
+      "enOperacion": "in operation",
+      "segmentos": "segments",
+      "conPresencia": "with presence"
+    },
+    "sections": {
+      "resumenGeneral": "General summary",
+      "porTipo": "Customers by type",
+      "topCiudades": "Top cities",
+      "clientes": "Customers"
+    },
+    "table": {
+      "cliente": "Customer",
+      "tipo": "Type",
+      "ciudad": "City",
+      "email": "Email",
+      "registro": "Registered",
+      "estado": "Status",
+      "activo": "Active",
+      "inactivo": "Inactive"
+    },
+    "empty": {
+      "sinDatos": "No customer data",
+      "cargaCSV": "Upload a CSV in Settings to get started.",
+      "sinTipos": "No type data.",
+      "sinCiudades": "No city data.",
+      "sinResultados": "No customers match the filters."
+    },
+    "filtroResumen": "— {filtered} of {total}",
+    "filtroTotal": "— {total} total"
+  },
+
+  "chat": {
+    "title": "AI Copilot",
+    "subtitle": "Ask about your business data in natural language",
+    "welcome": "Hi! I'm Lumina Ant's **AI Copilot**. I can help you understand your sales, expenses, inventory, and customer data.\n\nAsk me anything or pick a suggestion below.",
+    "limpiarChat": "Clear chat",
+    "sugerencias": "Suggested questions:",
+    "placeholder": "Type your question...",
+    "instruccion": "Enter to send · Shift+Enter for new line",
+    "errorRespuesta": "Sorry, there was an error processing your question. Make sure the server is running."
+  },
+
+  "config": {
+    "title": "Settings",
+    "subtitle": "Manage data sources, alerts, and language",
+    "tabs": {
+      "fuentes": "Data sources",
+      "alertas": "Alerts",
+      "idioma": "Language"
+    },
+    "datasources": {
+      "ventas": {
+        "label": "Sales",
+        "description": "Sales transaction history by product and customer."
+      },
+      "gastos": {
+        "label": "Expenses",
+        "description": "Operational expense records by category and supplier."
+      },
+      "inventario": {
+        "label": "Inventory",
+        "description": "Products in stock with minimum levels and prices."
+      },
+      "clientes": {
+        "label": "Customers",
+        "description": "Customer database with contact info and type."
+      }
+    },
+    "upload": {
+      "soloCSV": "Only .csv files are accepted",
+      "analizando": "Analyzing columns...",
+      "mapeoListo": "Mapping ready",
+      "arrastraCSV": "Drag your file here or",
+      "seleccionaArchivo": "select file",
+      "editarMapeo": "Edit column mapping",
+      "cargando": "Uploading...",
+      "subirCSV": "Import data",
+      "errorSubir": "Error uploading file",
+      "tipoFuente": "Source type",
+      "csv": "CSV",
+      "excel": "Excel",
+      "googleSheets": "Google Sheets",
+      "seleccionaHoja": "Select a sheet",
+      "hoja": "Sheet",
+      "buscandoHojas": "Loading sheets...",
+      "arrastraExcel": "Drag your Excel here or",
+      "urlGSheets": "Google Sheets URL or ID",
+      "urlGSheetsPlaceholder": "https://docs.google.com/spreadsheets/d/...",
+      "conectar": "Connect",
+      "conectando": "Connecting...",
+      "errorConectar": "Could not connect to Google Sheets",
+      "sinApiKey": "Configure GOOGLE_SHEETS_API_KEY in .env to use Google Sheets.",
+      "hojaSeleccionada": "Selected sheet",
+      "cambiarHoja": "Change sheet",
+      "gsheetConectado": "Google Sheets connected"
+    },
+    "watchPath": {
+      "title": "Auto-sync",
+      "description": "Provide the full path to the file on your disk. The app will detect changes every 5 seconds.",
+      "placeholder": "C:\\path\\to\\your\\file.xlsx",
+      "activar": "Activate",
+      "activo": "Sync active",
+      "guardando": "Saving...",
+      "quitar": "Remove",
+      "errorGuardar": "Could not activate auto-sync"
+    },
+    "alertas": {
+      "title": "Alert configuration",
+      "description": "Choose which alert rules to evaluate automatically. Active alerts are shown in the Dashboard.",
+      "reglasActivas": "{enabled} of {total} rules active",
+      "detectar": "Detect alerts",
+      "detectando": "Detecting...",
+      "critica": "Critical",
+      "aviso": "Warning"
+    },
+    "language": {
+      "title": "Application language",
+      "description": "Select the language for the interface.",
+      "es": "Español",
+      "en": "English"
+    }
+  },
+
+  "alertCard": {
+    "critica": "Critical",
+    "aviso": "Warning",
+    "info": "Info",
+    "leida": "Read",
+    "marcarLeida": "Mark as read"
+  },
+
+  "columnMapper": {
+    "columnaCSV": "CSV Column",
+    "campoDestino": "Target field",
+    "confianza": "Confidence",
+    "exacto": "Exact",
+    "normalizado": "Normalized",
+    "guardado": "Saved",
+    "sinonimo": "Synonym",
+    "aproximado": "Fuzzy",
+    "manual": "Manual",
+    "noMapear": "-- Don't map --",
+    "requerido": " *",
+    "yaAsignado": " (already assigned)",
+    "estructuraCambio": "File structure changed",
+    "estructuraCambioMsg": "The columns in this CSV differ from the last file. Review the mapping before continuing.",
+    "mapeadas": "{mapped} of {required} required columns mapped",
+    "faltan": "(missing: {unmapped})",
+    "requeridoLeyenda": "* = required",
+    "confirmarMapeo": "Confirm mapping and upload"
+  }
+}

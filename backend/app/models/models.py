@@ -171,13 +171,23 @@ class AlertConfig(Base):
 
 
 class WatchedFile(Base):
-    """Archivo CSV monitoreado para importación automática."""
+    """Fuente de datos monitoreada para importación automática."""
     __tablename__ = "watched_files"
 
     id = Column(Integer, primary_key=True, index=True)
     datasource_type = Column(String(20), nullable=False, unique=True)  # ventas|gastos|inventario|clientes
     file_path = Column(String(500), nullable=False)
     enabled = Column(Boolean, default=True)
+
+    # ── Tipo de fuente ──────────────────────────────────────────
+    # "csv", "excel", "google_sheets"
+    source_type = Column(String(20), nullable=False, default="csv")
+    # JSON con config extra según el tipo de fuente:
+    #   csv/excel:        {"sheet": "Hoja1"}   (sheet vacío = primera hoja)
+    #   google_sheets:    {"spreadsheet_id": "abc123", "sheet": "Hoja1"}
+    source_config = Column(String(1000), nullable=False, default="{}")
+    source_name = Column(String(500), nullable=True)  # nombre para mostrar (filename o título de GSheets)
+
     last_row_count = Column(Integer, default=0)
     last_mtime = Column(Float, default=0.0)
     last_imported_at = Column(DateTime(timezone=True), nullable=True)

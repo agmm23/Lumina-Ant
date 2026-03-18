@@ -12,8 +12,9 @@ from sqlalchemy.orm import Session
 
 from app.models.models import Venta, Gasto, Inventario, Cliente, WatchedFile
 
-# Directorio raiz del proyecto (donde viven los CSV de ejemplo)
-PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent.parent
+# Directorio donde se guardan los archivos importados (backend/data/)
+DATA_DIR = Path(__file__).resolve().parent.parent.parent / "data"
+DATA_DIR.mkdir(exist_ok=True)
 
 logger = logging.getLogger(__name__)
 
@@ -190,40 +191,73 @@ def import_clientes_rows(df: pd.DataFrame, db: Session) -> tuple[int, int, list[
 
 # ── Auto-watch helpers ───────────────────────────────────────────────────────
 
-def save_and_watch(datasource_type: str, df: pd.DataFrame, db: Session, filename: str = "") -> str:
+def save_and_watch(
+    datasource_type: str,
+    df: pd.DataFrame,
+    db: Session,
+    filename: str = "",
+    source_type: str = "csv",
+    sheet: str = "",
+    original_file_content: bytes = None,
+    spreadsheet_id: str = "",
+    source_name: str = "",
+) -> str:
     """
-    Guarda el DataFrame (ya mapeado) como CSV en la raiz del proyecto
-    y crea/actualiza el watcher automaticamente.
-    Usa el nombre original del archivo subido para que el usuario
-    edite el mismo archivo que subió.
-    Retorna la ruta absoluta del archivo guardado.
+    Guarda la fuente de datos en disco y crea/actualiza el watcher.
+
+    - CSV/Excel:       guarda el archivo en DATA_DIR.
+    - Google Sheets:   no hay archivo local; path_str es un placeholder.
+    Retorna la ruta del archivo guardado (o un identificador para GSheets).
     """
-    fname = filename if filename else f"{datasource_type}.csv"
-    dest = PROJECT_ROOT / fname
-    df.to_csv(dest, index=False)
+    import json as _json
 
     total_rows = len(df)
-    mtime = os.path.getmtime(str(dest))
-    path_str = str(dest)
+    now = datetime.now(timezone.utc)
+
+    if source_type == "google_sheets":
+        path_str = f"google_sheets:{datasource_type}"
+        source_config = _json.dumps({"spreadsheet_id": spreadsheet_id, "sheet": sheet})
+        mtime = 0.0
+    else:
+        ext = ".xlsx" if source_type == "excel" else ".csv"
+        base = filename if filename else f"{datasource_type}{ext}"
+        dest = DATA_DIR / base
+
+        if original_file_content:
+            dest.write_bytes(original_file_content)
+        else:
+            df.to_csv(dest, index=False)
+
+        path_str = str(dest)
+        mtime = os.path.getmtime(path_str)
+        source_config = _json.dumps({"sheet": sheet} if sheet else {})
+
+    display_name = source_name or filename or datasource_type
 
     w = db.query(WatchedFile).filter(WatchedFile.datasource_type == datasource_type).first()
     if w:
         w.file_path = path_str
+        w.source_type = source_type
+        w.source_config = source_config
+        w.source_name = display_name
         w.last_row_count = total_rows
         w.last_mtime = mtime
-        w.last_imported_at = datetime.now(timezone.utc)
+        w.last_imported_at = now
         w.last_error = None
         w.enabled = True
     else:
         w = WatchedFile(
             datasource_type=datasource_type,
             file_path=path_str,
+            source_type=source_type,
+            source_config=source_config,
+            source_name=display_name,
             enabled=True,
             last_row_count=total_rows,
             last_mtime=mtime,
-            last_imported_at=datetime.now(timezone.utc),
+            last_imported_at=now,
         )
         db.add(w)
     db.commit()
-    logger.info(f"[Watcher] Auto-watch configurado: {datasource_type} -> {path_str}")
+    logger.info(f"[Watcher] Auto-watch: {datasource_type} ({source_type}) -> {path_str}")
     return path_str

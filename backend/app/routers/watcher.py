@@ -9,7 +9,7 @@ from pydantic import BaseModel
 from typing import Optional
 
 from app.database import get_db
-from app.models.models import WatchedFile
+from app.models.models import WatchedFile, Venta, Gasto, Inventario, Cliente
 from app.services.watcher_service import get_import_version
 
 router = APIRouter(prefix="/api/watcher", tags=["watcher"])
@@ -19,6 +19,9 @@ VALID_TYPES = {"ventas", "gastos", "inventario", "clientes"}
 
 class WatcherUpsert(BaseModel):
     file_path: str
+    source_type: Optional[str] = None      # "csv" | "excel" | "google_sheets"
+    source_config: Optional[str] = None    # JSON string: {"sheet": "Hoja1"}
+    reset_cursor: Optional[bool] = False   # reinicia mtime para forzar reimport
 
 
 class WatcherPatch(BaseModel):
@@ -28,42 +31,35 @@ class WatcherPatch(BaseModel):
 
 # ── Endpoints ───────────────────────────────────────────────────────────────────
 
+def _watcher_dict(w):
+    return {
+        "datasource_type": w.datasource_type,
+        "file_path": w.file_path,
+        "source_type": w.source_type,
+        "source_name": w.source_name,
+        "enabled": w.enabled,
+        "last_row_count": w.last_row_count,
+        "last_mtime": w.last_mtime,
+        "last_imported_at": w.last_imported_at.isoformat() if w.last_imported_at else None,
+        "last_import_count": w.last_import_count,
+        "last_error": w.last_error,
+    }
+
+
 @router.get("/status")
 def get_status(db: Session = Depends(get_db)):
     """Endpoint ligero para polling del frontend."""
     watchers = db.query(WatchedFile).all()
     return {
         "import_version": get_import_version(),
-        "watchers": [
-            {
-                "datasource_type": w.datasource_type,
-                "enabled": w.enabled,
-                "file_path": w.file_path,
-                "last_imported_at": w.last_imported_at.isoformat() if w.last_imported_at else None,
-                "last_import_count": w.last_import_count,
-                "last_error": w.last_error,
-            }
-            for w in watchers
-        ],
+        "watchers": [_watcher_dict(w) for w in watchers],
     }
 
 
 @router.get("/")
 def list_watchers(db: Session = Depends(get_db)):
     watchers = db.query(WatchedFile).all()
-    return [
-        {
-            "datasource_type": w.datasource_type,
-            "file_path": w.file_path,
-            "enabled": w.enabled,
-            "last_row_count": w.last_row_count,
-            "last_mtime": w.last_mtime,
-            "last_imported_at": w.last_imported_at.isoformat() if w.last_imported_at else None,
-            "last_import_count": w.last_import_count,
-            "last_error": w.last_error,
-        }
-        for w in watchers
-    ]
+    return [_watcher_dict(w) for w in watchers]
 
 
 @router.put("/{datasource_type}")
@@ -74,9 +70,22 @@ def upsert_watcher(datasource_type: str, body: WatcherUpsert, db: Session = Depe
     w = db.query(WatchedFile).filter(WatchedFile.datasource_type == datasource_type).first()
     if w:
         w.file_path = body.file_path
+        if body.source_type is not None:
+            w.source_type = body.source_type
+        if body.source_config is not None:
+            w.source_config = body.source_config
+        if body.reset_cursor:
+            w.last_mtime = 0.0
+            w.last_row_count = 0
         w.last_error = None
+        w.enabled = True
     else:
-        w = WatchedFile(datasource_type=datasource_type, file_path=body.file_path)
+        w = WatchedFile(
+            datasource_type=datasource_type,
+            file_path=body.file_path,
+            source_type=body.source_type or "csv",
+            source_config=body.source_config or "{}",
+        )
         db.add(w)
     db.commit()
     db.refresh(w)
@@ -100,11 +109,23 @@ def patch_watcher(datasource_type: str, body: WatcherPatch, db: Session = Depend
     return {"status": "ok", "enabled": w.enabled}
 
 
+_DATA_MODEL_MAP = {
+    "ventas": Venta,
+    "gastos": Gasto,
+    "inventario": Inventario,
+    "clientes": Cliente,
+}
+
+
 @router.delete("/{datasource_type}")
 def delete_watcher(datasource_type: str, db: Session = Depends(get_db)):
     w = db.query(WatchedFile).filter(WatchedFile.datasource_type == datasource_type).first()
     if not w:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Watcher no encontrado")
+    # Borrar también los datos importados de esta fuente
+    model = _DATA_MODEL_MAP.get(datasource_type)
+    if model:
+        db.query(model).delete()
     db.delete(w)
     db.commit()
     return {"status": "ok"}

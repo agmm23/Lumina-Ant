@@ -33,7 +33,7 @@ python -m venv venv
 
 ### 4. Activar el entorno virtual
 
-**CMD (Símbolo del sistema):**
+**CMD (Símbolo del sistema):**cd
 ```cmd
 venv\Scripts\activate
 ```
@@ -103,7 +103,7 @@ venv\Scripts\Activate.ps1
 
 **Git Bash:**
 ```bash
-source venv/Scripts/activate
+source venv/Scripts/activate start
 ```
 
 ### 3. Iniciar el servidor

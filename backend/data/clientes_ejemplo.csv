@@ -1,0 +1,31 @@
+cliente_id,nombre,fecha_registro,email,telefono,direccion,ciudad,codigo_postal,rfc,tipo_cliente,notas,activo
+C001,TechSolutions SA de CV,2025-06-16,contacto@techsolutions.com.mx,8182742251,Av. Revolución #2994,Tijuana,59750,TEC336096XX4,Mayorista,,true
+C002,Grupo Industrial Norte,2024-04-12,contacto@grupo.com.mx,8131030620,Av. Guerrero #5064,Monterrey,93101,GRU496809XX9,Gobierno,,true
+C003,Consultores Asociados,2025-01-01,contacto@consultores.com.mx,8119872174,Av. Morelos #4732,Mérida,90900,CON266774XX1,Educación,,false
+C004,Farmacia del Centro,2024-10-03,contacto@farmacia.com.mx,8152336092,Av. Revolución #4846,Guadalajara,14587,FAR461287XX6,Mayorista,,true
+C005,Restaurant La Hacienda,2024-07-12,contacto@restaurant.com.mx,8127454024,Av. Reforma #4162,Puebla,16449,RES145555XX6,Mayorista,,true
+C006,Despacho Legal Torres,2025-01-13,contacto@despacho.com.mx,8173200197,Av. Madero #9766,Mérida,80848,DES257901XX3,Gobierno,,true
+C007,Constructora Moderna,2025-09-23,contacto@constructora.com.mx,8115855005,Av. Reforma #2676,Mérida,11217,CON333986XX0,Educación,,true
+C008,Escuela Primaria Juárez,2024-12-31,contacto@escuela.com.mx,8185628782,Av. Hidalgo #6727,Querétaro,24617,ESC478476XX5,Mayorista,,true
+C009,Clínica San Rafael,2025-03-19,contacto@clinica.com.mx,8116439988,Av. Zaragoza #7865,Monterrey,26054,CLÍ249613XX2,Mayorista,,true
+C010,Taller Mecánico López,2025-10-22,contacto@taller.com.mx,8118463798,Av. Reforma #1319,Querétaro,10883,TAL556392XX4,Minorista,,true
+C011,Papelería El Estudiante,2024-03-03,contacto@papeleria.com.mx,8147496927,Av. Madero #4401,Puebla,18503,PAP637116XX9,Corporativo,,true
+C012,Hotel Vista Hermosa,2024-03-07,contacto@hotel.com.mx,8148136442,Av. Madero #5013,León,62581,HOT522666XX4,Educación,,true
+C013,Agencia de Viajes Sol,2024-03-15,contacto@agencia.com.mx,8152600299,Av. Reforma #2257,León,27344,AGE789231XX2,Mayorista,,true
+C014,Gimnasio FitLife,2025-10-28,contacto@gimnasio.com.mx,8156331993,Av. Madero #1479,Tijuana,45919,GIM704138XX2,Corporativo,,true
+C015,Veterinaria Animal Care,2024-09-05,contacto@veterinaria.com.mx,8114652559,Av. Hidalgo #9275,Mérida,73926,VET176556XX8,Corporativo,,true
+C016,Ferretería El Martillo,2025-04-08,contacto@ferreteria.com.mx,8143565427,Av. Juárez #3896,CDMX,88273,FER483530XX8,Mayorista,,true
+C017,Librería Cervantes,2025-05-23,contacto@libreria.com.mx,8129525460,Av. Constitución #1393,Mérida,63178,LIB765772XX6,Gobierno,,true
+C018,Panadería La Espiga,2024-08-12,contacto@panaderia.com.mx,8139619112,Av. Juárez #2518,León,10668,PAN449969XX4,Mayorista,,true
+C019,Auto Partes Express,2025-09-14,contacto@auto.com.mx,8127362080,Av. Juárez #3179,Puebla,81254,AUT116406XX1,Mayorista,,false
+C020,Centro Dental Smile,2025-10-15,contacto@centro.com.mx,8151356354,Av. Allende #2200,Monterrey,46821,CEN952103XX2,Educación,,true
+C021,Floristería Primavera,2025-07-08,contacto@floristeria.com.mx,8189686953,Av. Morelos #4830,Mérida,12137,FLO135848XX3,Mayorista,,true
+C022,Estética Glamour,2024-03-18,contacto@estetica.com.mx,8133278709,Av. Guerrero #1995,CDMX,30668,EST549831XX4,Gobierno,,true
+C023,Tintorería Express,2025-08-22,contacto@tintoreria.com.mx,8146863938,Av. Juárez #5008,Puebla,44520,TIN910645XX6,Minorista,,true
+C024,Joyería Diamante,2025-05-06,contacto@joyeria.com.mx,8133987303,Av. Reforma #7482,CDMX,73904,JOY595304XX4,Corporativo,,true
+C025,Óptica Visual,2025-05-23,contacto@optica.com.mx,8160723830,Av. Madero #7597,León,24706,ÓPT941000XX4,Educación,,true
+C026,Zapatería El Paso,2025-05-06,contacto@zapateria.com.mx,8196096632,Av. Juárez #5751,Puebla,15427,ZAP481333XX3,Gobierno,,true
+C027,Mueblería del Valle,2024-10-06,contacto@muebleria.com.mx,8182332559,Av. Allende #1694,Monterrey,10595,MUE341577XX8,Corporativo,,false
+C028,Refaccionaria Total,2025-11-11,contacto@refaccionaria.com.mx,8153519480,Av. Morelos #7368,Puebla,75153,REF105727XX9,Educación,,false
+C029,Laboratorio Clínico Plus,2025-10-30,contacto@laboratorio.com.mx,8139855576,Av. Zaragoza #5679,CDMX,97459,LAB109808XX5,Minorista,,false
+C030,Cervecería Artesanal Norte,2024-02-19,contacto@cerveceria.com.mx,8119798877,Av. Reforma #6375,León,25857,CER269991XX7,Corporativo,,false

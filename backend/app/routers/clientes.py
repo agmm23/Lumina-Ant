@@ -18,6 +18,8 @@ from app.database import get_db
 from app.models.models import Cliente
 from app.schemas.schemas import Cliente as ClienteSchema, ClienteCreate, ClienteUpdate, MessageResponse, CiudadCount
 from app.services.csv_import import parse_clientes_df, import_clientes_rows, save_and_watch
+from app.services.data_reader import create_reader, detect_source_type
+from app.services.watcher_service import bump_import_version
 
 logger = logging.getLogger(__name__)
 
@@ -28,37 +30,19 @@ router = APIRouter(prefix="/api/clientes", tags=["clientes"])
 async def upload_clientes_csv(
     file: UploadFile = File(...),
     column_mapping: Optional[str] = Form(None),
+    sheet_name: Optional[str] = Form(None),
     db: Session = Depends(get_db)
 ):
     """
-    Carga un archivo CSV con clientes y lo procesa automáticamente
-
-    Columnas esperadas:
-    - cliente_id: ID único del cliente
-    - nombre: Nombre del cliente
-    - email (opcional): Email del cliente
-    - telefono (opcional): Teléfono
-    - direccion (opcional): Dirección
-    - ciudad (opcional): Ciudad
-    - codigo_postal (opcional): Código postal
-    - rfc (opcional): RFC
-    - tipo_cliente (opcional): Tipo de cliente
-    - fecha_registro: Fecha de registro (formato: YYYY-MM-DD)
-    - notas (opcional): Notas adicionales
-    - activo (opcional): Si el cliente está activo (true/false)
+    Carga un archivo CSV o Excel con clientes.
+    Para Excel, usar sheet_name para especificar la hoja.
     """
-
-    # Validar extensión del archivo
-    if not file.filename.endswith('.csv'):
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Solo se permiten archivos CSV"
-        )
-
+    source_type = detect_source_type(file.filename or "")
     try:
         contents = await file.read()
-        df = pd.read_csv(BytesIO(contents))
-        logger.info(f"CSV cargado: {file.filename}, {len(df)} registros")
+        reader = create_reader(source_type, contents)
+        df = reader.read(sheet=sheet_name or None)
+        logger.info(f"Archivo cargado: {file.filename} ({source_type}), {len(df)} registros")
 
         if column_mapping:
             mapping = json.loads(column_mapping)
@@ -66,13 +50,19 @@ async def upload_clientes_csv(
 
         df = parse_clientes_df(df)
         clientes_creados, clientes_actualizados, errores = import_clientes_rows(df, db)
+        bump_import_version()
 
-        watched_path = save_and_watch("clientes", df, db, file.filename)
+        watched_path = save_and_watch(
+            "clientes", df, db, file.filename,
+            source_type=source_type,
+            sheet=sheet_name or "",
+            original_file_content=contents,
+            source_name=file.filename or "",
+        )
 
         mensaje = f"Se procesaron {clientes_creados + clientes_actualizados} clientes: {clientes_creados} creados, {clientes_actualizados} actualizados"
         if errores:
             mensaje += f". {len(errores)} registros con errores"
-        logger.info(f"Importación completada: {clientes_creados} creados, {clientes_actualizados} actualizados, {len(errores)} errores")
 
         return MessageResponse(
             status="success",
@@ -86,10 +76,10 @@ async def upload_clientes_csv(
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
     except Exception as e:
         db.rollback()
-        logger.error(f"Error procesando CSV: {e}")
+        logger.error(f"Error procesando archivo: {e}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Error procesando archivo CSV: {str(e)}"
+            detail=f"Error procesando archivo: {str(e)}"
         )
 
 

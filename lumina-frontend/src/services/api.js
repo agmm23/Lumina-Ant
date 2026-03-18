@@ -28,14 +28,19 @@ export const mappingService = {
     api.post(`/mappings/${datasourceType}`, { mappings, user_id: userId }),
 }
 
-function uploadCSV(endpoint, file, columnMapping = null) {
+// Upload genérico: acepta CSV y Excel, con mapping y sheet_name opcionales
+function uploadFile(endpoint, file, columnMapping = null, sheetName = null) {
   const formData = new FormData()
   formData.append('file', file)
   if (columnMapping) {
     formData.append('column_mapping', JSON.stringify(columnMapping))
   }
+  if (sheetName) {
+    formData.append('sheet_name', sheetName)
+  }
   return api.post(endpoint, formData, {
     headers: { 'Content-Type': 'multipart/form-data' },
+    timeout: 30000,
   })
 }
 
@@ -43,7 +48,7 @@ export const ventasService = {
   getAll: (params = {}) => api.get('/ventas/', { params }),
   getAnalytics: (params = {}) => api.get('/ventas/analytics/resumen', { params }),
   getCount: () => api.get('/ventas/stats/count'),
-  uploadCSV: (file, mapping) => uploadCSV('/ventas/upload-csv', file, mapping),
+  uploadCSV: (file, mapping, sheet) => uploadFile('/ventas/upload-csv', file, mapping, sheet),
 }
 
 export const gastosService = {
@@ -51,7 +56,7 @@ export const gastosService = {
   getAnalytics: (params = {}) => api.get('/gastos/analytics/resumen', { params }),
   getCount: () => api.get('/gastos/stats/count'),
   getPorCategoria: () => api.get('/gastos/stats/total-por-categoria'),
-  uploadCSV: (file, mapping) => uploadCSV('/gastos/upload-csv', file, mapping),
+  uploadCSV: (file, mapping, sheet) => uploadFile('/gastos/upload-csv', file, mapping, sheet),
 }
 
 export const inventarioService = {
@@ -60,7 +65,7 @@ export const inventarioService = {
   getCount: () => api.get('/inventarios/stats/count'),
   getLowStock: () => api.get('/inventarios/stats/bajo-stock'),
   getValor: () => api.get('/inventarios/stats/valor-inventario'),
-  uploadCSV: (file, mapping) => uploadCSV('/inventarios/upload-csv', file, mapping),
+  uploadCSV: (file, mapping, sheet) => uploadFile('/inventarios/upload-csv', file, mapping, sheet),
 }
 
 export const clientesService = {
@@ -68,13 +73,48 @@ export const clientesService = {
   getAnalytics: () => api.get('/clientes/analytics/resumen'),
   getCount: () => api.get('/clientes/stats/count'),
   getPorTipo: () => api.get('/clientes/stats/por-tipo'),
-  uploadCSV: (file, mapping) => uploadCSV('/clientes/upload-csv', file, mapping),
+  uploadCSV: (file, mapping, sheet) => uploadFile('/clientes/upload-csv', file, mapping, sheet),
+}
+
+// Servicio de importación: listado de hojas y conexión a Google Sheets
+export const importService = {
+  // Excel: obtener lista de hojas antes del upload
+  getExcelSheets: (file) => {
+    const formData = new FormData()
+    formData.append('file', file)
+    return api.post('/import/excel/sheets', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+      timeout: 15000,
+    })
+  },
+  // Google Sheets: obtener hojas por URL o ID
+  getSheetsInfo: (urlOrId) =>
+    api.post('/import/sheets/info', { url_or_id: urlOrId }, { timeout: 15000 }),
+  // Google Sheets: obtener headers de una hoja específica (para auto-map)
+  getSheetsHeaders: (spreadsheetId, sheet = null) =>
+    api.post('/import/sheets/headers', { spreadsheet_id: spreadsheetId, sheet }),
+  // Google Sheets: importar datos directamente desde una hoja
+  importFromSheets: (datasourceType, spreadsheetId, sheet, columnMapping = null) => {
+    const body = {
+      spreadsheet_id: spreadsheetId,
+      sheet,
+      datasource_type: datasourceType,
+      column_mapping: columnMapping || {},
+    }
+    return api.post(`/import/sheets/import`, body, { timeout: 30000 })
+  },
+}
+
+export const chatService = {
+  send: (message, history = []) => api.post('/chat/', { message, history }),
+  getSuggestedPrompts: () => api.get('/chat/suggested-prompts'),
 }
 
 export const watcherService = {
   getStatus: () => api.get('/watcher/status'),
   list: () => api.get('/watcher/'),
-  upsert: (datasourceType, filePath) => api.put(`/watcher/${datasourceType}`, { file_path: filePath }),
+  // body: { file_path, source_type?, source_config?, reset_cursor? }
+  upsert: (datasourceType, body) => api.put(`/watcher/${datasourceType}`, body),
   patch: (datasourceType, body) => api.patch(`/watcher/${datasourceType}`, body),
   remove: (datasourceType) => api.delete(`/watcher/${datasourceType}`),
 }

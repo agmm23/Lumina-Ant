@@ -1,31 +1,18 @@
 import { useEffect, useRef } from 'react'
-import { watcherService } from '../services/api'
+import { useDataSync } from '../contexts/DataSyncContext'
 
 /**
- * Pollea GET /api/watcher/status cada `interval` ms.
- * Cuando `import_version` cambia, llama `onNewData()`.
+ * Llama a `onNewData()` cuando el backend registra un import nuevo.
+ * El polling HTTP se centraliza en DataSyncContext (una sola instancia).
  */
-export default function useWatcherRefresh(onNewData, interval = 10000) {
-  const versionRef = useRef(null)
+export default function useWatcherRefresh(onNewData) {
+  const { importVersion } = useDataSync()
+  const prevRef = useRef(importVersion)
 
   useEffect(() => {
-    let active = true
-
-    async function poll() {
-      try {
-        const res = await watcherService.getStatus()
-        const v = res.data.import_version
-        if (versionRef.current !== null && v !== versionRef.current) {
-          onNewData()
-        }
-        versionRef.current = v
-      } catch {
-        // silencioso — el backend puede no estar corriendo
-      }
+    if (prevRef.current !== null && prevRef.current !== importVersion && importVersion !== null) {
+      onNewData()
     }
-
-    poll()
-    const id = setInterval(() => { if (active) poll() }, interval)
-    return () => { active = false; clearInterval(id) }
-  }, [onNewData, interval])
+    prevRef.current = importVersion
+  }, [importVersion, onNewData])
 }

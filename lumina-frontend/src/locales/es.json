@@ -1,0 +1,373 @@
+{
+  "sidebar": {
+    "brand": "Lumina Ant",
+    "subtitle": "Business Intelligence",
+    "dashboard": "Dashboard",
+    "ventas": "Ventas",
+    "gastos": "Gastos",
+    "inventario": "Inventario",
+    "clientes": "Clientes",
+    "chat": "Copilot IA",
+    "config": "Configuración",
+    "darkMode": "Modo oscuro",
+    "lightMode": "Modo claro",
+    "toggleDark": "Cambiar a modo oscuro",
+    "toggleLight": "Cambiar a modo claro",
+    "version": "v0.1.0 — Fase 1"
+  },
+
+  "common": {
+    "loading": "Cargando...",
+    "error": "Error",
+    "desde": "Desde",
+    "hasta": "Hasta",
+    "limpiar": "Limpiar",
+    "limpiarFechas": "Limpiar fechas",
+    "dia": "Día",
+    "semana": "Semana",
+    "mes": "Mes",
+    "linea": "Línea",
+    "barras": "Barras",
+    "total": "Total",
+    "sinDatos": "Sin datos",
+    "cancelar": "Cancelar",
+    "confirmar": "Confirmar",
+    "buscar": "Buscar",
+    "errorConexion": "Error de conexión",
+    "errorConexionMsg": "No se pudo conectar con la API. Asegúrate de que el servidor esté corriendo.",
+    "errorInesperado": "Error inesperado al cargar los datos.",
+    "backendInstruccion": "Inicia el backend: cd backend && uvicorn app.main:app --reload"
+  },
+
+  "periods": {
+    "7d": "Últimos 7 días",
+    "30d": "Últimos 30 días",
+    "3m": "Últimos 3 meses",
+    "6m": "Últimos 6 meses",
+    "1y": "Último año",
+    "all": "Todo el tiempo"
+  },
+
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Resumen general del negocio",
+    "kpi": {
+      "ventasTotales": "Ventas totales",
+      "ticketPromedio": "Ticket promedio",
+      "topProducto": "Top producto",
+      "clientesActivos": "Clientes activos",
+      "gastosTotales": "Gastos totales",
+      "margenEstimado": "Margen estimado",
+      "productosStock": "Productos en stock",
+      "stockBajo": "Stock bajo",
+      "transacciones": "{n} transacciones",
+      "registrados": "{n} registrados",
+      "ventasMenosGastos": "ventas − gastos",
+      "requierenReposicion": "requieren reposición"
+    },
+    "sections": {
+      "ventas": "Ventas",
+      "gastosInventario": "Gastos e Inventario",
+      "resumenVisual": "Resumen visual"
+    },
+    "charts": {
+      "ventas": "Ventas",
+      "gastosPorCategoria": "Gastos por categoría",
+      "top5Productos": "Top 5 productos",
+      "ventasVsGastos": "Ventas vs Gastos",
+      "gastos": "Gastos"
+    },
+    "empty": {
+      "ventas": "Sin datos de ventas",
+      "gastos": "Sin datos de gastos",
+      "productos": "Sin datos de productos",
+      "comparar": "Sin datos para comparar"
+    },
+    "alertas": {
+      "title": "Alertas",
+      "todas": "Todas",
+      "criticas": "Críticas",
+      "avisos": "Avisos",
+      "marcarTodas": "Marcar todas leídas",
+      "sinAlertas": "Sin alertas activas. ¡Todo en orden!",
+      "sinAlertasFiltro": "No hay alertas en este filtro."
+    }
+  },
+
+  "ventas": {
+    "title": "Ventas",
+    "subtitle": "Análisis de transacciones y tendencias",
+    "kpi": {
+      "totalVentas": "Total ventas",
+      "transacciones": "Transacciones",
+      "ticketPromedio": "Ticket promedio",
+      "productoLider": "Producto líder"
+    },
+    "sections": {
+      "resumen": "Resumen",
+      "ventasPorGrupo": "Ventas por {groupBy}",
+      "porCategoria": "Por categoría",
+      "top5Productos": "Top 5 productos",
+      "transaccionesRecientes": "Transacciones recientes"
+    },
+    "table": {
+      "fecha": "Fecha",
+      "producto": "Producto",
+      "categoria": "Categoría",
+      "cantidad": "Cant.",
+      "monto": "Monto",
+      "montoTotal": "Monto total"
+    },
+    "empty": {
+      "sinDatos": "Sin datos de ventas",
+      "cargaCSV": "Carga un CSV en Configuración para comenzar, o prueba un rango más amplio.",
+      "sinCategorias": "Sin datos de categorías.",
+      "sinPuntos": "No hay suficientes puntos para graficar."
+    },
+    "mostrando": "Mostrando 15 de {total} transacciones en este período."
+  },
+
+  "gastos": {
+    "title": "Gastos",
+    "subtitle": "Análisis de egresos por categoría y proveedor",
+    "kpi": {
+      "totalGastos": "Total gastos",
+      "registros": "Registros",
+      "gastoPromedio": "Gasto promedio",
+      "categoriaPrincipal": "Categoría principal"
+    },
+    "sections": {
+      "resumen": "Resumen",
+      "gastosPorGrupo": "Gastos por {groupBy}",
+      "porCategoria": "Por categoría",
+      "top5Proveedores": "Top 5 proveedores",
+      "registrosRecientes": "Registros recientes"
+    },
+    "table": {
+      "fecha": "Fecha",
+      "descripcion": "Descripción",
+      "categoria": "Categoría",
+      "proveedor": "Proveedor",
+      "pago": "Pago",
+      "monto": "Monto",
+      "totalPagado": "Total pagado"
+    },
+    "empty": {
+      "sinDatos": "Sin datos de gastos",
+      "cargaCSV": "Carga un CSV en Configuración para comenzar, o prueba un rango más amplio.",
+      "sinCategorias": "Sin datos de categorías.",
+      "sinPuntos": "No hay suficientes puntos para graficar."
+    },
+    "mostrando": "Mostrando 15 de {total} registros en este período."
+  },
+
+  "inventario": {
+    "title": "Inventario",
+    "subtitle": "Estado actual del stock de productos",
+    "buscarProducto": "Buscar producto...",
+    "todasCategorias": "Todas las categorías",
+    "soloBajoStock": "Solo bajo stock",
+    "kpi": {
+      "productos": "Productos",
+      "unidadesStock": "Unidades en stock",
+      "valorVenta": "Valor (venta)",
+      "costoCompra": "Costo (compra)",
+      "bajoStock": "Bajo stock",
+      "categorias": "{n} categorías",
+      "requierenReposicion": "requieren reposición"
+    },
+    "sections": {
+      "resumenGeneral": "Resumen general",
+      "unidadesPorCategoria": "Unidades en stock por categoría",
+      "valorPorCategoria": "Valor en stock por categoría",
+      "productos": "Productos"
+    },
+    "table": {
+      "producto": "Producto",
+      "categoria": "Categoría",
+      "stock": "Stock",
+      "min": "Mín.",
+      "pCompra": "P. Compra",
+      "pVenta": "P. Venta",
+      "estado": "Estado",
+      "sinMin": "Sin mín.",
+      "bajoStock": "⚠ Bajo stock",
+      "ok": "OK"
+    },
+    "empty": {
+      "sinDatos": "Sin datos de inventario",
+      "cargaCSV": "Carga un CSV en Configuración para comenzar.",
+      "sinCategorias": "Sin datos de categorías.",
+      "sinPrecios": "Sin precios de venta registrados.",
+      "sinResultados": "Sin productos que coincidan con los filtros."
+    },
+    "filtroResumen": "— {filtered} de {total}",
+    "filtroTotal": "— {total} en total"
+  },
+
+  "clientes": {
+    "title": "Clientes",
+    "subtitle": "Directorio y segmentación de clientes",
+    "buscarCliente": "Buscar cliente...",
+    "todosTipos": "Todos los tipos",
+    "todos": "todos",
+    "activos": "activos",
+    "inactivos": "inactivos",
+    "kpi": {
+      "totalClientes": "Total clientes",
+      "activos": "Activos",
+      "inactivos": "Inactivos",
+      "tipos": "Tipos",
+      "ciudades": "Ciudades",
+      "enOperacion": "en operación",
+      "segmentos": "segmentos",
+      "conPresencia": "con presencia"
+    },
+    "sections": {
+      "resumenGeneral": "Resumen general",
+      "porTipo": "Clientes por tipo",
+      "topCiudades": "Top ciudades",
+      "clientes": "Clientes"
+    },
+    "table": {
+      "cliente": "Cliente",
+      "tipo": "Tipo",
+      "ciudad": "Ciudad",
+      "email": "Email",
+      "registro": "Registro",
+      "estado": "Estado",
+      "activo": "Activo",
+      "inactivo": "Inactivo"
+    },
+    "empty": {
+      "sinDatos": "Sin datos de clientes",
+      "cargaCSV": "Carga un CSV en Configuración para comenzar.",
+      "sinTipos": "Sin datos de tipos.",
+      "sinCiudades": "Sin datos de ciudades.",
+      "sinResultados": "Sin clientes que coincidan con los filtros."
+    },
+    "filtroResumen": "— {filtered} de {total}",
+    "filtroTotal": "— {total} en total"
+  },
+
+  "chat": {
+    "title": "Copilot IA",
+    "subtitle": "Pregunta sobre tus datos de negocio en lenguaje natural",
+    "welcome": "¡Hola! Soy el **Copilot IA** de Lumina Ant. Puedo ayudarte a entender tus datos de ventas, gastos, inventario y clientes.\n\nPregúntame lo que quieras o elige una de las sugerencias de abajo.",
+    "limpiarChat": "Limpiar chat",
+    "sugerencias": "Preguntas sugeridas:",
+    "placeholder": "Escribe tu pregunta...",
+    "instruccion": "Enter para enviar · Shift+Enter para nueva línea",
+    "errorRespuesta": "Lo siento, hubo un error al procesar tu pregunta. Verifica que el servidor esté corriendo."
+  },
+
+  "config": {
+    "title": "Configuración",
+    "subtitle": "Gestiona fuentes de datos, alertas e idioma",
+    "tabs": {
+      "fuentes": "Fuentes de datos",
+      "alertas": "Alertas",
+      "idioma": "Idioma"
+    },
+    "datasources": {
+      "ventas": {
+        "label": "Ventas",
+        "description": "Historial de transacciones de venta por producto y cliente."
+      },
+      "gastos": {
+        "label": "Gastos",
+        "description": "Registro de gastos operativos por categoría y proveedor."
+      },
+      "inventario": {
+        "label": "Inventario",
+        "description": "Productos en stock con niveles mínimos y precios."
+      },
+      "clientes": {
+        "label": "Clientes",
+        "description": "Base de clientes con datos de contacto y tipo."
+      }
+    },
+    "upload": {
+      "soloCSV": "Solo se aceptan archivos .csv",
+      "analizando": "Analizando columnas...",
+      "mapeoListo": "Mapeo listo",
+      "arrastraCSV": "Arrastra tu archivo aquí o",
+      "seleccionaArchivo": "selecciona archivo",
+      "editarMapeo": "Editar mapeo de columnas",
+      "cargando": "Cargando...",
+      "subirCSV": "Importar datos",
+      "errorSubir": "Error al subir el archivo",
+      "tipoFuente": "Tipo de fuente",
+      "csv": "CSV",
+      "excel": "Excel",
+      "googleSheets": "Google Sheets",
+      "seleccionaHoja": "Selecciona una hoja",
+      "hoja": "Hoja",
+      "buscandoHojas": "Obteniendo hojas...",
+      "arrastraExcel": "Arrastra tu Excel aquí o",
+      "urlGSheets": "URL o ID de Google Sheets",
+      "urlGSheetsPlaceholder": "https://docs.google.com/spreadsheets/d/...",
+      "conectar": "Conectar",
+      "conectando": "Conectando...",
+      "errorConectar": "No se pudo conectar a Google Sheets",
+      "sinApiKey": "Configura GOOGLE_SHEETS_API_KEY en .env para usar Google Sheets.",
+      "hojaSeleccionada": "Hoja seleccionada",
+      "cambiarHoja": "Cambiar hoja",
+      "gsheetConectado": "Google Sheets conectado"
+    },
+    "watchPath": {
+      "title": "Seguimiento automático",
+      "description": "Proporciona la ruta completa del archivo en tu disco. La app detectará cambios cada 5 segundos.",
+      "placeholder": "C:\\ruta\\a\\tu\\archivo.xlsx",
+      "activar": "Activar",
+      "activo": "Seguimiento activo",
+      "guardando": "Guardando...",
+      "quitar": "Quitar",
+      "errorGuardar": "No se pudo activar el seguimiento"
+    },
+    "alertas": {
+      "title": "Configuración de alertas",
+      "description": "Elige qué reglas de alerta quieres que se evalúen automáticamente. Las alertas activas se muestran en el Dashboard.",
+      "reglasActivas": "{enabled} de {total} reglas activas",
+      "detectar": "Detectar alertas",
+      "detectando": "Detectando...",
+      "critica": "Crítica",
+      "aviso": "Aviso"
+    },
+    "language": {
+      "title": "Idioma de la aplicación",
+      "description": "Selecciona el idioma en el que se mostrará la interfaz.",
+      "es": "Español",
+      "en": "English"
+    }
+  },
+
+  "alertCard": {
+    "critica": "Crítica",
+    "aviso": "Aviso",
+    "info": "Info",
+    "leida": "Leída",
+    "marcarLeida": "Marcar leída"
+  },
+
+  "columnMapper": {
+    "columnaCSV": "Columna CSV",
+    "campoDestino": "Campo destino",
+    "confianza": "Confianza",
+    "exacto": "Exacto",
+    "normalizado": "Normalizado",
+    "guardado": "Guardado",
+    "sinonimo": "Sinónimo",
+    "aproximado": "Aproximado",
+    "manual": "Manual",
+    "noMapear": "-- No mapear --",
+    "requerido": " *",
+    "yaAsignado": " (ya asignado)",
+    "estructuraCambio": "La estructura del archivo cambió",
+    "estructuraCambioMsg": "Las columnas de este CSV son diferentes al último archivo cargado. Revisa el mapeo antes de continuar.",
+    "mapeadas": "{mapped} de {required} columnas requeridas mapeadas",
+    "faltan": "(faltan: {unmapped})",
+    "requeridoLeyenda": "* = requerido",
+    "confirmarMapeo": "Confirmar mapeo y subir"
+  }
+}

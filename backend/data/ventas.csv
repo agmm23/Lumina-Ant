@@ -1,0 +1,4 @@
+fecha,producto_id,nombre_producto,cantidad,precio_unitario,monto_total,categoria
+2024-01-01,P001,Laptop,2,15000,30000,Electrónica
+2024-01-02,P002,Mouse,5,500,2500,Accesorios
+2024-01-03,P001,Laptop,1,15000,15000,Electrónica

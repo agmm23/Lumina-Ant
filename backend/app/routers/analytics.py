@@ -11,7 +11,7 @@ import logging
 from app.database import get_db
 from app.schemas.schemas import VentasStats, InsightResponse, Alerta as AlertaSchema, MessageResponse
 from app.services.analytics_service import AnalyticsService
-from app.services.claude_service import ClaudeService
+from app.services.ai_service import AIService
 from app.models.models import Venta, Alerta, AlertConfig
 
 logger = logging.getLogger(__name__)
@@ -77,9 +77,9 @@ async def get_insights(db: Session = Depends(get_db)):
             "categoria": v.categoria if v.categoria else "Sin categoría"
         } for v in ventas]
         
-        # Llamar servicio de Claude
-        claude_service = ClaudeService()
-        insights = await claude_service.analyze_sales(ventas_data)
+        # Llamar servicio de IA
+        ai_service = AIService()
+        insights = await ai_service.analyze_sales(ventas_data)
         
         logger.info(f"Insights generados para {len(ventas)} ventas")
         return InsightResponse(**insights)

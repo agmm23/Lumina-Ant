@@ -21,6 +21,8 @@ from app.schemas.schemas import (
     GastosAnalytics, TimeSeriesPoint, CategoryBreakdown, TopItem,
 )
 from app.services.csv_import import parse_gastos_df, import_gastos_rows, save_and_watch
+from app.services.data_reader import create_reader, detect_source_type
+from app.services.watcher_service import bump_import_version
 
 logger = logging.getLogger(__name__)
 
@@ -31,43 +33,37 @@ router = APIRouter(prefix="/api/gastos", tags=["gastos"])
 async def upload_gastos_csv(
     file: UploadFile = File(...),
     column_mapping: Optional[str] = Form(None),
+    sheet_name: Optional[str] = Form(None),
     db: Session = Depends(get_db)
 ):
     """
-    Carga un archivo CSV con gastos y lo procesa automáticamente
-
-    Columnas esperadas:
-    - fecha: Fecha del gasto (formato: YYYY-MM-DD o DD/MM/YYYY)
-    - descripcion: Descripción del gasto
-    - categoria: Categoría del gasto
-    - monto: Monto del gasto
-    - proveedor_id (opcional): ID del proveedor
-    - nombre_proveedor (opcional): Nombre del proveedor
-    - tipo_pago (opcional): Tipo de pago
-    - numero_factura (opcional): Número de factura
-    - notas (opcional): Notas adicionales
+    Carga un archivo CSV o Excel con gastos.
+    Para Excel, usar sheet_name para especificar la hoja.
     """
-
-    # Validar extensión del archivo
-    if not file.filename.endswith('.csv'):
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Solo se permiten archivos CSV"
-        )
-
+    source_type = detect_source_type(file.filename or "")
     try:
         contents = await file.read()
-        df = pd.read_csv(BytesIO(contents))
-        logger.info(f"CSV cargado: {file.filename}, {len(df)} registros")
+        reader = create_reader(source_type, contents)
+        df = reader.read(sheet=sheet_name or None)
+        logger.info(f"Archivo cargado: {file.filename} ({source_type}), {len(df)} registros")
 
         if column_mapping:
             mapping = json.loads(column_mapping)
             df = df.rename(columns=mapping)
 
         df = parse_gastos_df(df)
+        db.query(Gasto).delete()
+        db.flush()
         gastos_creados, errores = import_gastos_rows(df, db)
+        bump_import_version()
 
-        watched_path = save_and_watch("gastos", df, db, file.filename)
+        watched_path = save_and_watch(
+            "gastos", df, db, file.filename,
+            source_type=source_type,
+            sheet=sheet_name or "",
+            original_file_content=contents,
+            source_name=file.filename or "",
+        )
 
         mensaje = f"Se cargaron {gastos_creados} gastos exitosamente"
         if errores:
@@ -86,10 +82,10 @@ async def upload_gastos_csv(
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
     except Exception as e:
         db.rollback()
-        logger.error(f"Error procesando CSV: {e}")
+        logger.error(f"Error procesando archivo: {e}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Error procesando archivo CSV: {str(e)}"
+            detail=f"Error procesando archivo: {str(e)}"
         )
 
 

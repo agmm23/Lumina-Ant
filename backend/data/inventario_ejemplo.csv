@@ -1,0 +1,21 @@
+producto_id,nombre_producto,cantidad_actual,descripcion,categoria,cantidad_minima,unidad_medida,precio_compra,precio_venta,proveedor_id,ubicacion
+P001,Laptop HP ProBook 450,46,Producto de electrónica,Electrónica,18,pieza,8125.0,12500.0,PRV011,Almacén principal
+P002,Monitor Dell 27 pulgadas,57,Producto de electrónica,Electrónica,16,pieza,3770.0,5800.0,PRV008,Bodega B
+P003,Teclado Logitech MX Keys,12,Producto de periféricos,Periféricos,13,pieza,1365.0,2100.0,PRV010,Estante 2
+P004,Mouse Logitech MX Master,98,Producto de periféricos,Periféricos,19,pieza,1072.5,1650.0,PRV001,Almacén principal
+P005,Auriculares Sony WH-1000XM5,81,Producto de audio,Audio,20,pieza,4225.0,6500.0,PRV001,Almacén principal
+P006,Webcam Logitech C920,101,Producto de periféricos,Periféricos,15,pieza,1170.0,1800.0,PRV011,Estante 2
+P007,Disco SSD Samsung 1TB,128,Producto de almacenamiento,Almacenamiento,7,pieza,1430.0,2200.0,PRV006,Bodega B
+P008,Memoria RAM 16GB DDR4,17,Producto de componentes,Componentes,16,pieza,910.0,1400.0,PRV007,Estante 2
+P009,Cable HDMI 2m,18,Producto de accesorios,Accesorios,10,pieza,117.0,180.0,PRV009,Estante 1
+P010,Hub USB-C 7 puertos,66,Producto de accesorios,Accesorios,5,pieza,552.5,850.0,PRV002,Estante 1
+P011,Silla Ergonómica Premium,12,Producto de mobiliario,Mobiliario,5,pieza,5525.0,8500.0,PRV010,Vitrina
+P012,Escritorio Ajustable,70,Producto de mobiliario,Mobiliario,20,pieza,7800.0,12000.0,PRV004,Estante 2
+P013,Impresora HP LaserJet,155,Producto de impresión,Impresión,13,pieza,2925.0,4500.0,PRV008,Estante 2
+P014,Toner HP 26A,57,Producto de consumibles,Consumibles,6,pieza,617.5,950.0,PRV004,Bodega A
+P015,UPS APC 1500VA,168,Producto de energía,Energía,16,pieza,2470.0,3800.0,PRV007,Almacén principal
+P016,Router WiFi 6,84,Producto de redes,Redes,17,pieza,1820.0,2800.0,PRV012,Bodega B
+P017,Switch 24 puertos,63,Producto de redes,Redes,13,pieza,2730.0,4200.0,PRV007,Bodega A
+P018,Tablet Samsung Galaxy Tab,46,Producto de electrónica,Electrónica,7,pieza,4680.0,7200.0,PRV004,Almacén principal
+P019,Cargador Universal 65W,24,Producto de accesorios,Accesorios,5,pieza,422.5,650.0,PRV005,Estante 1
+P020,Mochila para Laptop,166,Producto de accesorios,Accesorios,3,pieza,780.0,1200.0,PRV002,Estante 2

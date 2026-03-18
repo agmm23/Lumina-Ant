@@ -1,8 +1,8 @@
 function AlertBadge({ alert }) {
   const styles = {
-    critical: 'bg-red-100 border-red-300 text-red-800',
-    warning: 'bg-yellow-100 border-yellow-300 text-yellow-800',
-    info: 'bg-blue-100 border-blue-300 text-blue-800',
+    critical: 'bg-red-100 border-red-300 text-red-800 dark:bg-red-900 dark:border-red-700 dark:text-red-300',
+    warning: 'bg-yellow-100 border-yellow-300 text-yellow-800 dark:bg-yellow-900 dark:border-yellow-700 dark:text-yellow-300',
+    info: 'bg-blue-100 border-blue-300 text-blue-800 dark:bg-blue-900 dark:border-blue-700 dark:text-blue-300',
   }
 
   const icons = {

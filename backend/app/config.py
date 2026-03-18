@@ -19,8 +19,25 @@ class Settings(BaseSettings):
     # Base de datos
     database_url: str = "sqlite:///./lumina_ant.db"
     
-    # API de Anthropic Claude
+    # ── Proveedor de IA ─────────────────────────────────────────
+    # Opciones: "claude", "openai", "gemini"
+    ai_provider: str = "claude"
+
+    # API Keys — solo necesitas la del proveedor activo
     anthropic_api_key: str = ""
+    openai_api_key: str = ""
+    google_api_key: str = ""
+
+    # Modelos por proveedor (se pueden personalizar)
+    claude_model: str = "claude-sonnet-4-5-20251001"
+    openai_model: str = "gpt-4o"
+    gemini_model: str = "gemini-2.0-flash"
+
+    # ── Google Sheets ────────────────────────────────────────────
+    # API key de Google Cloud con la API de Google Sheets habilitada
+    # (puede ser la misma que GOOGLE_API_KEY si tiene Sheets habilitado)
+    # Solo necesaria para importar desde Google Sheets
+    google_sheets_api_key: str = ""
     
     # CORS - Orígenes permitidos
     cors_origins: List[str] = [

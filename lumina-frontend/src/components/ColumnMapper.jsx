@@ -1,10 +1,11 @@
 import { useState, useMemo } from 'react'
+import { useLanguage } from '../contexts/LanguageContext'
 
 const CONFIDENCE_COLORS = {
-  high: { dot: 'bg-green-500', text: 'text-green-700', bg: 'bg-green-50' },
-  medium: { dot: 'bg-amber-400', text: 'text-amber-700', bg: 'bg-amber-50' },
-  low: { dot: 'bg-red-400', text: 'text-red-700', bg: 'bg-red-50' },
-  none: { dot: 'bg-gray-300', text: 'text-gray-500', bg: 'bg-gray-50' },
+  high: { dot: 'bg-green-500', text: 'text-green-700 dark:text-green-400', bg: 'bg-green-50 dark:bg-green-950' },
+  medium: { dot: 'bg-amber-400', text: 'text-amber-700 dark:text-amber-400', bg: 'bg-amber-50 dark:bg-amber-950' },
+  low: { dot: 'bg-red-400', text: 'text-red-700 dark:text-red-400', bg: 'bg-red-50 dark:bg-red-950' },
+  none: { dot: 'bg-gray-300 dark:bg-gray-600', text: 'text-gray-500 dark:text-gray-400', bg: 'bg-gray-50 dark:bg-gray-800' },
 }
 
 function getConfLevel(confidence) {
@@ -14,27 +15,15 @@ function getConfLevel(confidence) {
   return 'none'
 }
 
-const METHOD_LABELS = {
-  exact: 'Exacto',
-  normalized: 'Normalizado',
-  saved: 'Guardado',
-  synonym: 'Sinónimo',
-  fuzzy: 'Aproximado',
+const METHOD_KEYS = {
+  exact: 'exacto',
+  normalized: 'normalizado',
+  saved: 'guardado',
+  synonym: 'sinonimo',
+  fuzzy: 'aproximado',
   none: '',
 }
 
-/**
- * Componente de mapeo de columnas CSV.
- *
- * Props:
- * - suggestions: Array de { csv_column, target_column, confidence, method }
- * - targetColumns: Array de { name, required, hint? }
- * - structureChanged: bool — si la estructura del CSV cambió vs mapping guardado
- * - hasSavedMappings: bool — si ya existen mappings guardados
- * - onConfirm(mapping): callback con { csv_col: target_col } dict
- * - onCancel(): callback para cancelar
- * - color: string (color key del datasource)
- */
 export default function ColumnMapper({
   suggestions,
   targetColumns,
@@ -44,7 +33,8 @@ export default function ColumnMapper({
   onCancel,
   color = 'blue',
 }) {
-  // Estado: mapping actual como { csv_column: target_column | null }
+  const { t } = useLanguage()
+
   const [mapping, setMapping] = useState(() => {
     const initial = {}
     for (const s of suggestions) {
@@ -63,7 +53,6 @@ export default function ColumnMapper({
     [targetColumns]
   )
 
-  // Targets ya asignados (para evitar duplicados en dropdowns)
   const usedTargets = useMemo(() => {
     const used = new Set()
     for (const val of Object.values(mapping)) {
@@ -72,7 +61,6 @@ export default function ColumnMapper({
     return used
   }, [mapping])
 
-  // Cuántas columnas requeridas están mapeadas
   const mappedRequired = useMemo(() => {
     const mappedTargets = new Set(Object.values(mapping).filter(Boolean))
     return [...requiredTargets].filter(t => mappedTargets.has(t))
@@ -86,7 +74,6 @@ export default function ColumnMapper({
   }
 
   function handleConfirm() {
-    // Construir mapping solo para columnas que necesitan renombrar
     const finalMapping = {}
     for (const [csvCol, targetCol] of Object.entries(mapping)) {
       if (targetCol && csvCol !== targetCol) {
@@ -98,25 +85,23 @@ export default function ColumnMapper({
 
   return (
     <div className="space-y-3">
-      {/* Alerta de cambio de estructura */}
       {structureChanged && hasSavedMappings && (
-        <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg text-sm text-amber-800">
-          <p className="font-medium">La estructura del archivo cambió</p>
-          <p className="text-xs mt-0.5 text-amber-600">
-            Las columnas de este CSV son diferentes al último archivo cargado. Revisa el mapeo antes de continuar.
+        <div className="p-3 bg-amber-50 dark:bg-amber-950 border border-amber-200 dark:border-amber-800 rounded-lg text-sm text-amber-800 dark:text-amber-300">
+          <p className="font-medium">{t('columnMapper.estructuraCambio')}</p>
+          <p className="text-xs mt-0.5 text-amber-600 dark:text-amber-400">
+            {t('columnMapper.estructuraCambioMsg')}
           </p>
         </div>
       )}
 
-      {/* Tabla de mapeo */}
-      <div className="border border-gray-200 rounded-lg overflow-hidden">
+      <div className="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
         <table className="w-full text-sm">
           <thead>
-            <tr className="bg-gray-50 border-b border-gray-200">
-              <th className="text-left px-3 py-2 font-medium text-gray-600">Columna CSV</th>
-              <th className="text-center px-2 py-2 font-medium text-gray-400 w-8"></th>
-              <th className="text-left px-3 py-2 font-medium text-gray-600">Campo destino</th>
-              <th className="text-center px-3 py-2 font-medium text-gray-500 w-24">Confianza</th>
+            <tr className="bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+              <th className="text-left px-3 py-2 font-medium text-gray-600 dark:text-gray-300">{t('columnMapper.columnaCSV')}</th>
+              <th className="text-center px-2 py-2 font-medium text-gray-400 dark:text-gray-500 w-8"></th>
+              <th className="text-left px-3 py-2 font-medium text-gray-600 dark:text-gray-300">{t('columnMapper.campoDestino')}</th>
+              <th className="text-center px-3 py-2 font-medium text-gray-500 dark:text-gray-400 w-24">{t('columnMapper.confianza')}</th>
             </tr>
           </thead>
           <tbody>
@@ -125,33 +110,32 @@ export default function ColumnMapper({
               const conf = currentTarget === s.target_column ? s.confidence : (currentTarget ? 1.0 : 0)
               const level = currentTarget === s.target_column ? getConfLevel(s.confidence) : (currentTarget ? 'high' : 'none')
               const colors = CONFIDENCE_COLORS[level]
-              const isRequired = currentTarget && requiredTargets.has(currentTarget)
 
               return (
-                <tr key={s.csv_column} className="border-b border-gray-100 last:border-0">
+                <tr key={s.csv_column} className="border-b border-gray-100 dark:border-gray-800 last:border-0">
                   <td className="px-3 py-2">
-                    <code className="text-xs bg-gray-100 px-1.5 py-0.5 rounded font-mono">
+                    <code className="text-xs bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded font-mono dark:text-gray-300">
                       {s.csv_column}
                     </code>
                   </td>
-                  <td className="text-center text-gray-300">→</td>
+                  <td className="text-center text-gray-300 dark:text-gray-600">→</td>
                   <td className="px-3 py-2">
                     <select
                       value={currentTarget || ''}
                       onChange={(e) => handleChange(s.csv_column, e.target.value)}
                       className={`w-full text-xs border rounded-md px-2 py-1.5 font-mono cursor-pointer ${
                         currentTarget
-                          ? 'border-gray-300 bg-white text-gray-800'
-                          : 'border-red-300 bg-red-50 text-red-600'
+                          ? 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200'
+                          : 'border-red-300 dark:border-red-700 bg-red-50 dark:bg-red-950 text-red-600 dark:text-red-400'
                       }`}
                     >
-                      <option value="">-- No mapear --</option>
-                      {allTargetNames.map(t => {
-                        const isUsedElsewhere = usedTargets.has(t) && t !== currentTarget
-                        const req = requiredTargets.has(t)
+                      <option value="">{t('columnMapper.noMapear')}</option>
+                      {allTargetNames.map(tgt => {
+                        const isUsedElsewhere = usedTargets.has(tgt) && tgt !== currentTarget
+                        const req = requiredTargets.has(tgt)
                         return (
-                          <option key={t} value={t} disabled={isUsedElsewhere}>
-                            {t}{req ? ' *' : ''}{isUsedElsewhere ? ' (ya asignado)' : ''}
+                          <option key={tgt} value={tgt} disabled={isUsedElsewhere}>
+                            {tgt}{req ? t('columnMapper.requerido') : ''}{isUsedElsewhere ? t('columnMapper.yaAsignado') : ''}
                           </option>
                         )
                       })}
@@ -162,8 +146,8 @@ export default function ColumnMapper({
                       <span className={`inline-flex items-center gap-1.5 text-xs ${colors.text}`}>
                         <span className={`w-2 h-2 rounded-full ${colors.dot}`} />
                         {s.method !== 'none' && currentTarget === s.target_column
-                          ? METHOD_LABELS[s.method]
-                          : 'Manual'}
+                          ? t(`columnMapper.${METHOD_KEYS[s.method]}`)
+                          : t('columnMapper.manual')}
                       </span>
                     )}
                   </td>
@@ -174,20 +158,18 @@ export default function ColumnMapper({
         </table>
       </div>
 
-      {/* Resumen */}
-      <div className="flex items-center justify-between text-xs text-gray-500">
+      <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
         <span>
-          {mappedRequired.length} de {requiredTargets.size} columnas requeridas mapeadas
+          {t('columnMapper.mapeadas', { mapped: mappedRequired.length, required: requiredTargets.size })}
           {unmappedRequired.length > 0 && (
-            <span className="text-red-500 ml-1">
-              (faltan: {unmappedRequired.join(', ')})
+            <span className="text-red-500 dark:text-red-400 ml-1">
+              {t('columnMapper.faltan', { unmapped: unmappedRequired.join(', ') })}
             </span>
           )}
         </span>
-        <span className="text-gray-400">* = requerido</span>
+        <span className="text-gray-400 dark:text-gray-500">{t('columnMapper.requeridoLeyenda')}</span>
       </div>
 
-      {/* Botones */}
       <div className="flex gap-2">
         <button
           onClick={handleConfirm}
@@ -195,16 +177,16 @@ export default function ColumnMapper({
           className={`flex-1 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
             allRequiredMapped
               ? 'bg-blue-600 text-white hover:bg-blue-700'
-              : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+              : 'bg-gray-100 dark:bg-gray-800 text-gray-400 cursor-not-allowed'
           }`}
         >
-          Confirmar mapeo y subir
+          {t('columnMapper.confirmarMapeo')}
         </button>
         <button
           onClick={onCancel}
-          className="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 border border-gray-200 hover:bg-gray-50 transition-colors cursor-pointer"
+          className="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer"
         >
-          Cancelar
+          {t('common.cancelar')}
         </button>
       </div>
     </div>

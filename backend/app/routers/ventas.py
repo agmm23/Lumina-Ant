@@ -21,6 +21,8 @@ from app.schemas.schemas import (
     VentasAnalytics, TimeSeriesPoint, CategoryBreakdown, TopItem,
 )
 from app.services.csv_import import parse_ventas_df, import_ventas_rows, save_and_watch
+from app.services.data_reader import create_reader, detect_source_type
+from app.services.watcher_service import bump_import_version
 
 logger = logging.getLogger(__name__)
 
@@ -31,48 +33,41 @@ router = APIRouter(prefix="/api/ventas", tags=["ventas"])
 async def upload_ventas_csv(
     file: UploadFile = File(...),
     column_mapping: Optional[str] = Form(None),
+    sheet_name: Optional[str] = Form(None),
     db: Session = Depends(get_db)
 ):
     """
-    Carga un archivo CSV con ventas y lo procesa automáticamente
-    
-    Columnas esperadas:
-    - fecha: Fecha de la venta (formato: YYYY-MM-DD o DD/MM/YYYY)
-    - producto_id: ID del producto
-    - nombre_producto: Nombre del producto
-    - cantidad: Cantidad vendida
-    - precio_unitario: Precio por unidad
-    - monto_total: Monto total de la venta
-    - cliente_id (opcional): ID del cliente
-    - categoria (opcional): Categoría del producto
+    Carga un archivo CSV o Excel con ventas.
+    Para Excel, usar sheet_name para especificar la hoja.
     """
-    
-    # Validar extensión del archivo
-    if not file.filename.endswith('.csv'):
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Solo se permiten archivos CSV"
-        )
-    
+    source_type = detect_source_type(file.filename or "")
     try:
         contents = await file.read()
-        df = pd.read_csv(BytesIO(contents))
-        logger.info(f"CSV cargado: {file.filename}, {len(df)} registros")
+        reader = create_reader(source_type, contents)
+        df = reader.read(sheet=sheet_name or None)
+        logger.info(f"Archivo cargado: {file.filename} ({source_type}), {len(df)} registros")
 
         if column_mapping:
             mapping = json.loads(column_mapping)
             df = df.rename(columns=mapping)
 
         df = parse_ventas_df(df)
+        db.query(Venta).delete()
+        db.flush()
         ventas_creadas, errores = import_ventas_rows(df, db)
+        bump_import_version()
 
-        # Guardar CSV en disco y activar auto-watch
-        watched_path = save_and_watch("ventas", df, db, file.filename)
+        watched_path = save_and_watch(
+            "ventas", df, db, file.filename,
+            source_type=source_type,
+            sheet=sheet_name or "",
+            original_file_content=contents,
+            source_name=file.filename or "",
+        )
 
         mensaje = f"Se cargaron {ventas_creadas} ventas exitosamente"
         if errores:
             mensaje += f". {len(errores)} registros con errores"
-        logger.info(f"Importación completada: {ventas_creadas} ventas, {len(errores)} errores")
 
         return MessageResponse(
             status="success",
@@ -86,10 +81,10 @@ async def upload_ventas_csv(
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
     except Exception as e:
         db.rollback()
-        logger.error(f"Error procesando CSV: {e}")
+        logger.error(f"Error procesando archivo: {e}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Error procesando archivo CSV: {str(e)}"
+            detail=f"Error procesando archivo: {str(e)}"
         )
 
 
