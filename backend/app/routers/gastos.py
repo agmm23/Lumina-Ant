@@ -6,9 +6,6 @@ Endpoints para gestión de gastos: CRUD y carga de archivos CSV
 from fastapi import APIRouter, Depends, UploadFile, File, Form, HTTPException, status
 from sqlalchemy.orm import Session
 from typing import List, Optional
-import pandas as pd
-from datetime import datetime
-from io import BytesIO
 import json
 import logging
 
@@ -23,6 +20,8 @@ from app.schemas.schemas import (
 from app.services.csv_import import parse_gastos_df, import_gastos_rows, save_and_watch
 from app.services.data_reader import create_reader, detect_source_type
 from app.services.watcher_service import bump_import_version
+from app.auth.dependencies import get_current_user
+from app.auth.models import User
 
 logger = logging.getLogger(__name__)
 
@@ -34,7 +33,8 @@ async def upload_gastos_csv(
     file: UploadFile = File(...),
     column_mapping: Optional[str] = Form(None),
     sheet_name: Optional[str] = Form(None),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
 ):
     """
     Carga un archivo CSV o Excel con gastos.
@@ -52,9 +52,9 @@ async def upload_gastos_csv(
             df = df.rename(columns=mapping)
 
         df = parse_gastos_df(df)
-        db.query(Gasto).delete()
+        db.query(Gasto).filter(Gasto.user_id == current_user.id).delete()
         db.flush()
-        gastos_creados, errores = import_gastos_rows(df, db)
+        gastos_creados, errores = import_gastos_rows(df, db, user_id=current_user.id)
         bump_import_version()
 
         watched_path = save_and_watch(
@@ -63,6 +63,7 @@ async def upload_gastos_csv(
             sheet=sheet_name or "",
             original_file_content=contents,
             source_name=file.filename or "",
+            user_id=current_user.id,
         )
 
         mensaje = f"Se cargaron {gastos_creados} gastos exitosamente"
@@ -95,12 +96,14 @@ def get_gastos_analytics(
     date_to: Optional[str] = None,
     group_by: str = "dia",
     db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
 ):
     """
     Retorna todos los datos agregados que necesita la página de Gastos.
     Toda la agregación se hace en SQL.
     """
-    filters = []
+    uid = current_user.id
+    filters = [Gasto.user_id == uid]
     if date_from:
         filters.append(Gasto.fecha >= date_from)
     if date_to:
@@ -131,13 +134,13 @@ def get_gastos_analytics(
     ).limit(1).first()
 
     # ── Serie temporal ──
-    params = {}
+    params = {"uid": uid}
     if date_from:
         params["df"] = date_from
     if date_to:
         params["dt"] = date_to + " 23:59:59"
 
-    where = "WHERE 1=1"
+    where = "WHERE user_id = :uid"
     if date_from:
         where += " AND fecha >= :df"
     if date_to:
@@ -206,12 +209,13 @@ def get_gastos(
     date_from: Optional[str] = None,
     date_to: Optional[str] = None,
     db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
 ):
     """
     Obtiene lista de gastos con paginación y filtro de fechas opcionales.
     limit=0 retorna todos los registros.
     """
-    query = db.query(Gasto)
+    query = db.query(Gasto).filter(Gasto.user_id == current_user.id)
     if date_from:
         query = query.filter(Gasto.fecha >= date_from)
     if date_to:
@@ -225,11 +229,15 @@ def get_gastos(
 
 
 @router.get("/{gasto_id}", response_model=GastoSchema)
-def get_gasto(gasto_id: int, db: Session = Depends(get_db)):
+def get_gasto(
+    gasto_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
     """
     Obtiene un gasto específico por su ID
     """
-    gasto = db.query(Gasto).filter(Gasto.id == gasto_id).first()
+    gasto = db.query(Gasto).filter(Gasto.id == gasto_id, Gasto.user_id == current_user.id).first()
 
     if not gasto:
         raise HTTPException(
@@ -241,12 +249,16 @@ def get_gasto(gasto_id: int, db: Session = Depends(get_db)):
 
 
 @router.post("/", response_model=GastoSchema)
-def create_gasto(gasto: GastoCreate, db: Session = Depends(get_db)):
+def create_gasto(
+    gasto: GastoCreate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
     """
     Crea un nuevo gasto manualmente
     """
     try:
-        db_gasto = Gasto(**gasto.model_dump())
+        db_gasto = Gasto(user_id=current_user.id, **gasto.model_dump())
         db.add(db_gasto)
         db.commit()
         db.refresh(db_gasto)
@@ -264,11 +276,15 @@ def create_gasto(gasto: GastoCreate, db: Session = Depends(get_db)):
 
 
 @router.delete("/{gasto_id}", response_model=MessageResponse)
-def delete_gasto(gasto_id: int, db: Session = Depends(get_db)):
+def delete_gasto(
+    gasto_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
     """
     Elimina un gasto por su ID
     """
-    gasto = db.query(Gasto).filter(Gasto.id == gasto_id).first()
+    gasto = db.query(Gasto).filter(Gasto.id == gasto_id, Gasto.user_id == current_user.id).first()
 
     if not gasto:
         raise HTTPException(
@@ -288,26 +304,30 @@ def delete_gasto(gasto_id: int, db: Session = Depends(get_db)):
 
 
 @router.get("/stats/count")
-def get_gastos_count(db: Session = Depends(get_db)):
+def get_gastos_count(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
     """
-    Obtiene el conteo total de gastos en la base de datos
+    Obtiene el conteo total de gastos del usuario
     """
-    count = db.query(Gasto).count()
+    count = db.query(Gasto).filter(Gasto.user_id == current_user.id).count()
     return {"total_gastos": count}
 
 
 @router.get("/stats/total-por-categoria")
-def get_gastos_por_categoria(db: Session = Depends(get_db)):
+def get_gastos_por_categoria(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
     """
     Obtiene el total de gastos agrupados por categoría
     """
-    from sqlalchemy import func
-
     result = db.query(
         Gasto.categoria,
         func.sum(Gasto.monto).label('total'),
         func.count(Gasto.id).label('cantidad')
-    ).group_by(Gasto.categoria).all()
+    ).filter(Gasto.user_id == current_user.id).group_by(Gasto.categoria).all()
 
     gastos_por_categoria = [
         {

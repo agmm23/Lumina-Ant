@@ -1,6 +1,7 @@
-import { createContext, useContext, useState, useCallback, useMemo } from 'react'
+import { createContext, useContext, useState, useCallback, useMemo, useEffect } from 'react'
 import es from '../locales/es.json'
 import en from '../locales/en.json'
+import { useAuth } from './AuthContext'
 
 const LOCALES = { es, en }
 const LOCALE_MAP = { es: 'es-MX', en: 'en-US' }
@@ -18,13 +19,26 @@ function resolve(obj, path) {
 
 export function LanguageProvider({ children }) {
   const [lang, setLangState] = useState(() => localStorage.getItem('lumina_lang') || 'es')
+  const { user, isAuthenticated, updateConfig } = useAuth()
+
+  // Sincronizar idioma cuando el usuario inicia sesión
+  useEffect(() => {
+    if (user?.config?.language && LOCALES[user.config.language]) {
+      setLangState(user.config.language)
+      localStorage.setItem('lumina_lang', user.config.language)
+    }
+  }, [user])
 
   const setLang = useCallback((newLang) => {
     if (LOCALES[newLang]) {
       setLangState(newLang)
       localStorage.setItem('lumina_lang', newLang)
+      // Persistir en el servidor si hay sesión activa
+      if (isAuthenticated) {
+        updateConfig({ language: newLang }).catch(() => {})
+      }
     }
-  }, [])
+  }, [isAuthenticated, updateConfig])
 
   const translations = LOCALES[lang] || es
 

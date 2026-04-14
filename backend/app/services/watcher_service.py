@@ -2,6 +2,7 @@
 Servicio de vigilancia de fuentes de datos.
 Corre como tarea asyncio en background — pollea cada 5s los archivos configurados.
 Soporta: CSV, Excel (.xlsx/.xls) y Google Sheets.
+Cada WatchedFile pertenece a un usuario; los datos se aislan por user_id.
 """
 
 import asyncio
@@ -106,10 +107,12 @@ def _should_poll_gsheets(datasource_type: str) -> bool:
 # ── Procesamiento ──────────────────────────────────────────────────────────────
 
 def _process_watcher(w: WatchedFile, db: Session) -> None:
-    """Procesa un solo watcher: lee la fuente y sincroniza la DB si hubo cambios."""
+    """Procesa un solo watcher: lee la fuente y sincroniza la DB si hubo cambios.
+    Todos los datos se filtran por w.user_id para aislamiento total."""
     global _import_version
 
     source_type = getattr(w, "source_type", "csv") or "csv"
+    user_id = w.user_id
 
     # Throttle Google Sheets para no saturar la API
     if source_type == "google_sheets" and not _should_poll_gsheets(w.datasource_type):
@@ -125,7 +128,7 @@ def _process_watcher(w: WatchedFile, db: Session) -> None:
     except Exception as e:
         w.last_error = f"Error leyendo {source_type}: {str(e)[:200]}"
         db.commit()
-        logger.warning(f"[Watcher] {w.datasource_type} ({source_type}): {e}")
+        logger.warning(f"[Watcher] {w.datasource_type} user={user_id} ({source_type}): {e}")
         return
 
     # Sin cambios → saltar
@@ -140,26 +143,27 @@ def _process_watcher(w: WatchedFile, db: Session) -> None:
 
         if w.datasource_type == 'ventas':
             df = parse_ventas_df(df)
-            deleted = db.query(Venta).delete()
+            deleted = db.query(Venta).filter(Venta.user_id == user_id).delete()
             db.flush()
-            imported, _ = import_ventas_rows(df.reset_index(drop=True), db)
+            imported, _ = import_ventas_rows(df.reset_index(drop=True), db, user_id=user_id)
             changed = (imported != w.last_row_count) or (deleted != imported)
             w.last_row_count = total_rows
 
         elif w.datasource_type == 'gastos':
             df = parse_gastos_df(df)
-            deleted = db.query(Gasto).delete()
+            deleted = db.query(Gasto).filter(Gasto.user_id == user_id).delete()
             db.flush()
-            imported, _ = import_gastos_rows(df.reset_index(drop=True), db)
+            imported, _ = import_gastos_rows(df.reset_index(drop=True), db, user_id=user_id)
             changed = (imported != w.last_row_count) or (deleted != imported)
             w.last_row_count = total_rows
 
         elif w.datasource_type == 'inventario':
             df = parse_inventario_df(df)
             csv_ids = set(df['producto_id'].astype(str))
-            creados, actualizados, _ = import_inventario_rows(df, db)
+            creados, actualizados, _ = import_inventario_rows(df, db, user_id=user_id)
             orphans = db.query(Inventario).filter(
-                Inventario.producto_id.notin_(csv_ids)
+                Inventario.user_id == user_id,
+                Inventario.producto_id.notin_(csv_ids),
             ).delete(synchronize_session='fetch')
             imported = creados + actualizados
             changed = creados > 0 or orphans > 0
@@ -167,9 +171,10 @@ def _process_watcher(w: WatchedFile, db: Session) -> None:
         elif w.datasource_type == 'clientes':
             df = parse_clientes_df(df)
             csv_ids = set(df['cliente_id'].astype(str))
-            creados, actualizados, _ = import_clientes_rows(df, db)
+            creados, actualizados, _ = import_clientes_rows(df, db, user_id=user_id)
             orphans = db.query(Cliente).filter(
-                Cliente.cliente_id.notin_(csv_ids)
+                Cliente.user_id == user_id,
+                Cliente.cliente_id.notin_(csv_ids),
             ).delete(synchronize_session='fetch')
             imported = creados + actualizados
             changed = creados > 0 or orphans > 0
@@ -188,7 +193,7 @@ def _process_watcher(w: WatchedFile, db: Session) -> None:
         if changed:
             _import_version += 1
             logger.info(
-                f"[Watcher] {w.datasource_type} ({source_type}): "
+                f"[Watcher] {w.datasource_type} user={user_id} ({source_type}): "
                 f"sync — {imported} filas (v{_import_version})"
             )
 
@@ -197,7 +202,7 @@ def _process_watcher(w: WatchedFile, db: Session) -> None:
         w.last_error = str(e)[:1000]
         w.last_mtime = current_mtime
         db.commit()
-        logger.warning(f"[Watcher] {w.datasource_type} error: {e}")
+        logger.warning(f"[Watcher] {w.datasource_type} user={user_id} error: {e}")
 
 
 async def watcher_loop() -> None:
@@ -212,10 +217,13 @@ async def watcher_loop() -> None:
                 for w in watchers:
                     _process_watcher(w, db)
                 if _import_version != version_before:
-                    try:
-                        AnalyticsService.detect_anomalies(db)
-                    except Exception as e:
-                        logger.warning(f"[Watcher] Error en detección de anomalías: {e}")
+                    # Ejecutar detección de anomalías para cada usuario con cambios
+                    user_ids_changed = {w.user_id for w in watchers}
+                    for uid in user_ids_changed:
+                        try:
+                            AnalyticsService.detect_anomalies(db, uid)
+                        except Exception as e:
+                            logger.warning(f"[Watcher] Error en detección de anomalías user={uid}: {e}")
             finally:
                 db.close()
         except Exception as e:

@@ -342,6 +342,24 @@
     }
   },
 
+  "auth": {
+    "login": "Sign in",
+    "register": "Create account",
+    "logout": "Sign out",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "displayName": "Name (optional)",
+    "loginWithGoogle": "Continue with Google",
+    "noAccount": "Don't have an account? Register",
+    "hasAccount": "Already have an account? Sign in",
+    "errorInvalidCredentials": "Incorrect email or password.",
+    "errorEmailTaken": "This email is already registered.",
+    "errorPasswordMismatch": "Passwords do not match.",
+    "errorPasswordShort": "Minimum 8 characters.",
+    "errorGoogle": "Could not sign in with Google."
+  },
+
   "alertCard": {
     "critica": "Critical",
     "aviso": "Warning",

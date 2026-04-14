@@ -5,6 +5,40 @@ const api = axios.create({
   timeout: 10000,
 })
 
+// Adjunta el token JWT a todas las peticiones
+api.interceptors.request.use(config => {
+  const token = localStorage.getItem('lumina_token')
+  if (token) {
+    config.headers['Authorization'] = `Bearer ${token}`
+  }
+  return config
+})
+
+// Si el servidor devuelve 401 (token expirado), limpiar sesión y recargar
+api.interceptors.response.use(
+  res => res,
+  err => {
+    if (err.response?.status === 401 && localStorage.getItem('lumina_token')) {
+      localStorage.removeItem('lumina_token')
+      delete api.defaults.headers.common['Authorization']
+      window.location.reload()
+    }
+    return Promise.reject(err)
+  }
+)
+
+// ── Auth ─────────────────────────────────────────────────────────────────────
+export const authService = {
+  register: (email, password, displayName) =>
+    api.post('/auth/register', { email, password, display_name: displayName }),
+  login: (email, password) =>
+    api.post('/auth/login', { email, password }),
+  loginWithGoogle: (credential) =>
+    api.post('/auth/google', { credential }),
+  getMe: () => api.get('/auth/me'),
+  updateConfig: (patch) => api.patch('/auth/config', patch),
+}
+
 export const analyticsService = {
   getSalesStats: () => api.get('/analytics/stats'),
   getAlerts: (limit = 10, soloNoLeidas = false, tipo = null) => {
@@ -22,10 +56,10 @@ export const analyticsService = {
 }
 
 export const mappingService = {
-  autoMap: (headers, datasourceType, userId = 'default') =>
-    api.post('/mappings/auto-map', { headers, datasource_type: datasourceType, user_id: userId }),
-  save: (datasourceType, mappings, userId = 'default') =>
-    api.post(`/mappings/${datasourceType}`, { mappings, user_id: userId }),
+  autoMap: (headers, datasourceType) =>
+    api.post('/mappings/auto-map', { headers, datasource_type: datasourceType }),
+  save: (datasourceType, mappings) =>
+    api.post(`/mappings/${datasourceType}`, { mappings }),
 }
 
 // Upload genérico: acepta CSV y Excel, con mapping y sheet_name opcionales

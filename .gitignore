@@ -11,6 +11,9 @@ venv/
 # Watcher temp data
 backend/watched_data/
 
+# Datos de usuario importados
+backend/data/
+
 # Node
 node_modules/
 dist/

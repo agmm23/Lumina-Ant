@@ -3,7 +3,7 @@ Lumina_Ant - Modelos de Base de Datos
 Define las tablas y relaciones usando SQLAlchemy ORM
 """
 
-from sqlalchemy import Column, Integer, String, Float, DateTime, Boolean
+from sqlalchemy import Column, Integer, String, Float, DateTime, Boolean, ForeignKey, UniqueConstraint
 from sqlalchemy.sql import func
 from app.database import Base
 
@@ -14,8 +14,9 @@ class Venta(Base):
     Almacena información de cada transacción de venta
     """
     __tablename__ = "ventas"
-    
+
     id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
     fecha = Column(DateTime, nullable=False, index=True)
     producto_id = Column(String(50), nullable=False, index=True)
     nombre_producto = Column(String(200), nullable=False)
@@ -25,7 +26,7 @@ class Venta(Base):
     cliente_id = Column(String(50), nullable=True)
     categoria = Column(String(100), nullable=True, index=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
-    
+
     def __repr__(self):
         return f"<Venta {self.id}: {self.nombre_producto} - ${self.monto_total}>"
 
@@ -36,8 +37,9 @@ class Alerta(Base):
     Registra anomalías y notificaciones detectadas
     """
     __tablename__ = "alertas"
-    
+
     id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
     fecha_creacion = Column(DateTime(timezone=True), server_default=func.now())
     tipo = Column(String(50), nullable=False, index=True)  # 'ventas', 'gastos', 'inventario'
     nivel = Column(String(20), nullable=False)  # 'info', 'warning', 'critical'
@@ -45,7 +47,7 @@ class Alerta(Base):
     mensaje = Column(String(500), nullable=False)
     detalles = Column(String(2000), nullable=True)  # JSON string con info adicional
     leida = Column(Boolean, default=False)
-    
+
     def __repr__(self):
         return f"<Alerta {self.id}: {self.tipo} - {self.nivel}>"
 
@@ -78,6 +80,7 @@ class Gasto(Base):
     __tablename__ = "gastos"
 
     id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
     fecha = Column(DateTime, nullable=False, index=True)
     descripcion = Column(String(300), nullable=False)
     categoria = Column(String(100), nullable=False, index=True)  # 'personal', 'servicios', 'insumos', 'marketing', 'otros'
@@ -99,9 +102,11 @@ class Inventario(Base):
     Almacena información de productos en stock
     """
     __tablename__ = "inventario"
+    __table_args__ = (UniqueConstraint("user_id", "producto_id", name="uq_inventario_user_producto"),)
 
     id = Column(Integer, primary_key=True, index=True)
-    producto_id = Column(String(50), nullable=False, unique=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
+    producto_id = Column(String(50), nullable=False, index=True)
     nombre_producto = Column(String(200), nullable=False)
     descripcion = Column(String(500), nullable=True)
     categoria = Column(String(100), nullable=True, index=True)
@@ -125,9 +130,11 @@ class Cliente(Base):
     Almacena información de clientes del negocio
     """
     __tablename__ = "clientes"
+    __table_args__ = (UniqueConstraint("user_id", "cliente_id", name="uq_clientes_user_cliente"),)
 
     id = Column(Integer, primary_key=True, index=True)
-    cliente_id = Column(String(50), nullable=False, unique=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
+    cliente_id = Column(String(50), nullable=False, index=True)
     nombre = Column(String(200), nullable=False)
     email = Column(String(200), nullable=True, index=True)
     telefono = Column(String(50), nullable=True)
@@ -153,7 +160,7 @@ class ColumnMapping(Base):
     __tablename__ = "column_mappings"
 
     id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(String(100), nullable=False, default="default", index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
     datasource_type = Column(String(50), nullable=False, index=True)
     original_column = Column(String(200), nullable=False)
     mapped_column = Column(String(200), nullable=False)
@@ -161,21 +168,25 @@ class ColumnMapping(Base):
 
 
 class AlertConfig(Base):
-    """Configuración de reglas de alerta: el usuario elige cuáles activar."""
+    """Configuración de reglas de alerta por usuario: el usuario elige cuáles activar."""
     __tablename__ = "alert_configs"
+    __table_args__ = (UniqueConstraint("user_id", "rule_id", name="uq_alertconfig_user_rule"),)
 
     id = Column(Integer, primary_key=True, index=True)
-    rule_id = Column(String(50), nullable=False, unique=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
+    rule_id = Column(String(50), nullable=False)
     enabled = Column(Boolean, default=True)
     params = Column(String(1000), nullable=True)  # JSON string, ej: {"dias": 5}
 
 
 class WatchedFile(Base):
-    """Fuente de datos monitoreada para importación automática."""
+    """Fuente de datos monitoreada para importación automática, por usuario."""
     __tablename__ = "watched_files"
+    __table_args__ = (UniqueConstraint("user_id", "datasource_type", name="uq_watchedfile_user_type"),)
 
     id = Column(Integer, primary_key=True, index=True)
-    datasource_type = Column(String(20), nullable=False, unique=True)  # ventas|gastos|inventario|clientes
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
+    datasource_type = Column(String(20), nullable=False)  # ventas|gastos|inventario|clientes
     file_path = Column(String(500), nullable=False)
     enabled = Column(Boolean, default=True)
 

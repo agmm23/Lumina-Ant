@@ -10,6 +10,8 @@ from typing import List, Dict, Any, Optional
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.services.chat_service import get_chat_service, SUGGESTED_PROMPTS
+from app.auth.dependencies import get_current_user
+from app.auth.models import User
 import os, glob, json
 import logging
 
@@ -41,13 +43,17 @@ class SuggestedPromptsResponse(BaseModel):
 # ── Endpoints ───────────────────────────────────────────────────────
 
 @router.post("/", response_model=ChatResponse)
-async def chat(request: ChatRequest, db: Session = Depends(get_db)):
+async def chat(
+    request: ChatRequest,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
     """
     Envía un mensaje al Copilot IA y recibe una respuesta completa
-    basada en los datos reales del negocio.
+    basada en los datos reales del negocio del usuario.
     """
     service = get_chat_service()
-    result = await service.chat(request.message, request.history, db)
+    result = await service.chat(request.message, request.history, db, user_id=current_user.id)
 
     result["suggested_followups"] = service.get_followups(
         result.get("intents", []),
@@ -59,7 +65,11 @@ async def chat(request: ChatRequest, db: Session = Depends(get_db)):
 
 
 @router.post("/stream")
-async def chat_stream(request: ChatRequest, db: Session = Depends(get_db)):
+async def chat_stream(
+    request: ChatRequest,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
     """
     Streaming del Copilot IA via Server-Sent Events (SSE).
     Cada evento tiene el formato: data: {"type": "delta"|"done"|"error", ...}
@@ -67,7 +77,7 @@ async def chat_stream(request: ChatRequest, db: Session = Depends(get_db)):
     service = get_chat_service()
 
     return StreamingResponse(
-        service.stream_chat(request.message, request.history, db),
+        service.stream_chat(request.message, request.history, db, user_id=current_user.id),
         media_type="text/event-stream",
         headers={
             "Cache-Control": "no-cache",
@@ -78,13 +88,16 @@ async def chat_stream(request: ChatRequest, db: Session = Depends(get_db)):
 
 
 @router.get("/suggested-prompts", response_model=SuggestedPromptsResponse)
-def get_suggested_prompts():
+def get_suggested_prompts(current_user: User = Depends(get_current_user)):
     """Retorna las preguntas sugeridas para el chat."""
     return {"prompts": SUGGESTED_PROMPTS}
 
 
 @router.get("/stats")
-def get_chat_stats(days: int = 7):
+def get_chat_stats(
+    days: int = 7,
+    current_user: User = Depends(get_current_user),
+):
     """
     Estadísticas agregadas de uso del chat leyendo los logs JSONL.
     Retorna: consultas totales, tokens consumidos, costo estimado, intents más usados.
@@ -132,7 +145,6 @@ def get_chat_stats(days: int = 7):
         by_day[day] = day_stats
 
     # Costo estimado con Claude Haiku (precios públicos a 2025)
-    # Input: $0.80/1M tokens, Output: $4.00/1M tokens
     cost_usd = (total_input * 0.80 + total_output * 4.00) / 1_000_000
 
     top_intents = sorted(intent_counts.items(), key=lambda x: x[1], reverse=True)[:5]

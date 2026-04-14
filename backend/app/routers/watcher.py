@@ -11,6 +11,8 @@ from typing import Optional
 from app.database import get_db
 from app.models.models import WatchedFile, Venta, Gasto, Inventario, Cliente
 from app.services.watcher_service import get_import_version
+from app.auth.dependencies import get_current_user
+from app.auth.models import User
 
 router = APIRouter(prefix="/api/watcher", tags=["watcher"])
 
@@ -47,9 +49,12 @@ def _watcher_dict(w):
 
 
 @router.get("/status")
-def get_status(db: Session = Depends(get_db)):
+def get_status(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
     """Endpoint ligero para polling del frontend."""
-    watchers = db.query(WatchedFile).all()
+    watchers = db.query(WatchedFile).filter(WatchedFile.user_id == current_user.id).all()
     return {
         "import_version": get_import_version(),
         "watchers": [_watcher_dict(w) for w in watchers],
@@ -57,17 +62,29 @@ def get_status(db: Session = Depends(get_db)):
 
 
 @router.get("/")
-def list_watchers(db: Session = Depends(get_db)):
-    watchers = db.query(WatchedFile).all()
+def list_watchers(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    watchers = db.query(WatchedFile).filter(WatchedFile.user_id == current_user.id).all()
     return [_watcher_dict(w) for w in watchers]
 
 
 @router.put("/{datasource_type}")
-def upsert_watcher(datasource_type: str, body: WatcherUpsert, db: Session = Depends(get_db)):
+def upsert_watcher(
+    datasource_type: str,
+    body: WatcherUpsert,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
     if datasource_type not in VALID_TYPES:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, f"Tipo inválido. Usa: {VALID_TYPES}")
 
-    w = db.query(WatchedFile).filter(WatchedFile.datasource_type == datasource_type).first()
+    uid = current_user.id
+    w = db.query(WatchedFile).filter(
+        WatchedFile.user_id == uid,
+        WatchedFile.datasource_type == datasource_type,
+    ).first()
     if w:
         w.file_path = body.file_path
         if body.source_type is not None:
@@ -81,6 +98,7 @@ def upsert_watcher(datasource_type: str, body: WatcherUpsert, db: Session = Depe
         w.enabled = True
     else:
         w = WatchedFile(
+            user_id=uid,
             datasource_type=datasource_type,
             file_path=body.file_path,
             source_type=body.source_type or "csv",
@@ -93,8 +111,16 @@ def upsert_watcher(datasource_type: str, body: WatcherUpsert, db: Session = Depe
 
 
 @router.patch("/{datasource_type}")
-def patch_watcher(datasource_type: str, body: WatcherPatch, db: Session = Depends(get_db)):
-    w = db.query(WatchedFile).filter(WatchedFile.datasource_type == datasource_type).first()
+def patch_watcher(
+    datasource_type: str,
+    body: WatcherPatch,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    w = db.query(WatchedFile).filter(
+        WatchedFile.user_id == current_user.id,
+        WatchedFile.datasource_type == datasource_type,
+    ).first()
     if not w:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Watcher no encontrado")
 
@@ -118,14 +144,22 @@ _DATA_MODEL_MAP = {
 
 
 @router.delete("/{datasource_type}")
-def delete_watcher(datasource_type: str, db: Session = Depends(get_db)):
-    w = db.query(WatchedFile).filter(WatchedFile.datasource_type == datasource_type).first()
+def delete_watcher(
+    datasource_type: str,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    uid = current_user.id
+    w = db.query(WatchedFile).filter(
+        WatchedFile.user_id == uid,
+        WatchedFile.datasource_type == datasource_type,
+    ).first()
     if not w:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Watcher no encontrado")
-    # Borrar también los datos importados de esta fuente
+    # Borrar también los datos importados de esta fuente para el usuario
     model = _DATA_MODEL_MAP.get(datasource_type)
     if model:
-        db.query(model).delete()
+        db.query(model).filter(model.user_id == uid).delete()
     db.delete(w)
     db.commit()
     return {"status": "ok"}

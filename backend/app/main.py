@@ -13,6 +13,7 @@ import asyncio
 from app.config import get_settings
 from app.database import engine, Base, SessionLocal
 from app.routers import ventas, analytics, gastos, inventarios, clientes, mappings, watcher, chat, import_router
+from app.auth import router as auth_router
 from app.services.watcher_service import watcher_loop
 from app.models.models import AlertConfig
 
@@ -42,6 +43,16 @@ def _migrate_db():
     from sqlalchemy import text
     migrations = [
         "ALTER TABLE watched_files ADD COLUMN source_name VARCHAR(500)",
+        # Aislamiento por usuario: añadir user_id a todas las tablas de datos
+        "ALTER TABLE ventas ADD COLUMN user_id INTEGER NOT NULL DEFAULT 1",
+        "ALTER TABLE gastos ADD COLUMN user_id INTEGER NOT NULL DEFAULT 1",
+        "ALTER TABLE inventario ADD COLUMN user_id INTEGER NOT NULL DEFAULT 1",
+        "ALTER TABLE clientes ADD COLUMN user_id INTEGER NOT NULL DEFAULT 1",
+        "ALTER TABLE alertas ADD COLUMN user_id INTEGER NOT NULL DEFAULT 1",
+        "ALTER TABLE alert_configs ADD COLUMN user_id INTEGER NOT NULL DEFAULT 1",
+        "ALTER TABLE watched_files ADD COLUMN user_id INTEGER NOT NULL DEFAULT 1",
+        # column_mappings: renombrar user_id string → entero
+        "ALTER TABLE column_mappings ADD COLUMN user_id_new INTEGER NOT NULL DEFAULT 1",
     ]
     with engine.connect() as conn:
         for sql in migrations:
@@ -52,18 +63,17 @@ def _migrate_db():
                 pass  # columna ya existe → ignorar
 
 
-def _seed_alert_configs():
-    """Inserta las reglas estándar si no existen."""
-    db = SessionLocal()
-    try:
-        existing = {r.rule_id for r in db.query(AlertConfig).all()}
-        for rule_id in ALERT_RULES:
-            if rule_id not in existing:
-                db.add(AlertConfig(rule_id=rule_id, enabled=True))
-        db.commit()
-        logger.info(f"Alert configs seeded: {len(ALERT_RULES)} reglas")
-    finally:
-        db.close()
+def seed_alert_configs_for_user(db, user_id: int):
+    """Inserta las reglas estándar para un usuario si aún no existen."""
+    existing = {
+        r.rule_id
+        for r in db.query(AlertConfig).filter(AlertConfig.user_id == user_id).all()
+    }
+    for rule_id in ALERT_RULES:
+        if rule_id not in existing:
+            db.add(AlertConfig(rule_id=rule_id, enabled=True, user_id=user_id))
+    db.commit()
+    logger.info(f"Alert configs seeded para user_id={user_id}: {len(ALERT_RULES)} reglas")
 
 
 @asynccontextmanager
@@ -73,7 +83,6 @@ async def lifespan(app: FastAPI):
     logger.info(f"📊 Base de datos: {settings.database_url}")
     logger.info(f"🤖 IA: {'Configurada' if settings.anthropic_api_key else 'No configurada'}")
     _migrate_db()
-    _seed_alert_configs()
     watcher_task = asyncio.create_task(watcher_loop())
     logger.info("✅ Aplicación lista para recibir requests")
     yield
@@ -131,8 +140,9 @@ app.include_router(mappings.router)
 app.include_router(watcher.router)
 app.include_router(chat.router)
 app.include_router(import_router.router)
+app.include_router(auth_router)
 
-logger.info("Routers registrados: ventas, gastos, inventarios, clientes, analytics, mappings, watcher, chat, import")
+logger.info("Routers registrados: ventas, gastos, inventarios, clientes, analytics, mappings, watcher, chat, import, auth")
 
 
 # Endpoints raíz

@@ -28,6 +28,12 @@ pydantic-settings==2.5.0
 # HTTP Client (opcional, para futuras integraciones)
 httpx==0.26.0
 
+# Autenticación
+python-jose[cryptography]==3.3.0
+bcrypt>=4.0.0
+google-auth>=2.47.0,<3.0.0
+email-validator==2.1.1
+
 # Testing
 pytest==8.3.4
 pytest-asyncio==0.24.0

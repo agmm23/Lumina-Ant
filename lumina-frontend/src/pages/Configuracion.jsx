@@ -1160,7 +1160,7 @@ function AlertasSection() {
 // ── Language Section ───────────────────────────────────────────────────────────
 
 const LANGUAGES = [
-  { id: 'es', flag: '🇲🇽', label: 'Español', desc: 'Interfaz en español' },
+  { id: 'es', flag: '🇪🇸', label: 'Español', desc: 'Interfaz en español' },
   { id: 'en', flag: '🇺🇸', label: 'English', desc: 'English interface' },
 ]
 

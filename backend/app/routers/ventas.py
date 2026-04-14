@@ -6,9 +6,6 @@ Endpoints para gestión de ventas: CRUD y carga de archivos CSV
 from fastapi import APIRouter, Depends, UploadFile, File, Form, HTTPException, status
 from sqlalchemy.orm import Session
 from typing import List, Optional
-import pandas as pd
-from datetime import datetime
-from io import BytesIO
 import json
 import logging
 
@@ -23,6 +20,8 @@ from app.schemas.schemas import (
 from app.services.csv_import import parse_ventas_df, import_ventas_rows, save_and_watch
 from app.services.data_reader import create_reader, detect_source_type
 from app.services.watcher_service import bump_import_version
+from app.auth.dependencies import get_current_user
+from app.auth.models import User
 
 logger = logging.getLogger(__name__)
 
@@ -34,7 +33,8 @@ async def upload_ventas_csv(
     file: UploadFile = File(...),
     column_mapping: Optional[str] = Form(None),
     sheet_name: Optional[str] = Form(None),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
 ):
     """
     Carga un archivo CSV o Excel con ventas.
@@ -52,9 +52,9 @@ async def upload_ventas_csv(
             df = df.rename(columns=mapping)
 
         df = parse_ventas_df(df)
-        db.query(Venta).delete()
+        db.query(Venta).filter(Venta.user_id == current_user.id).delete()
         db.flush()
-        ventas_creadas, errores = import_ventas_rows(df, db)
+        ventas_creadas, errores = import_ventas_rows(df, db, user_id=current_user.id)
         bump_import_version()
 
         watched_path = save_and_watch(
@@ -63,6 +63,7 @@ async def upload_ventas_csv(
             sheet=sheet_name or "",
             original_file_content=contents,
             source_name=file.filename or "",
+            user_id=current_user.id,
         )
 
         mensaje = f"Se cargaron {ventas_creadas} ventas exitosamente"
@@ -94,12 +95,14 @@ def get_ventas_analytics(
     date_to: Optional[str] = None,
     group_by: str = "dia",
     db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
 ):
     """
     Retorna todos los datos agregados que necesita la página de Ventas.
     Toda la agregación se hace en SQL — no se cargan registros crudos en memoria.
     """
-    filters = []
+    uid = current_user.id
+    filters = [Venta.user_id == uid]
     if date_from:
         filters.append(Venta.fecha >= date_from)
     if date_to:
@@ -130,13 +133,13 @@ def get_ventas_analytics(
     ).limit(1).first()
 
     # ── Serie temporal ──
-    params = {}
+    params = {"uid": uid}
     if date_from:
         params["df"] = date_from
     if date_to:
         params["dt"] = date_to + " 23:59:59"
 
-    where = "WHERE 1=1"
+    where = "WHERE user_id = :uid"
     if date_from:
         where += " AND fecha >= :df"
     if date_to:
@@ -205,12 +208,13 @@ def get_ventas(
     date_from: Optional[str] = None,
     date_to: Optional[str] = None,
     db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
 ):
     """
     Obtiene lista de ventas con paginación y filtro de fechas opcionales.
     limit=0 retorna todos los registros.
     """
-    query = db.query(Venta)
+    query = db.query(Venta).filter(Venta.user_id == current_user.id)
     if date_from:
         query = query.filter(Venta.fecha >= date_from)
     if date_to:
@@ -224,39 +228,47 @@ def get_ventas(
 
 
 @router.get("/{venta_id}", response_model=VentaSchema)
-def get_venta(venta_id: int, db: Session = Depends(get_db)):
+def get_venta(
+    venta_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
     """
     Obtiene una venta específica por su ID
     """
-    venta = db.query(Venta).filter(Venta.id == venta_id).first()
-    
+    venta = db.query(Venta).filter(Venta.id == venta_id, Venta.user_id == current_user.id).first()
+
     if not venta:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Venta con ID {venta_id} no encontrada"
         )
-    
+
     return venta
 
 
 @router.delete("/{venta_id}", response_model=MessageResponse)
-def delete_venta(venta_id: int, db: Session = Depends(get_db)):
+def delete_venta(
+    venta_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
     """
     Elimina una venta por su ID
     """
-    venta = db.query(Venta).filter(Venta.id == venta_id).first()
-    
+    venta = db.query(Venta).filter(Venta.id == venta_id, Venta.user_id == current_user.id).first()
+
     if not venta:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Venta con ID {venta_id} no encontrada"
         )
-    
+
     db.delete(venta)
     db.commit()
-    
+
     logger.info(f"Venta {venta_id} eliminada")
-    
+
     return MessageResponse(
         status="success",
         message=f"Venta {venta_id} eliminada exitosamente"
@@ -264,9 +276,12 @@ def delete_venta(venta_id: int, db: Session = Depends(get_db)):
 
 
 @router.get("/stats/count")
-def get_ventas_count(db: Session = Depends(get_db)):
+def get_ventas_count(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
     """
-    Obtiene el conteo total de ventas en la base de datos
+    Obtiene el conteo total de ventas del usuario
     """
-    count = db.query(Venta).count()
+    count = db.query(Venta).filter(Venta.user_id == current_user.id).count()
     return {"total_ventas": count}

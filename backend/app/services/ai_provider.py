@@ -79,15 +79,30 @@ class ClaudeProvider(AIProvider):
         logger.info(f"ClaudeProvider iniciado (modelo: {model})")
 
     def chat_completion(self, system_prompt: str, messages: List[Dict[str, str]], max_tokens: int = 1500) -> str:
+        # cache_control: ephemeral → Claude cachea el system prompt si supera el mínimo de tokens.
+        # Para prompts cortos simplemente se ignora sin coste adicional.
         response = self.client.messages.create(
             model=self.model,
             max_tokens=max_tokens,
-            system=system_prompt,
+            system=[{"type": "text", "text": system_prompt, "cache_control": {"type": "ephemeral"}}],
             messages=messages,
         )
         inp = response.usage.input_tokens
         out = response.usage.output_tokens
-        self._last_usage = {"input_tokens": inp, "output_tokens": out, "total_tokens": inp + out, "source": "exact"}
+        cache_created = getattr(response.usage, "cache_creation_input_tokens", 0) or 0
+        cache_read = getattr(response.usage, "cache_read_input_tokens", 0) or 0
+        self._last_usage = {
+            "input_tokens": inp,
+            "output_tokens": out,
+            "total_tokens": inp + out,
+            "cache_creation_input_tokens": cache_created,
+            "cache_read_input_tokens": cache_read,
+            "source": "exact",
+        }
+        if cache_read:
+            logger.debug(f"Claude cache HIT: {cache_read} tokens ahorrados")
+        elif cache_created:
+            logger.debug(f"Claude cache CREATED: {cache_created} tokens almacenados")
         return response.content[0].text
 
     def single_prompt(self, prompt: str, max_tokens: int = 1500) -> str:
@@ -113,19 +128,32 @@ class ClaudeProvider(AIProvider):
         async with async_client.messages.stream(
             model=self.model,
             max_tokens=max_tokens,
-            system=system_prompt,
+            system=[{"type": "text", "text": system_prompt, "cache_control": {"type": "ephemeral"}}],
             messages=messages,
         ) as stream:
             async for text in stream.text_stream:
                 yield text
-            # Capturar usage después de agotar el stream (antes de salir del context manager)
+            # get_final_message() es la forma oficial de obtener usage tras el stream
             try:
-                usage = stream.usage
-                inp = usage.input_tokens
-                out = usage.output_tokens
-                self._last_usage = {"input_tokens": inp, "output_tokens": out, "total_tokens": inp + out, "source": "exact"}
-            except Exception:
-                pass
+                final = await stream.get_final_message()
+                inp = final.usage.input_tokens
+                out = final.usage.output_tokens
+                cache_created = getattr(final.usage, "cache_creation_input_tokens", 0) or 0
+                cache_read = getattr(final.usage, "cache_read_input_tokens", 0) or 0
+                self._last_usage = {
+                    "input_tokens": inp,
+                    "output_tokens": out,
+                    "total_tokens": inp + out,
+                    "cache_creation_input_tokens": cache_created,
+                    "cache_read_input_tokens": cache_read,
+                    "source": "exact",
+                }
+                if cache_read:
+                    logger.debug(f"Claude stream cache HIT: {cache_read} tokens ahorrados")
+                elif cache_created:
+                    logger.debug(f"Claude stream cache CREATED: {cache_created} tokens almacenados")
+            except Exception as e:
+                logger.warning(f"No se pudo capturar usage del stream Claude: {e}")
 
     @property
     def provider_name(self) -> str:

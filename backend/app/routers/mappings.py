@@ -17,6 +17,8 @@ from app.schemas.schemas import (
 from app.services.mapping_service import (
     auto_map, detect_structure_change, DATASOURCE_COLUMNS,
 )
+from app.auth.dependencies import get_current_user
+from app.auth.models import User
 
 logger = logging.getLogger(__name__)
 
@@ -24,14 +26,20 @@ router = APIRouter(prefix="/api/mappings", tags=["mappings"])
 
 
 @router.post("/auto-map", response_model=AutoMapResponse)
-def auto_map_columns(request: AutoMapRequest, db: Session = Depends(get_db)):
+def auto_map_columns(
+    request: AutoMapRequest,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
     """
     Recibe headers de un CSV + tipo de datasource y retorna sugerencias de mapeo.
     Consulta mappings guardados en DB para mejorar las sugerencias.
     """
-    # Cargar mappings guardados
+    uid = current_user.id
+
+    # Cargar mappings guardados del usuario autenticado
     saved_rows = db.query(ColumnMapping).filter(
-        ColumnMapping.user_id == request.user_id,
+        ColumnMapping.user_id == uid,
         ColumnMapping.datasource_type == request.datasource_type,
     ).all()
     saved_mappings = {row.original_column: row.mapped_column for row in saved_rows}
@@ -54,7 +62,7 @@ def auto_map_columns(request: AutoMapRequest, db: Session = Depends(get_db)):
     all_mapped = len(unmapped_required) == 0
 
     logger.info(
-        f"Auto-map {request.datasource_type}: {len(suggestions)} headers, "
+        f"Auto-map {request.datasource_type} user={uid}: {len(suggestions)} headers, "
         f"all_mapped={all_mapped}, saved={has_saved}, changed={structure_changed}"
     )
 
@@ -73,14 +81,17 @@ def save_mappings(
     datasource_type: str,
     request: SaveMappingRequest,
     db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
 ):
     """
     Guarda mapeos confirmados. Reemplaza todos los mapeos previos
     para este usuario+datasource.
     """
-    # Eliminar mapeos anteriores
+    uid = current_user.id
+
+    # Eliminar mapeos anteriores del usuario
     db.query(ColumnMapping).filter(
-        ColumnMapping.user_id == request.user_id,
+        ColumnMapping.user_id == uid,
         ColumnMapping.datasource_type == datasource_type,
     ).delete()
 
@@ -88,14 +99,14 @@ def save_mappings(
     for original, mapped in request.mappings.items():
         if mapped:  # Solo guardar los que tienen destino
             db.add(ColumnMapping(
-                user_id=request.user_id,
+                user_id=uid,
                 datasource_type=datasource_type,
                 original_column=original,
                 mapped_column=mapped,
             ))
 
     db.commit()
-    logger.info(f"Guardados {len(request.mappings)} mappings para {datasource_type} (user={request.user_id})")
+    logger.info(f"Guardados {len(request.mappings)} mappings para {datasource_type} (user={uid})")
 
     return MessageResponse(
         status="success",

@@ -11,7 +11,7 @@ Tests del router de analytics:
 
 import pytest
 from datetime import datetime, timedelta
-from tests.conftest import make_venta, make_gasto, make_inventario
+from tests.conftest import make_venta, make_gasto, make_inventario, TEST_USER_ID
 from app.models.models import Alerta, AlertConfig
 
 
@@ -56,6 +56,7 @@ class TestStats:
 class TestAlertas:
     def _crear_alerta(self, db, tipo="ventas", nivel="warning", leida=False, rule_id="ventas_caida"):
         a = Alerta(
+            user_id=TEST_USER_ID,
             tipo=tipo,
             nivel=nivel,
             rule_id=rule_id,
@@ -111,7 +112,7 @@ class TestAlertas:
 
     def test_alertas_solo_reglas_habilitadas(self, client, db):
         # Deshabilitar una regla
-        config = db.query(AlertConfig).filter(AlertConfig.rule_id == "ventas_caida").first()
+        config = db.query(AlertConfig).filter(AlertConfig.user_id == TEST_USER_ID, AlertConfig.rule_id == "ventas_caida").first()
         config.enabled = False
         db.commit()
 
@@ -127,7 +128,7 @@ class TestAlertas:
 
 class TestMarcarLeida:
     def test_marcar_alerta_leida(self, client, db):
-        a = Alerta(tipo="ventas", nivel="warning", rule_id="ventas_caida",
+        a = Alerta(user_id=TEST_USER_ID, tipo="ventas", nivel="warning", rule_id="ventas_caida",
                    mensaje="Test", leida=False)
         db.add(a)
         db.commit()

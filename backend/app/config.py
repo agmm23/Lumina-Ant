@@ -39,6 +39,15 @@ class Settings(BaseSettings):
     # Solo necesaria para importar desde Google Sheets
     google_sheets_api_key: str = ""
     
+    # ── Autenticación ────────────────────────────────────────────
+    jwt_secret_key: str = "CHANGE_ME_IN_PRODUCTION_USE_32_CHARS"
+    jwt_algorithm: str = "HS256"
+    jwt_expire_hours: int = 8
+
+    # Google OAuth — Client ID de Google Cloud Console (Web application)
+    # Dejar vacío para deshabilitar el login con Google
+    google_client_id: str = ""
+
     # CORS - Orígenes permitidos
     cors_origins: List[str] = [
         "http://localhost:3000",

@@ -15,6 +15,10 @@ from app.database import Base
 from app.models.models import (
     Venta, Gasto, Inventario, Cliente, Alerta, AlertConfig,
 )
+from app.auth.models import User, UserConfig
+from app.auth.service import hash_password
+
+TEST_UID = 1
 from app.services.csv_import import (
     parse_ventas_df, import_ventas_rows,
     parse_gastos_df, import_gastos_rows,
@@ -42,21 +46,35 @@ def unit_engine():
 def unit_db(unit_engine):
     Session = sessionmaker(bind=unit_engine)
     session = Session()
-    # Sembrar AlertConfig
+    # Crear usuario de test si no existe
+    if not session.query(User).filter(User.id == TEST_UID).first():
+        user = User(
+            id=TEST_UID,
+            email="unit@test.com",
+            hashed_password=hash_password("testpass"),
+            display_name="Unit User",
+            is_active=True,
+        )
+        session.add(user)
+        session.flush()
+        session.add(UserConfig(user_id=TEST_UID))
+        session.commit()
+    # Sembrar AlertConfig con user_id
     rules = [
         "ventas_caida", "ventas_criticas", "ventas_tendencia",
         "gastos_pico", "gastos_excesivos", "gastos_tendencia",
         "inventario_bajo", "inventario_sin_stock",
     ]
-    existing = {r.rule_id for r in session.query(AlertConfig).all()}
+    existing = {r.rule_id for r in session.query(AlertConfig).filter(AlertConfig.user_id == TEST_UID).all()}
     for r in rules:
         if r not in existing:
-            session.add(AlertConfig(rule_id=r, enabled=True))
+            session.add(AlertConfig(rule_id=r, enabled=True, user_id=TEST_UID))
     session.commit()
     yield session
     # Limpiar datos después de cada test
     for Model in [Venta, Gasto, Inventario, Cliente, Alerta]:
         session.query(Model).delete()
+    session.query(AlertConfig).filter(AlertConfig.user_id == TEST_UID).delete()
     session.commit()
     session.close()
 
@@ -120,7 +138,7 @@ class TestImportVentasRows:
             "monto_total": 30000.0,
             "categoria": "Electrónica",
         }])
-        count, errores = import_ventas_rows(df, unit_db)
+        count, errores = import_ventas_rows(df, unit_db, user_id=TEST_UID)
         assert count == 1
         assert errores == []
         assert unit_db.query(Venta).count() == 1
@@ -132,7 +150,7 @@ class TestImportVentasRows:
             {"fecha": pd.Timestamp("2024-01-02"), "producto_id": "P002",
              "nombre_producto": "B", "cantidad": 2, "precio_unitario": 200.0, "monto_total": 400.0},
         ])
-        count, errores = import_ventas_rows(df, unit_db)
+        count, errores = import_ventas_rows(df, unit_db, user_id=TEST_UID)
         assert count == 2
         assert errores == []
 
@@ -207,27 +225,27 @@ class TestParseClientesDf:
 
 class TestCalculateStats:
     def test_sin_ventas_retorna_ceros(self, unit_db):
-        stats = AnalyticsService.calculate_stats(unit_db)
+        stats = AnalyticsService.calculate_stats(unit_db, user_id=TEST_UID)
         assert stats["total_ventas"] == 0.0
         assert stats["cantidad_transacciones"] == 0
         assert stats["producto_mas_vendido"] == "N/A"
 
     def test_con_ventas_calcula_correctamente(self, unit_db):
         unit_db.add(Venta(
-            fecha=datetime(2024, 1, 1),
+            user_id=TEST_UID, fecha=datetime(2024, 1, 1),
             producto_id="P001", nombre_producto="Laptop",
             cantidad=2, precio_unitario=15000.0, monto_total=30000.0,
             categoria="Electrónica",
         ))
         unit_db.add(Venta(
-            fecha=datetime(2024, 1, 2),
+            user_id=TEST_UID, fecha=datetime(2024, 1, 2),
             producto_id="P002", nombre_producto="Mouse",
             cantidad=5, precio_unitario=500.0, monto_total=2500.0,
             categoria="Accesorios",
         ))
         unit_db.commit()
 
-        stats = AnalyticsService.calculate_stats(unit_db)
+        stats = AnalyticsService.calculate_stats(unit_db, user_id=TEST_UID)
         assert stats["total_ventas"] == pytest.approx(32500.0)
         assert stats["cantidad_transacciones"] == 2
         assert stats["ticket_promedio"] == pytest.approx(16250.0)
@@ -237,18 +255,18 @@ class TestCalculateStats:
     def test_producto_mas_vendido_es_el_mas_frecuente(self, unit_db):
         for _ in range(3):
             unit_db.add(Venta(
-                fecha=datetime(2024, 1, 1),
+                user_id=TEST_UID, fecha=datetime(2024, 1, 1),
                 producto_id="P001", nombre_producto="Laptop",
                 cantidad=1, precio_unitario=100.0, monto_total=100.0,
             ))
         unit_db.add(Venta(
-            fecha=datetime(2024, 1, 1),
+            user_id=TEST_UID, fecha=datetime(2024, 1, 1),
             producto_id="P002", nombre_producto="Mouse",
             cantidad=1, precio_unitario=50.0, monto_total=50.0,
         ))
         unit_db.commit()
 
-        stats = AnalyticsService.calculate_stats(unit_db)
+        stats = AnalyticsService.calculate_stats(unit_db, user_id=TEST_UID)
         assert stats["producto_mas_vendido"] == "Laptop"
 
 
@@ -256,23 +274,23 @@ class TestCalculateStats:
 
 class TestGetTopProducts:
     def test_sin_ventas_retorna_lista_vacia(self, unit_db):
-        result = AnalyticsService.get_top_products(unit_db, limit=5)
+        result = AnalyticsService.get_top_products(unit_db, user_id=TEST_UID, limit=5)
         assert result == []
 
     def test_retorna_top_por_monto(self, unit_db):
         unit_db.add(Venta(
-            fecha=datetime(2024, 1, 1),
+            user_id=TEST_UID, fecha=datetime(2024, 1, 1),
             producto_id="P001", nombre_producto="Cara",
             cantidad=1, precio_unitario=50000.0, monto_total=50000.0,
         ))
         unit_db.add(Venta(
-            fecha=datetime(2024, 1, 1),
+            user_id=TEST_UID, fecha=datetime(2024, 1, 1),
             producto_id="P002", nombre_producto="Barata",
             cantidad=10, precio_unitario=100.0, monto_total=1000.0,
         ))
         unit_db.commit()
 
-        result = AnalyticsService.get_top_products(unit_db, limit=2)
+        result = AnalyticsService.get_top_products(unit_db, user_id=TEST_UID, limit=2)
         assert len(result) == 2
         assert result[0]["nombre"] == "Cara"
         assert result[0]["monto_total"] == pytest.approx(50000.0)
@@ -280,14 +298,14 @@ class TestGetTopProducts:
     def test_limit_respetado(self, unit_db):
         for i in range(10):
             unit_db.add(Venta(
-                fecha=datetime(2024, 1, 1),
+                user_id=TEST_UID, fecha=datetime(2024, 1, 1),
                 producto_id=f"P{i:03d}", nombre_producto=f"Producto {i}",
                 cantidad=1, precio_unitario=float(i + 1) * 100,
                 monto_total=float(i + 1) * 100,
             ))
         unit_db.commit()
 
-        result = AnalyticsService.get_top_products(unit_db, limit=3)
+        result = AnalyticsService.get_top_products(unit_db, user_id=TEST_UID, limit=3)
         assert len(result) == 3
 
 
@@ -295,64 +313,65 @@ class TestGetTopProducts:
 
 class TestDetectAnomalies:
     def test_sin_datos_no_genera_alertas(self, unit_db):
-        alertas = AnalyticsService.detect_anomalies(unit_db)
+        alertas = AnalyticsService.detect_anomalies(unit_db, user_id=TEST_UID)
         assert alertas == []
 
     def test_inventario_bajo_genera_alerta(self, unit_db):
         unit_db.add(Inventario(
-            producto_id="INV-001",
+            user_id=TEST_UID, producto_id="INV-001",
             nombre_producto="Stock Bajo",
             cantidad_actual=2,
             cantidad_minima=10,
         ))
         unit_db.commit()
 
-        alertas = AnalyticsService.detect_anomalies(unit_db)
+        alertas = AnalyticsService.detect_anomalies(unit_db, user_id=TEST_UID)
         tipos = [a.tipo for a in alertas]
         assert "inventario" in tipos
 
     def test_inventario_sin_stock_genera_alerta_critica(self, unit_db):
         unit_db.add(Inventario(
-            producto_id="INV-002",
+            user_id=TEST_UID, producto_id="INV-002",
             nombre_producto="Sin Stock",
             cantidad_actual=0,
         ))
         unit_db.commit()
 
-        alertas = AnalyticsService.detect_anomalies(unit_db)
+        alertas = AnalyticsService.detect_anomalies(unit_db, user_id=TEST_UID)
         criticas = [a for a in alertas if a.nivel == "critical" and a.tipo == "inventario"]
         assert len(criticas) > 0
 
     def test_no_duplica_alertas_del_mismo_dia(self, unit_db):
         unit_db.add(Inventario(
-            producto_id="INV-003",
+            user_id=TEST_UID, producto_id="INV-003",
             nombre_producto="Bajo",
             cantidad_actual=1,
             cantidad_minima=10,
         ))
         unit_db.commit()
 
-        alertas1 = AnalyticsService.detect_anomalies(unit_db)
-        alertas2 = AnalyticsService.detect_anomalies(unit_db)
+        alertas1 = AnalyticsService.detect_anomalies(unit_db, user_id=TEST_UID)
+        alertas2 = AnalyticsService.detect_anomalies(unit_db, user_id=TEST_UID)
         # Segunda llamada no debe duplicar alertas de hoy
         assert len(alertas2) == 0
 
     def test_regla_deshabilitada_no_genera_alerta(self, unit_db):
         # Deshabilitar inventario_sin_stock
         config = unit_db.query(AlertConfig).filter(
-            AlertConfig.rule_id == "inventario_sin_stock"
+            AlertConfig.user_id == TEST_UID,
+            AlertConfig.rule_id == "inventario_sin_stock",
         ).first()
         config.enabled = False
         unit_db.commit()
 
         unit_db.add(Inventario(
-            producto_id="INV-004",
+            user_id=TEST_UID, producto_id="INV-004",
             nombre_producto="Sin Stock",
             cantidad_actual=0,
         ))
         unit_db.commit()
 
-        alertas = AnalyticsService.detect_anomalies(unit_db)
+        alertas = AnalyticsService.detect_anomalies(unit_db, user_id=TEST_UID)
         sin_stock = [a for a in alertas if a.rule_id == "inventario_sin_stock"]
         assert sin_stock == []
 

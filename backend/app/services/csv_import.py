@@ -33,12 +33,13 @@ def parse_ventas_df(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def import_ventas_rows(df: pd.DataFrame, db: Session) -> tuple[int, list[str]]:
+def import_ventas_rows(df: pd.DataFrame, db: Session, user_id: int) -> tuple[int, list[str]]:
     count = 0
     errores = []
     for idx, row in df.iterrows():
         try:
             db.add(Venta(
+                user_id=user_id,
                 fecha=row['fecha'].to_pydatetime(),
                 producto_id=str(row['producto_id']),
                 nombre_producto=str(row['nombre_producto']),
@@ -67,12 +68,13 @@ def parse_gastos_df(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def import_gastos_rows(df: pd.DataFrame, db: Session) -> tuple[int, list[str]]:
+def import_gastos_rows(df: pd.DataFrame, db: Session, user_id: int) -> tuple[int, list[str]]:
     count = 0
     errores = []
     for idx, row in df.iterrows():
         try:
             db.add(Gasto(
+                user_id=user_id,
                 fecha=row['fecha'].to_pydatetime(),
                 descripcion=str(row['descripcion']),
                 categoria=str(row['categoria']),
@@ -90,7 +92,7 @@ def import_gastos_rows(df: pd.DataFrame, db: Session) -> tuple[int, list[str]]:
     return count, errores
 
 
-# ── Inventario (upsert por producto_id) ─────────────────────────────────────────
+# ── Inventario (upsert por user_id + producto_id) ───────────────────────────────
 
 def parse_inventario_df(df: pd.DataFrame) -> pd.DataFrame:
     required = ['producto_id', 'nombre_producto', 'cantidad_actual']
@@ -107,7 +109,7 @@ def parse_inventario_df(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def import_inventario_rows(df: pd.DataFrame, db: Session) -> tuple[int, int, list[str]]:
+def import_inventario_rows(df: pd.DataFrame, db: Session, user_id: int) -> tuple[int, int, list[str]]:
     """Returns (created, updated, errores)."""
     creados = 0
     actualizados = 0
@@ -115,7 +117,10 @@ def import_inventario_rows(df: pd.DataFrame, db: Session) -> tuple[int, int, lis
     for idx, row in df.iterrows():
         try:
             producto_id = str(row['producto_id'])
-            existing = db.query(Inventario).filter(Inventario.producto_id == producto_id).first()
+            existing = db.query(Inventario).filter(
+                Inventario.user_id == user_id,
+                Inventario.producto_id == producto_id,
+            ).first()
             fields = dict(
                 nombre_producto=str(row['nombre_producto']),
                 descripcion=str(row.get('descripcion', '')) if pd.notna(row.get('descripcion')) else None,
@@ -133,7 +138,7 @@ def import_inventario_rows(df: pd.DataFrame, db: Session) -> tuple[int, int, lis
                     setattr(existing, k, v)
                 actualizados += 1
             else:
-                db.add(Inventario(producto_id=producto_id, **fields))
+                db.add(Inventario(user_id=user_id, producto_id=producto_id, **fields))
                 creados += 1
         except Exception as e:
             errores.append(f"Fila {idx + 2}: {e}")
@@ -141,7 +146,7 @@ def import_inventario_rows(df: pd.DataFrame, db: Session) -> tuple[int, int, lis
     return creados, actualizados, errores
 
 
-# ── Clientes (upsert por cliente_id) ────────────────────────────────────────────
+# ── Clientes (upsert por user_id + cliente_id) ──────────────────────────────────
 
 def parse_clientes_df(df: pd.DataFrame) -> pd.DataFrame:
     required = ['cliente_id', 'nombre', 'fecha_registro']
@@ -154,7 +159,7 @@ def parse_clientes_df(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def import_clientes_rows(df: pd.DataFrame, db: Session) -> tuple[int, int, list[str]]:
+def import_clientes_rows(df: pd.DataFrame, db: Session, user_id: int) -> tuple[int, int, list[str]]:
     """Returns (created, updated, errores)."""
     creados = 0
     actualizados = 0
@@ -162,7 +167,10 @@ def import_clientes_rows(df: pd.DataFrame, db: Session) -> tuple[int, int, list[
     for idx, row in df.iterrows():
         try:
             cliente_id = str(row['cliente_id'])
-            existing = db.query(Cliente).filter(Cliente.cliente_id == cliente_id).first()
+            existing = db.query(Cliente).filter(
+                Cliente.user_id == user_id,
+                Cliente.cliente_id == cliente_id,
+            ).first()
             fields = dict(
                 nombre=str(row['nombre']),
                 email=str(row.get('email', '')) if pd.notna(row.get('email')) else None,
@@ -181,7 +189,7 @@ def import_clientes_rows(df: pd.DataFrame, db: Session) -> tuple[int, int, list[
                     setattr(existing, k, v)
                 actualizados += 1
             else:
-                db.add(Cliente(cliente_id=cliente_id, **fields))
+                db.add(Cliente(user_id=user_id, cliente_id=cliente_id, **fields))
                 creados += 1
         except Exception as e:
             errores.append(f"Fila {idx + 2}: {e}")
@@ -201,9 +209,10 @@ def save_and_watch(
     original_file_content: bytes = None,
     spreadsheet_id: str = "",
     source_name: str = "",
+    user_id: int = 1,
 ) -> str:
     """
-    Guarda la fuente de datos en disco y crea/actualiza el watcher.
+    Guarda la fuente de datos en disco y crea/actualiza el watcher del usuario.
 
     - CSV/Excel:       guarda el archivo en DATA_DIR.
     - Google Sheets:   no hay archivo local; path_str es un placeholder.
@@ -221,7 +230,8 @@ def save_and_watch(
     else:
         ext = ".xlsx" if source_type == "excel" else ".csv"
         base = filename if filename else f"{datasource_type}{ext}"
-        dest = DATA_DIR / base
+        # Incluir user_id en el nombre del archivo para evitar colisiones entre usuarios
+        dest = DATA_DIR / f"u{user_id}_{base}"
 
         if original_file_content:
             dest.write_bytes(original_file_content)
@@ -234,7 +244,10 @@ def save_and_watch(
 
     display_name = source_name or filename or datasource_type
 
-    w = db.query(WatchedFile).filter(WatchedFile.datasource_type == datasource_type).first()
+    w = db.query(WatchedFile).filter(
+        WatchedFile.user_id == user_id,
+        WatchedFile.datasource_type == datasource_type,
+    ).first()
     if w:
         w.file_path = path_str
         w.source_type = source_type
@@ -247,6 +260,7 @@ def save_and_watch(
         w.enabled = True
     else:
         w = WatchedFile(
+            user_id=user_id,
             datasource_type=datasource_type,
             file_path=path_str,
             source_type=source_type,
@@ -259,5 +273,5 @@ def save_and_watch(
         )
         db.add(w)
     db.commit()
-    logger.info(f"[Watcher] Auto-watch: {datasource_type} ({source_type}) -> {path_str}")
+    logger.info(f"[Watcher] Auto-watch user={user_id}: {datasource_type} ({source_type}) -> {path_str}")
     return path_str

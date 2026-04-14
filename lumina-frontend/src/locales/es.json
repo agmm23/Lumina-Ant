@@ -342,6 +342,24 @@
     }
   },
 
+  "auth": {
+    "login": "Iniciar sesión",
+    "register": "Registrarse",
+    "logout": "Cerrar sesión",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "confirmPassword": "Confirmar contraseña",
+    "displayName": "Nombre (opcional)",
+    "loginWithGoogle": "Continuar con Google",
+    "noAccount": "¿No tienes cuenta? Regístrate",
+    "hasAccount": "¿Ya tienes cuenta? Inicia sesión",
+    "errorInvalidCredentials": "Correo o contraseña incorrectos.",
+    "errorEmailTaken": "Este correo ya está registrado.",
+    "errorPasswordMismatch": "Las contraseñas no coinciden.",
+    "errorPasswordShort": "Mínimo 8 caracteres.",
+    "errorGoogle": "No se pudo iniciar sesión con Google."
+  },
+
   "alertCard": {
     "critica": "Crítica",
     "aviso": "Aviso",

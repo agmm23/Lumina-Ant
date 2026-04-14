@@ -6,9 +6,6 @@ Endpoints para gestión de inventario: CRUD y carga de archivos CSV
 from fastapi import APIRouter, Depends, UploadFile, File, Form, HTTPException, status
 from sqlalchemy.orm import Session
 from typing import List, Optional
-import pandas as pd
-from datetime import datetime
-from io import BytesIO
 import json
 import logging
 
@@ -20,6 +17,8 @@ from app.schemas.schemas import Inventario as InventarioSchema, InventarioCreate
 from app.services.csv_import import parse_inventario_df, import_inventario_rows, save_and_watch
 from app.services.data_reader import create_reader, detect_source_type
 from app.services.watcher_service import bump_import_version
+from app.auth.dependencies import get_current_user
+from app.auth.models import User
 
 logger = logging.getLogger(__name__)
 
@@ -31,7 +30,8 @@ async def upload_inventarios_csv(
     file: UploadFile = File(...),
     column_mapping: Optional[str] = Form(None),
     sheet_name: Optional[str] = Form(None),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
 ):
     """
     Carga un archivo CSV o Excel con inventario.
@@ -49,7 +49,7 @@ async def upload_inventarios_csv(
             df = df.rename(columns=mapping)
 
         df = parse_inventario_df(df)
-        items_creados, items_actualizados, errores = import_inventario_rows(df, db)
+        items_creados, items_actualizados, errores = import_inventario_rows(df, db, user_id=current_user.id)
         bump_import_version()
 
         watched_path = save_and_watch(
@@ -58,6 +58,7 @@ async def upload_inventarios_csv(
             sheet=sheet_name or "",
             original_file_content=contents,
             source_name=file.filename or "",
+            user_id=current_user.id,
         )
 
         mensaje = f"Se procesaron {items_creados + items_actualizados} items: {items_creados} creados, {items_actualizados} actualizados"
@@ -85,32 +86,37 @@ async def upload_inventarios_csv(
 
 
 @router.get("/analytics/resumen")
-def get_inventario_analytics(db: Session = Depends(get_db)):
+def get_inventario_analytics(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
     """
-    Retorna KPIs agregados del inventario.
+    Retorna KPIs agregados del inventario del usuario.
     """
-    total_productos = db.query(func.count(Inventario.id)).scalar()
+    uid = current_user.id
+    total_productos = db.query(func.count(Inventario.id)).filter(Inventario.user_id == uid).scalar()
 
     bajos_stock = db.query(func.count(Inventario.id)).filter(
+        Inventario.user_id == uid,
         Inventario.cantidad_minima.isnot(None),
         Inventario.cantidad_actual <= Inventario.cantidad_minima,
     ).scalar()
 
     total_unidades = db.query(
         func.coalesce(func.sum(Inventario.cantidad_actual), 0)
-    ).scalar()
+    ).filter(Inventario.user_id == uid).scalar()
 
     categorias_count = db.query(
         func.count(func.distinct(Inventario.categoria))
-    ).scalar()
+    ).filter(Inventario.user_id == uid).scalar()
 
     valor_venta = db.query(
         func.coalesce(func.sum(Inventario.cantidad_actual * Inventario.precio_venta), 0)
-    ).filter(Inventario.precio_venta.isnot(None)).scalar()
+    ).filter(Inventario.user_id == uid, Inventario.precio_venta.isnot(None)).scalar()
 
     costo = db.query(
         func.coalesce(func.sum(Inventario.cantidad_actual * Inventario.precio_compra), 0)
-    ).filter(Inventario.precio_compra.isnot(None)).scalar()
+    ).filter(Inventario.user_id == uid, Inventario.precio_compra.isnot(None)).scalar()
 
     return {
         "total_productos": int(total_productos),
@@ -127,12 +133,13 @@ def get_inventarios(
     skip: int = 0,
     limit: int = 0,
     db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
 ):
     """
     Obtiene lista de items del inventario con paginación.
     limit=0 retorna todos los registros.
     """
-    query = db.query(Inventario).order_by(Inventario.nombre_producto).offset(skip)
+    query = db.query(Inventario).filter(Inventario.user_id == current_user.id).order_by(Inventario.nombre_producto).offset(skip)
     if limit > 0:
         query = query.limit(limit)
     items = query.all()
@@ -141,11 +148,18 @@ def get_inventarios(
 
 
 @router.get("/{inventario_id}", response_model=InventarioSchema)
-def get_inventario(inventario_id: int, db: Session = Depends(get_db)):
+def get_inventario(
+    inventario_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
     """
     Obtiene un item del inventario por su ID
     """
-    item = db.query(Inventario).filter(Inventario.id == inventario_id).first()
+    item = db.query(Inventario).filter(
+        Inventario.id == inventario_id,
+        Inventario.user_id == current_user.id,
+    ).first()
 
     if not item:
         raise HTTPException(
@@ -157,11 +171,18 @@ def get_inventario(inventario_id: int, db: Session = Depends(get_db)):
 
 
 @router.get("/producto/{producto_id}", response_model=InventarioSchema)
-def get_inventario_by_producto(producto_id: str, db: Session = Depends(get_db)):
+def get_inventario_by_producto(
+    producto_id: str,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
     """
     Obtiene un item del inventario por su producto_id
     """
-    item = db.query(Inventario).filter(Inventario.producto_id == producto_id).first()
+    item = db.query(Inventario).filter(
+        Inventario.producto_id == producto_id,
+        Inventario.user_id == current_user.id,
+    ).first()
 
     if not item:
         raise HTTPException(
@@ -173,12 +194,18 @@ def get_inventario_by_producto(producto_id: str, db: Session = Depends(get_db)):
 
 
 @router.post("/", response_model=InventarioSchema)
-def create_inventario(inventario: InventarioCreate, db: Session = Depends(get_db)):
+def create_inventario(
+    inventario: InventarioCreate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
     """
     Crea un nuevo item de inventario
     """
-    # Verificar que no exista el producto_id
-    existing = db.query(Inventario).filter(Inventario.producto_id == inventario.producto_id).first()
+    existing = db.query(Inventario).filter(
+        Inventario.producto_id == inventario.producto_id,
+        Inventario.user_id == current_user.id,
+    ).first()
     if existing:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -186,7 +213,7 @@ def create_inventario(inventario: InventarioCreate, db: Session = Depends(get_db
         )
 
     try:
-        db_inventario = Inventario(**inventario.model_dump())
+        db_inventario = Inventario(user_id=current_user.id, **inventario.model_dump())
         db.add(db_inventario)
         db.commit()
         db.refresh(db_inventario)
@@ -207,12 +234,16 @@ def create_inventario(inventario: InventarioCreate, db: Session = Depends(get_db
 def update_inventario(
     inventario_id: int,
     inventario_update: InventarioUpdate,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
 ):
     """
     Actualiza un item del inventario
     """
-    item = db.query(Inventario).filter(Inventario.id == inventario_id).first()
+    item = db.query(Inventario).filter(
+        Inventario.id == inventario_id,
+        Inventario.user_id == current_user.id,
+    ).first()
 
     if not item:
         raise HTTPException(
@@ -220,7 +251,6 @@ def update_inventario(
             detail=f"Item de inventario con ID {inventario_id} no encontrado"
         )
 
-    # Actualizar solo los campos proporcionados
     update_data = inventario_update.model_dump(exclude_unset=True)
     for key, value in update_data.items():
         setattr(item, key, value)
@@ -241,11 +271,18 @@ def update_inventario(
 
 
 @router.delete("/{inventario_id}", response_model=MessageResponse)
-def delete_inventario(inventario_id: int, db: Session = Depends(get_db)):
+def delete_inventario(
+    inventario_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
     """
     Elimina un item del inventario por su ID
     """
-    item = db.query(Inventario).filter(Inventario.id == inventario_id).first()
+    item = db.query(Inventario).filter(
+        Inventario.id == inventario_id,
+        Inventario.user_id == current_user.id,
+    ).first()
 
     if not item:
         raise HTTPException(
@@ -265,22 +302,29 @@ def delete_inventario(inventario_id: int, db: Session = Depends(get_db)):
 
 
 @router.get("/stats/count")
-def get_inventarios_count(db: Session = Depends(get_db)):
+def get_inventarios_count(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
     """
-    Obtiene el conteo total de items en inventario
+    Obtiene el conteo total de items en inventario del usuario
     """
-    count = db.query(Inventario).count()
+    count = db.query(Inventario).filter(Inventario.user_id == current_user.id).count()
     return {"total_items": count}
 
 
 @router.get("/stats/bajo-stock")
-def get_items_bajo_stock(db: Session = Depends(get_db)):
+def get_items_bajo_stock(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
     """
     Obtiene items con stock bajo (cantidad_actual <= cantidad_minima)
     """
     items = db.query(Inventario).filter(
+        Inventario.user_id == current_user.id,
         Inventario.cantidad_minima.isnot(None),
-        Inventario.cantidad_actual <= Inventario.cantidad_minima
+        Inventario.cantidad_actual <= Inventario.cantidad_minima,
     ).all()
 
     items_bajo_stock = [
@@ -303,23 +347,24 @@ def get_items_bajo_stock(db: Session = Depends(get_db)):
 
 
 @router.get("/stats/valor-inventario")
-def get_valor_inventario(db: Session = Depends(get_db)):
+def get_valor_inventario(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
     """
     Calcula el valor total del inventario (precio_venta * cantidad_actual)
     """
-    from sqlalchemy import func
+    uid = current_user.id
 
-    # Valor total a precio de venta
     result = db.query(
         func.sum(Inventario.cantidad_actual * Inventario.precio_venta).label('valor_total')
-    ).filter(Inventario.precio_venta.isnot(None)).first()
+    ).filter(Inventario.user_id == uid, Inventario.precio_venta.isnot(None)).first()
 
     valor_total = float(result.valor_total) if result.valor_total else 0.0
 
-    # Valor total a precio de compra
     result_compra = db.query(
         func.sum(Inventario.cantidad_actual * Inventario.precio_compra).label('costo_total')
-    ).filter(Inventario.precio_compra.isnot(None)).first()
+    ).filter(Inventario.user_id == uid, Inventario.precio_compra.isnot(None)).first()
 
     costo_total = float(result_compra.costo_total) if result_compra.costo_total else 0.0
 

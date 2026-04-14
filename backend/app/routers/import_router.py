@@ -27,6 +27,8 @@ from app.services.data_reader import (
     detect_source_type,
 )
 from app.services.watcher_service import bump_import_version
+from app.auth.dependencies import get_current_user
+from app.auth.models import User
 
 logger = logging.getLogger(__name__)
 
@@ -182,7 +184,11 @@ async def get_google_sheets_headers(request: SheetsHeadersRequest):
 
 
 @router.post("/sheets/import")
-async def import_from_google_sheets(request: SheetsImportRequest, db: Session = Depends(get_db)):
+async def import_from_google_sheets(
+    request: SheetsImportRequest,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
     """
     Importa datos directamente desde Google Sheets a la base de datos.
     Equivalente a subir un CSV pero tomando los datos de una hoja de cálculo.
@@ -210,23 +216,24 @@ async def import_from_google_sheets(request: SheetsImportRequest, db: Session = 
         if request.column_mapping:
             df = df.rename(columns=request.column_mapping)
 
-        # Parse + import by type
+        uid = current_user.id
+        # Parse + import by type con user_id
         if request.datasource_type == "ventas":
             df = parse_ventas_df(df)
-            count, errors = import_ventas_rows(df, db)
+            count, errors = import_ventas_rows(df, db, user_id=uid)
             key = "ventas_creadas"
         elif request.datasource_type == "gastos":
             df = parse_gastos_df(df)
-            count, errors = import_gastos_rows(df, db)
+            count, errors = import_gastos_rows(df, db, user_id=uid)
             key = "gastos_creados"
         elif request.datasource_type == "inventario":
             df = parse_inventario_df(df)
-            creados, actualizados, errors = import_inventario_rows(df, db)
+            creados, actualizados, errors = import_inventario_rows(df, db, user_id=uid)
             count = creados + actualizados
             key = "items_procesados"
         else:  # clientes
             df = parse_clientes_df(df)
-            creados, actualizados, errors = import_clientes_rows(df, db)
+            creados, actualizados, errors = import_clientes_rows(df, db, user_id=uid)
             count = creados + actualizados
             key = "clientes_procesados"
 
@@ -249,6 +256,7 @@ async def import_from_google_sheets(request: SheetsImportRequest, db: Session = 
             sheet=request.sheet or "",
             spreadsheet_id=request.spreadsheet_id,
             source_name=_gs_title or request.spreadsheet_id,
+            user_id=uid,
         )
 
         mensaje = f"Se importaron {count} registros desde Google Sheets"

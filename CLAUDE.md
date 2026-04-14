@@ -55,7 +55,13 @@ cd lumina-frontend && npm run test:watch  # Vitest en modo watch
 ### Setup inicial de `.env`
 ```bash
 cp backend/.env.example backend/.env
-# Editar backend/.env con AI_PROVIDER= y la API key correspondiente
+# Variables requeridas:
+#   AI_PROVIDER=claude|openai|gemini
+#   ANTHROPIC_API_KEY / OPENAI_API_KEY / GOOGLE_API_KEY  (según proveedor)
+#   JWT_SECRET_KEY=<cadena de 32+ caracteres>
+# Variables opcionales:
+#   GOOGLE_CLIENT_ID=<client-id>  (para login con Google OAuth)
+#   GOOGLE_SHEETS_API_KEY=<key>   (para importar Google Sheets)
 ```
 
 ---
@@ -78,6 +84,12 @@ cp backend/.env.example backend/.env
 ```
 backend/app/
 ├── main.py / config.py / database.py
+├── auth/                 # JWT + Google OAuth
+│   ├── router.py         # POST /api/auth/register|login|google|logout, GET /me, PATCH /config
+│   ├── service.py        # create_access_token, verify_password, verify_google_id_token
+│   ├── dependencies.py   # get_current_user (inyectable en rutas protegidas)
+│   ├── models.py         # User, UserConfig (tablas SQLAlchemy)
+│   └── schemas.py
 ├── models/models.py      # Venta, Gasto, Inventario, Cliente, Alerta,
 │                         #   WatchedFile, AlertConfig, ColumnMapping
 ├── routers/              # ventas, gastos, inventarios, clientes, analytics,
@@ -92,13 +104,17 @@ backend/app/
 └── schemas/schemas.py
 
 lumina-frontend/src/
-├── App.jsx               # Router + ThemeProvider + LanguageProvider
-├── contexts/             # ThemeContext.jsx, LanguageContext.jsx
+├── App.jsx               # Router + AuthProvider + ThemeProvider + LanguageProvider
+├── contexts/
+│   ├── AuthContext.jsx   # useAuth() — user, token, isAuthenticated, login/logout/register
+│   ├── DataSyncContext.jsx
+│   ├── ThemeContext.jsx
+│   └── LanguageContext.jsx
 ├── locales/              # es.json, en.json
 ├── pages/                # Dashboard, Ventas, Gastos, Inventario,
-│                         #   Clientes, Chat, Configuracion
+│                         #   Clientes, Chat, Configuracion, Login
 ├── components/           # Sidebar, KpiCard, AlertCard, ColumnMapper...
-└── services/api.js       # todos los servicios axios
+└── services/api.js       # todos los servicios axios (incluye authService)
 ```
 
 ## API Endpoints (puerto 8000)
@@ -107,15 +123,37 @@ lumina-frontend/src/
 - `POST /api/import/excel/sheets` — listar hojas Excel
 - `POST /api/import/sheets/info|headers|import` — Google Sheets
 - `POST /api/chat/` — copiloto IA
+- `POST /api/auth/register|login|google|logout` — autenticación
+- `GET /api/auth/me` — usuario autenticado; `PATCH /api/auth/config` — preferencias
 - Swagger: http://localhost:8000/docs
 
 ## Patrones Clave
 - **DataSourceReader**: CSVReader/ExcelReader/GoogleSheetsReader → todos producen `pd.DataFrame`
 - **AIProvider**: Claude/OpenAI/Gemini — proveedor activo en `.env` con `AI_PROVIDER=`
+- **Auth**: JWT stateless (HS256, 8h). `get_current_user` de `auth/dependencies.py` como `Depends()` en rutas protegidas. Token en `localStorage` clave `lumina_token`, inyectado en header `Authorization: Bearer`.
 - **Watcher**: loop asyncio, polling 5s (local) / 60s (GSheets), detecta cambios por mtime/hash
 - **i18n**: `useLanguage()` → `t('key.anidada', {var})`, persistido en `localStorage`
+- **SQLite migrations**: columnas nuevas van en `_migrate_db()` en `main.py` (ALTER TABLE ignorando error si ya existe); no usar Alembic
 - Path `$alfonso` contiene `$` — en bash siempre escapar: `\$alfonso`
 - `tasks/lessons.md` — lecciones aprendidas (formato LXXX); `tasks/todo.md` — registro de tareas completadas
+
+### Recetas de extensión
+
+**Nueva fuente de datos**:
+1. Clase en `data_reader.py` extendiendo `DataSourceReader`
+2. Registrar en `create_reader()` factory
+3. Agregar case en `detect_source_type()` si aplica
+
+**Nuevo proveedor de IA**:
+1. Clase en `ai_provider.py` extendiendo `AIProvider`
+2. Registrar en `get_provider()` factory de `ai_service.py`
+3. Agregar opción en `config.py` y `.env.example`
+
+**Nueva página frontend**:
+1. Crear `src/pages/NuevaPagina.jsx` con `useLanguage()` desde el inicio
+2. Agregar ruta en `App.jsx`
+3. Agregar item en `Sidebar.jsx`
+4. Agregar keys i18n en `locales/es.json` y `locales/en.json`
 
 ---
 
