@@ -72,9 +72,13 @@ function Chat() {
         .slice(-20)
         .map((m) => ({ role: m.role, content: m.content }))
 
+      const token = localStorage.getItem('lumina_token')
       const response = await fetch(STREAM_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
         body: JSON.stringify({ message: trimmed, history }),
       })
 

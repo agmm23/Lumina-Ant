@@ -1,5 +1,69 @@
+import { useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import {
+  BarChart, Bar, LineChart, Line,
+  XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend,
+} from 'recharts'
+
+// Colores para series de datos
+const CHART_COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6']
+
+/**
+ * Parsea la primera tabla markdown del contenido y devuelve datos para Recharts.
+ * Retorna null si no hay tabla con columnas numéricas.
+ */
+function extractTableData(content) {
+  if (!content) return null
+  const lines = content.split('\n')
+
+  // Recopilar líneas de tabla contiguas
+  const tableLines = []
+  let started = false
+  for (const line of lines) {
+    const trimmed = line.trim()
+    if (trimmed.startsWith('|') && trimmed.endsWith('|')) {
+      tableLines.push(trimmed)
+      started = true
+    } else if (started) {
+      break
+    }
+  }
+
+  // Necesitamos: cabecera + separador + al menos 1 fila de datos
+  if (tableLines.length < 3) return null
+
+  const parseCells = (line) => line.split('|').map(c => c.trim()).filter(Boolean)
+
+  const headers = parseCells(tableLines[0])
+  // tableLines[1] es el separador (---|---|---)
+  const dataLines = tableLines.slice(2)
+
+  const rows = dataLines.map(line => {
+    const cells = parseCells(line)
+    const row = {}
+    headers.forEach((h, i) => {
+      const raw = cells[i] ?? ''
+      const num = parseFloat(raw.replace(/[,$%\s]/g, '').replace(',', '.'))
+      row[h] = isNaN(num) ? raw : num
+    })
+    return row
+  })
+
+  if (rows.length === 0) return null
+
+  // Columnas numéricas (excluyendo la primera, que es la etiqueta del eje X)
+  const numericKeys = headers.slice(1).filter(h =>
+    rows.some(r => typeof r[h] === 'number')
+  )
+  if (numericKeys.length === 0) return null
+
+  // Heurística: si la primera columna parece una dimensión temporal → LineChart
+  const firstHeader = headers[0].toLowerCase()
+  const isTimeSeries = /mes|fecha|período|periodo|month|date|semana|week|año|year|trimestre|quarter/.test(firstHeader)
+
+  return { rows, labelKey: headers[0], numericKeys, isTimeSeries }
+}
 
 // Custom Tailwind components for react-markdown
 const markdownComponents = {
@@ -53,6 +117,12 @@ function ChatMessage({ message, onFollowupClick }) {
   const hasTokens = !isUser && !isStreaming && message.usage?.total_tokens > 0
   const hasFooter = message.timestamp && !isStreaming
 
+  // Gráfica: solo para mensajes de asistente completos
+  const [showChart, setShowChart] = useState(false)
+  const chartData = (!isUser && !isStreaming && !isError)
+    ? extractTableData(message.content)
+    : null
+
   return (
     <div className={`flex flex-col ${isUser ? 'items-end' : 'items-start'} mb-5`}>
       {/* Bubble */}
@@ -87,7 +157,7 @@ function ChatMessage({ message, onFollowupClick }) {
           )}
         </div>
 
-        {/* Footer: hora · tokens · fuentes */}
+        {/* Footer: hora · tokens · fuentes · botón gráfica */}
         {hasFooter && (
           <div className={`flex items-center flex-wrap gap-x-1 text-[10px] mt-2 ${isUser ? 'text-blue-200' : 'text-gray-400 dark:text-gray-500'}`}>
             <span>
@@ -101,6 +171,58 @@ function ChatMessage({ message, onFollowupClick }) {
             {hasSources && message.data_sources.map((src) => (
               <span key={src}>&nbsp;· {src}</span>
             ))}
+            {chartData && (
+              <button
+                onClick={() => setShowChart(v => !v)}
+                className="ml-1 px-1.5 py-0.5 rounded bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 hover:bg-blue-200 dark:hover:bg-blue-800/50 transition-colors cursor-pointer"
+              >
+                {showChart ? '✕ Ocultar gráfica' : '📊 Ver gráfica'}
+              </button>
+            )}
+          </div>
+        )}
+
+        {/* Mini gráfica inline */}
+        {chartData && showChart && (
+          <div className="mt-3 -mx-1">
+            <ResponsiveContainer width="100%" height={200}>
+              {chartData.isTimeSeries ? (
+                <LineChart data={chartData.rows} margin={{ top: 4, right: 8, left: -20, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                  <XAxis dataKey={chartData.labelKey} tick={{ fontSize: 10 }} />
+                  <YAxis tick={{ fontSize: 10 }} />
+                  <Tooltip contentStyle={{ fontSize: 11 }} />
+                  {chartData.numericKeys.length > 1 && <Legend wrapperStyle={{ fontSize: 10 }} />}
+                  {chartData.numericKeys.map((key, i) => (
+                    <Line
+                      key={key}
+                      type="monotone"
+                      dataKey={key}
+                      stroke={CHART_COLORS[i % CHART_COLORS.length]}
+                      strokeWidth={2}
+                      dot={{ r: 3 }}
+                      activeDot={{ r: 5 }}
+                    />
+                  ))}
+                </LineChart>
+              ) : (
+                <BarChart data={chartData.rows} margin={{ top: 4, right: 8, left: -20, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                  <XAxis dataKey={chartData.labelKey} tick={{ fontSize: 10 }} />
+                  <YAxis tick={{ fontSize: 10 }} />
+                  <Tooltip contentStyle={{ fontSize: 11 }} />
+                  {chartData.numericKeys.length > 1 && <Legend wrapperStyle={{ fontSize: 10 }} />}
+                  {chartData.numericKeys.map((key, i) => (
+                    <Bar
+                      key={key}
+                      dataKey={key}
+                      fill={CHART_COLORS[i % CHART_COLORS.length]}
+                      radius={[3, 3, 0, 0]}
+                    />
+                  ))}
+                </BarChart>
+              )}
+            </ResponsiveContainer>
           </div>
         )}
       </div>
